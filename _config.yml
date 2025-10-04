@@ -1,0 +1,6 @@
+title: "VBBSKW"
+description: "Website en blog van VBBSKW"
+baseurl: "" 
+url: "https://www.vbbskw.com"
+
+theme: minima   # simpel standaard Jekyll theme
