@@ -3,7 +3,6 @@ description: "Blog"
 baseurl: "" 
 url: "https://www.vbbskw.com"
 
-theme: minima   # simpel standaard Jekyll theme
 plugins:
   - jekyll-feed
   sass:
