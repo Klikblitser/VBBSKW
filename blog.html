@@ -3,8 +3,6 @@ layout: default
 title: Blog
 ---
 
-<h1>VBBSKW Blog</h1>
-
 <ul>
   {% for post in site.posts %}
     <li>
@@ -12,11 +10,7 @@ title: Blog
       <p><small>{{ post.date | date: "%-d %B %Y" }}</small></p>
       <p>{{ post.excerpt }}</p>
     </li>
-    <li>
-      <h2><a href="{{ post.url }}">{{ post.title }}</a></h2>
-      <p><small>{{ post.date | date: "%-d %B %Y" }}</small></p>
-      <p>{{ post.excerpt }}</p>
-    </li>
+  
   {% endfor %}
 </ul>
 
