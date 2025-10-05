@@ -1,1 +1,9 @@
+/* Verander de achtergrondkleur */
+body {
+background-color: #f0f0f0; /* Gebruik dezelfde kleur als op de indexpagina */
+}
 
+/* Verwijder dubbele titels */
+h1.site-title, h1.page-title {
+display: none; /* Verberg dubbele titels */
+}
