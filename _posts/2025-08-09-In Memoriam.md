@@ -1,3 +1,9 @@
+---
+layout: post
+title: "In Memoriam: Therry Thijs de Leeuw"
+date: 2025-08-09
+categories: [in-memoriam]
+---
 Therry Thijs de Leeuw
 
 ![Alt-tekst](https://github.com/Klikblitser/VBBSKW/blob/main/assets/Therry%20de%20Leeuw.jpg?raw=true)
