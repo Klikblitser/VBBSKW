@@ -7,7 +7,7 @@ thumbnail: "/assets/images/Therry%20de%20Leeuw.jpg"
 
 Therry de Leeuw
 
-![Alt-tekst](https://github.com/Klikblitser/VBBSKW/blob/main/assets/Therry%20de%20Leeuw.jpg?raw=true)
+![Alt-tekst](https://github.com/Klikblitser/VBBSKW/blob/main/assets/images/Therry%20de%20Leeuw.jpg?raw=true)
 
 Haarlem, 25 juni 1968 - Winterswijk, 9 augustus 2025
 
