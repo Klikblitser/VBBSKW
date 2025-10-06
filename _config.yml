@@ -9,4 +9,3 @@ plugins:
 sass:
   style: compressed
 
-custom_css: assets/css/custom.css
