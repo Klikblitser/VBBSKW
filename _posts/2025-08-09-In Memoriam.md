@@ -2,7 +2,7 @@
 layout: post
 title: "Therry de Leeuw"
 date: 2025-08-09
-thumbnail: "/assets/Therry%20de%20Leeuw.jpg"
+thumbnail: "/assets/images/Therry%20de%20Leeuw.jpg"
 ---
 
 Therry de Leeuw
