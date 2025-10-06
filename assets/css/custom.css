@@ -1,6 +1,6 @@
 /* Verander de achtergrondkleur */
 body {
-background-color: #f0f0f0; /* Gebruik dezelfde kleur als op de indexpagina */
+background-color: #b0e0e6; /* Gebruik dezelfde kleur als op de indexpagina */
 }
 
 /* Verwijder dubbele titels */
@@ -9,7 +9,7 @@ display: none; /* Verberg dubbele titels */
 }
 
 .site-footer {
-  background-color: #333;
+  background-color: #c2b506;
   color: #ffffff;
   padding: 20px 0;
   margin-top: 40px;
