@@ -1,3 +1,10 @@
+---
+layout: post
+title: "Therry de Leeuw"
+date: 2025-08-09
+thumbnail: "/assets/images/Therry%20de%20Leeuw.jpg"
+---
+
 Therry de Leeuw
 
 ![Alt-tekst](https://github.com/Klikblitser/VBBSKW/blob/main/assets/Therry%20de%20Leeuw.jpg?raw=true)
