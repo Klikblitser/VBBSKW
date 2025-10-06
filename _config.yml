@@ -5,6 +5,8 @@ url: "https://www.vbbskw.com"
 
 plugins:
   - jekyll-feed
-  sass:
-    style: compressed
+
+sass:
+  style: compressed
+
 custom_css: assets/css/custom.css
