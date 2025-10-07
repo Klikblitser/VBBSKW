@@ -1,34 +1,120 @@
-/* ===== DEBUG VOOR BLOGTHUMBNAILS ===== */
-.posts {
-  background: #e8f4ff;
-  border: 1px dashed #0066cc;
-  padding: 10px;
+body {
+  font-family: Arial, sans-serif;
+  max-width: 800px;
+  margin: 40px auto;
+  padding: 0 20px;
+  background-color: #F0F8FF;
+  color: #333;
+  line-height: 1.6;
 }
 
-.post {
-  position: relative;
-  background: #fff;
-  border: 1px solid #ccc;
+/* Koppen */
+h1, h2, h3, h4 {
+  color: #004080;
 }
 
+/* Links */
+a {
+  color: #0066cc;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+/* Afbeeldingen */
+img {
+  max-width: 100%;
+  border-radius: 8px;
+  margin: 20px 0;
+  display: block;
+}
+
+/* Thumbnail afbeeldingen */
 .post-thumbnail {
-  float: none;               /* tijdelijk uitschakelen float */
-  display: inline-block;
-  width: 120px;
+  float: left;
+  width: 100px;
   height: auto;
-  margin-right: 10px;
-  border: 2px solid #004080; /* blauwe rand om te zien of hij laadt */
-  z-index: 10;
-  pointer-events: auto;      /* zorgt dat hij klikbaar blijft */
+  margin-right: 20px;
+  margin-bottom: 10px;
+  border-radius: 4px;
 }
 
-.post a {
-  position: relative;
-  z-index: 20;
-  display: inline-block;
+/* Blogpost layout */
+.post {
+  margin-bottom: 40px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid #ddd;
 }
 
-/* Visueel tonen waar de link begint/eindigt */
-.post a img:hover {
-  outline: 3px solid red;
+/* Datumstijl */
+.post-date {
+  color: #666;
+  font-style: italic;
+  font-size: 0.9em;
+}
+
+/* Voettekst */
+.footer {
+  margin-top: 60px;
+  text-align: center;
+  color: #666;
+  font-size: 0.8em;
+}
+
+/* Codeblokken */
+pre, code {
+  background-color: #f4f4f4;
+  border-radius: 4px;
+  padding: 2px 6px;
+  font-family: monospace;
+  overflow-x: auto;
+}
+
+pre {
+  padding: 10px;
+  margin: 20px 0;
+}
+
+/* Citaatblokken */
+blockquote {
+  border-left: 4px solid #004080;
+  padding-left: 20px;
+  margin-left: 0;
+  color: #555;
+  font-style: italic;
+}
+
+/* Navigatie */
+.pagination {
+  margin: 40px 0;
+  text-align: center;
+}
+
+.pagination a,
+.pagination span {
+  padding: 8px 16px;
+  margin: 0 4px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.pagination a:hover {
+  background-color: #004080;
+  color: white;
+}
+
+/* Reactiesectie */
+.comments {
+  margin-top: 40px;
+  padding-top: 20px;
+  border-top: 1px solid #ddd;
+}
+
+/* Responsive aanpassingen */
+@media (max-width: 600px) {
+  body {
+    padding: 0 10px;
+  }
 }
