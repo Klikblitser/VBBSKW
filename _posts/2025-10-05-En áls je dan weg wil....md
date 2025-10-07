@@ -5,9 +5,9 @@ date: 2025-10-05
 thumbnail: "/assets/images/Zietopuzelve.jpg"
 ---
 
-![Alt-tekst](https://github.com/Klikblitser/VBBSKW/blob/main/assets/images/Zietopuzelve.jpg?raw=true)
-
 Wat je krijgt als je het netjes vraagt
+
+![Alt-tekst](https://github.com/Klikblitser/VBBSKW/blob/main/assets/images/Zietopuzelve.jpg?raw=true)
 
 Vorige week vrijdag werd er gebeld dat er een mast, overige rondhouten en tuig opgehaald diende te worden in Friesland voor ons schip Ziet Op U Zelve. De afspraak was oorspronkelijk om dit in het voorjaar van 2026 te doen, maar vanwege omstandigheden moest dit binnen een paar weken gaan gebeuren. Omdat transport duur is en het weer op dat moment gunstig was besloten we om er heen te varen. 
 
