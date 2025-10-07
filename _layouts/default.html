@@ -8,7 +8,7 @@
     <main class="page-content" aria-label="Content">
       <div class="wrapper">
         {{ content }}
-        <p><a href="blog.html">⬅ Terug naar het blogoverzicht</a></p>
+       <p><a href="{{ "blog.html" | relative_url }}">⬅ Terug naar het blogoverzicht</a></p>
       </div>
     </main>
     {%- include footer.html -%}
