@@ -1,17 +1,19 @@
 ---
 layout: default
-title: Blog
 ---
-
-<ul>
+<h1>Blog</h1>
+<div class="posts">
   {% for post in site.posts %}
-    <li>
-      <h2><a href="{{ post.url }}">{{ post.title }}</a></h2>
-      <p><small>{{ post.date | date: "%-d %B %Y" }}</small></p>
+    <article class="post">
+      {% if post.thumbnail %}
+        <a href="{{ post.url | relative_url }}">
+          <img src="{{ post.thumbnail | relative_url }}" alt="{{ post.title }}" class="post-thumbnail">
+        </a>
+      {% endif %}
+      <h2><a href="{{ post.url | relative_url }}">{{ post.title }}</a></h2>
+      <p class="post-date">{{ post.date | date: "%B %d, %Y" }}</p>
       <p>{{ post.excerpt }}</p>
-    </li>
-  
+    </article>
   {% endfor %}
-</ul>
-
-<p><a href="index.html">⬅ Terug naar de hoofdpagina</a></p>
+</div>
+<p><a href="index.html">⬅️ Terug naar de hoofdpagina</a></p>
