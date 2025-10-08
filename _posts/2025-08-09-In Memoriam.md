@@ -1,5 +1,5 @@
 ---
-layout: post
+layout: default
 title: "In Memoriam"
 date: 2025-08-09
 thumbnail: /assets/images/Therry%20de%20Leeuw.jpg
