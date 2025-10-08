@@ -1,5 +1,5 @@
 ---
-layout: post
+layout: default
 title: "En áls je dan weg wil..."
 date: 2025-10-05
 thumbnail: /assets/images/Zietopuzelve.jpg
