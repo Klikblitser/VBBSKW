@@ -5,7 +5,8 @@ date: 2025-10-05
 thumbnail: /assets/images/Zietopuzelve.jpg
 ---
 
-Wat je krijgt als je het netjes vraagt
+# {{ page.title }}
+*{{ page.date | date: "%d-%m-%Y" }}*
 
 ![Alt-tekst](https://github.com/Klikblitser/VBBSKW/blob/main/assets/images/Zietopuzelve.jpg?raw=true)
 
