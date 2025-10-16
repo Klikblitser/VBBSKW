@@ -1,6 +1,6 @@
 ---
 layout: default
-title: "Fairplay"
+title: "Vraag het aan onze juridische GPT"
 date: 2025-10-11
 thumbnail: /assets/images/Zaakbinnenspuikanaal.jpeg
 ---
