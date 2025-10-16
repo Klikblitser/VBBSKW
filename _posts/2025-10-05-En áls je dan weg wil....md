@@ -9,7 +9,7 @@ Wat je krijgt als je het netjes vraagt
 
 ![Alt-tekst](https://github.com/Klikblitser/VBBSKW/blob/main/assets/images/Zietopuzelve.jpg?raw=true)
 
-Vorige week vrijdag werd er gebeld dat er een mast, overige rondhouten en tuig opgehaald diende te worden in Friesland voor ons schip Ziet Op U Zelve. De afspraak was oorspronkelijk om dit in het voorjaar van 2026 te doen, maar vanwege omstandigheden moest dit binnen een paar weken gaan gebeuren. Omdat transport duur is en het weer op dat moment gunstig was besloten we om er heen te varen. 
+Vorige week vrijdag (26 september 2025) werd er gebeld dat er een mast, overige rondhouten en tuig opgehaald diende te worden in Friesland voor ons schip Ziet Op U Zelve. De afspraak was oorspronkelijk om dit in het voorjaar van 2026 te doen, maar vanwege omstandigheden moest dit binnen een paar weken gaan gebeuren. Omdat transport duur is en het weer op dat moment gunstig was besloten we om er heen te varen. 
 
 Ik scande de ruimte voor wat er allemaal veilig gesteld moest worden. De vasen en fotolijstjes waren amper een halve week uit de verhuisdozen maar 10 graden slagzij zouden ze niet overleven. Los daarvan stelde ik me voor hoeveel schade de piano op zn piepende wieltjes wel niet kon aanrichten. Er was nog genoeg te doen, dus. 
 
