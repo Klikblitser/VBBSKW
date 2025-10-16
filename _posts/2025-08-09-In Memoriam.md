@@ -5,6 +5,10 @@ date: 2025-08-09
 thumbnail: /assets/images/Therry%20de%20Leeuw.jpg
 ---
 
+{{ page.title }}
+
+{{ page.date | date: "%d-%m-%Y" }}
+
 Therry de Leeuw
 
 ![Alt-tekst](https://github.com/Klikblitser/VBBSKW/blob/main/assets/images/Therry%20de%20Leeuw.jpg?raw=true)
