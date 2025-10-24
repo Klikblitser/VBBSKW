@@ -1,13 +1,9 @@
 ---
 layout: default
 title: "Vraag het aan onze juridische GPT"
-date: 2025-10-11
+date: 2035-10-11
 thumbnail: /assets/images/Zaakbinnenspuikanaal.jpeg
 ---
-
-{{ page.title }}
-
-{{ page.date | date: "%d-%m-%Y" }}
 
 ![Alt-tekst](https://github.com/Klikblitser/VBBSKW/blob/main/assets/images/Zaakbinnenspuikanaal.jpeg?raw=true)
 
