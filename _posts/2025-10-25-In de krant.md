@@ -1,9 +1,13 @@
 ---
 layout: default
-title: "Woonbootstel Roy en Beatrijs voelt zich steeds meer in het nauw gedreven door de overheid: ’Het is alsof ze ons psychisch willen breken’"
+title: "In de krant"
 date: 2025-10-25
 thumbnail: /assets/images/IJmuidercourant.jpg
 ---
+
+{{ page.title }}
+
+{{ page.date | date: "%d-%m-%Y" }}
 
 In de krant
 
