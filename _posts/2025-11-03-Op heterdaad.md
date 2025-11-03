@@ -11,6 +11,8 @@ thumbnail: /assets/images/Zietopuzelvekrant.jpg
 
 Op heterdaad
 
+![Alt-tekst](https://github.com/Klikblitser/VBBSKW/blob/main/assets/images/Zietopuzelvekrant.jpg?raw=true)
+
 'S ochtends zag ik de zakdeur naar beneden staan. Even later toen ik de vuilnis wilde gaan brengen stond de deur ineens omhoog, wat zou beteken dat er op dat moment bediend werd. Ik heb de vuilniszak in mijn auto gegooid en met de fiets naar de zoutdam gereden. Het hek stond al open dus ik kon zo van de glooiing af de deurenbergplaats op.
 
 Op de zoutdam stond een delegatie van RWS, PoA, Vialis en Spie. Allen met redvest en een enkele ook met helm. Ikzelf zonder PBM's maar onzalige verlangens des te meer, stoof op de groep af en kondigde mijzelf aan op een duidelijke maar gemoedelijke toon, hetgeen mij nog het meest verbaasde. Het leek alsof er een tekst als "Wat is hier de bedoeling van?" zou moeten volgen zoals bij een aanhouding.
