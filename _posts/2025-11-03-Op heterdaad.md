@@ -9,9 +9,9 @@ thumbnail: /assets/images/Zietopuzelvekrant.jpg
 
 {{ page.date | date: "%d-%m-%Y" }}
 
-Op heterdaad
-
 ![Alt-tekst](https://github.com/Klikblitser/VBBSKW/blob/main/assets/images/Zietopuzelvekrant.jpg?raw=true)
+
+Op heterdaad
 
 'S ochtends zag ik de zakdeur naar beneden staan. Even later toen ik de vuilnis wilde gaan brengen stond de deur ineens omhoog, wat zou beteken dat er op dat moment bediend werd. Ik heb de vuilniszak in mijn auto gegooid en met de fiets naar de zoutdam gereden. Het hek stond al open dus ik kon zo van de glooiing af de deurenbergplaats op.
 
