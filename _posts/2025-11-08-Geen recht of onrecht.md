@@ -1,6 +1,6 @@
 ---
 layout: default
-title: "Geen recht of onrecht?"
+title: "Geen recht?"
 date: 2025-11-08
 thumbnail: /assets/images/Krantaandeklach.jpg
 ---
@@ -9,7 +9,7 @@ thumbnail: /assets/images/Krantaandeklach.jpg
 
 {{ page.date | date: "%d-%m-%Y" }}
 
-Geen recht of onrecht?
+Geen recht?
 
 ![Alt-tekst](https://github.com/Klikblitser/VBBSKW/blob/main/assets/images/Krantaandeklach.jpg?raw=true)
 
