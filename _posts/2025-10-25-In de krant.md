@@ -9,9 +9,9 @@ thumbnail: /assets/images/IJmuidercourant2.jpg
 
 {{ page.date | date: "%d-%m-%Y" }}
 
-In de krant
-
 ![Alt-tekst](https://github.com/Klikblitser/VBBSKW/blob/main/assets/images/IJmuidercourant2.jpg?raw=true)
+
+In de krant
 
 
 Om het artikel te bekijken [hier klikken](https://archive.is/gteOs)
