@@ -9,9 +9,9 @@ thumbnail: /assets/images/Krantaandeklach.jpg
 
 {{ page.date | date: "%d-%m-%Y" }}
 
-Geen recht?
-
 ![Alt-tekst](https://github.com/Klikblitser/VBBSKW/blob/main/assets/images/Krantaandeklach.jpg?raw=true)
+
+Geen recht?
 
 Dat laatste stukje, de reactie van Rijkswaterstaat was het mij om te doen. Veel meer dan ik in mijn eentje had kunnen bereiken. Het is toch een publiek statement ook al weet ik niet hoeveel dat waard is in de juridische zin. Hoe dan ook heeft er toe geleid dat er weer twee brieven zijn verstuurd. Een met een formeel inttrekken van mijn Awb verzoek van 20 oktober en een voorstel voor overleg met ons en de gemeente Velsen. En aan de gemeente Velsen met een kopie van deze brief en hetzelfde voorstel.
 
