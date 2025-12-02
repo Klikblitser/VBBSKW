@@ -32,7 +32,7 @@ Daarmee spreken ze hun eigen statement in de krant behoorlijk tegen waarin RWS s
 
 
 
-Het enige wat er gebeurd is een toename van feiten die Rijkswaterstaat verdraait. Daarom wil ik dit graag uiteenzetten in deze ingestuurd brief.
+Het enige wat er gebeurd is een toename van feiten die Rijkswaterstaat verdraait.
 
 Rijkswaterstaat probeert geheel de handen van de zaak af te trekken, maar ziet er wel op dat er een handhavingsactie behandeld wordt door de gemeente Velsen. 
 
@@ -54,7 +54,7 @@ Bij de correspondentie van vorig jaar met de gemeente had het er alle schijn van
 
 Verder wou ik benadrukken dat de vorige wethouder die ruimtelijke ordening in de portefeuille had, meende dat hij "met handen en benen gebonden was omdat 'het onder de rechter' was" en daardoor niet kon overleggen met de woonbootbewoners. Ik was er bang voor dat dit nu weer kon gebeuren. Door de jurist werd mij gezegd dat dit niet zou gebeuren. Echter merk ik nu al dat er met veel meer voorzichtigheid wordt gecommuniceerd omdat Rijkswaterstaat "alleen tegemoet wil komen in de juridische kosten" en "handhaving door de gemeente Velsen als enige oplossing ziet om een dreiging voor de nationale veiligheid af te wenden". Dit laatste hebben wij te horen gekregen tijdens een gesprek met de wethouder te IJmuiden.
 
- 
+
 
 Helaas wordt de zaak nog steeds overschaduwt door wat er in het verleden is gebeurd. Met name hoe het vertrouwen is geschaad. Achteraf is het enigszins begrijpelijk dat er op het moment dat het oog van de overheid (gemeente, provincie en het rijk) op het Binnenspuikanaal viel voor het nieuwe windpark, er voor gekozen is om de bewoning aldaar te belasteren als 'illegaal'. 
 
