@@ -24,7 +24,7 @@ thumbnail: /assets/images/Noordersluisweg1996.jpeg
 
 
 
-\*\*Ingezonden brief\*\*
+**Ingezonden brief**
 
 
 
@@ -42,7 +42,7 @@ Rijkswaterstaat probeert geheel de handen van de zaak af te trekken, maar ziet e
 
 
 
-\*\*Illegaal\*\*
+**Illegaal**
 
 
 
@@ -72,7 +72,7 @@ Nu zijn de rollen omgedraaid. Rijkswaterstaat meent geen verantwoordelijkheid me
 
 
 
-\*\*CNB\*\*
+**CNB**
 
 
 
