@@ -20,8 +20,6 @@ thumbnail: /assets/images/Noordersluisweg1996.jpeg
 
 
 
-!\[Alt-tekst](https://github.com/Klikblitser/VBBSKW/blob/main/assets/images/Noordersluisweg1996.jpeg?raw=true)
-
 
 
 **Ingezonden brief**
