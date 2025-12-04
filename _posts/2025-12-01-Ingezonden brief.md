@@ -88,9 +88,7 @@ Hierdoor zie ik geen andere mogelijkheid dan bezwaar te maken bij het CNB, welke
 
 
 
-Het is uiteraard niet zo dat wij aansturen om een juridische escalatie maar wij staan met onze rug tegen de muur. Helaas moeten wij het nu met beperkte middelen 
-
-opnemen tegen overheden die liever belastinggeld weggeven aan juristen, rechtbanken, administratieve rompslomp en in een geval zelfs een heel advocatenteam\* om hun belang juridisch helemaal dicht te timmeren dan tegemoet te komen aan de eerlijke burger. Maar ik heb nog steeds vertrouwen, soms tegen beter weten in, dat wij in een rechtstaat leven, waar wat krom, krom is en wat recht, recht.
+Het is uiteraard niet zo dat wij aansturen om een juridische escalatie maar wij staan met onze rug tegen de muur. Helaas moeten wij het nu met beperkte middelen opnemen tegen overheden die liever belastinggeld weggeven aan juristen, omgevingsmanagers, communicatiemanagers en tenminste in een geval zelfs een heel advocatenteam om hun belang juridisch helemaal dicht te timmeren dan tegemoet te komen aan de eerlijke burger. Maar ik heb nog steeds vertrouwen, soms tegen beter weten in, dat wij in een rechtstaat leven, waar wat krom, krom is en wat recht, recht.
 
 
 
