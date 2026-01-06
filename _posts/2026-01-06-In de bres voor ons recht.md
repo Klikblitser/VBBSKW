@@ -4,7 +4,7 @@ layout: default
 
 title: "In de bres voor ons recht"
 
-date: 2025-12-01
+date: 2026-01-06
 
 thumbnail: /assets/images/Noordersluisweg1996.jpeg
 
