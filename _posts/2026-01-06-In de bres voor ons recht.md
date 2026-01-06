@@ -2,7 +2,7 @@
 
 layout: default
 
-title: "Ingezonden brief"
+title: "In de bres voor ons recht"
 
 date: 2025-12-01
 
