@@ -1,3 +1,24 @@
+---
+
+layout: default
+
+title: "Ingezonden brief"
+
+date: 2025-12-01
+
+thumbnail: /assets/images/Noordersluisweg1996.jpeg
+
+---
+
+
+
+{{ page.title }}
+
+
+
+{{ page.date | date: "%d-%m-%Y" }}
+
+
 # Samen in actie voor het Binnenspuikanaal
 
 De afgelopen periode heeft de Vereniging Bewoners Binnenspuikanaal West (VBBSKW) zich op meerdere fronten actief ingezet om aandacht te vragen voor de positie en rechten van de bewoners van het Binnenspuikanaal. Met zichtbare acties, inspraak en formele stappen richting de overheid laten wij zien dat wij ons niet stil laten wegdrukken.
