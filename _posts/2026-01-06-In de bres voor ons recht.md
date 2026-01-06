@@ -1,0 +1,43 @@
+# Samen in actie voor het Binnenspuikanaal
+
+De afgelopen periode heeft de Vereniging Bewoners Binnenspuikanaal West (VBBSKW) zich op meerdere fronten actief ingezet om aandacht te vragen voor de positie en rechten van de bewoners van het Binnenspuikanaal. Met zichtbare acties, inspraak en formele stappen richting de overheid laten wij zien dat wij ons niet stil laten wegdrukken.
+
+## Flyeren bij Albert Heijn IJmuiden
+
+Om omwonenden en het bredere publiek te informeren over de situatie in het Binnenspuikanaal hebben bewoners flyers uitgedeeld bij de Albert Heijn in IJmuiden.  
+Veel mensen bleken niet op de hoogte van het feit dat woonbootbewoners, die hier vaak al decennialang wonen, nog steeds in onzekerheid verkeren over hun woonrecht.
+
+De reacties waren overwegend betrokken en steunend. Het onderstreept hoe belangrijk het is om het verhaal van de bewoners zichtbaar te blijven maken.
+
+## Inspreken bij de gemeente Velsen
+
+Daarnaast heeft VBBSKW gebruikgemaakt van het inspreekrecht bij de gemeente Velsen. Tijdens deze inspraakmomenten is nadrukkelijk gewezen op:
+
+- het langdurige gedoogbeleid en gewekte verwachtingen;
+- de sociale en menselijke gevolgen van het huidige overheidsoptreden;
+- het gebrek aan echte oplossingen voor de bewoners;
+- de noodzaak om bewoners als volwaardige gesprekspartners te behandelen.
+
+De boodschap was helder: besluiten over het Binnenspuikanaal mogen niet over de hoofden van bewoners heen worden genomen.
+
+## Bezwaarschrift persoonlijk overhandigd aan het ministerie
+
+Een belangrijk recent moment was het **persoonlijk overhandigen van een bezwaarschrift aan het ministerie van Infrastructuur en Waterstaat**.  
+Met deze stap benadrukken wij dat het hier niet gaat om een abstract dossier, maar om mensen, woningen en levens.
+
+Door het bezwaarschrift persoonlijk af te leveren, maken wij duidelijk dat VBBSKW blijft aandringen op:
+- zorgvuldige besluitvorming;
+- respect voor bestaande rechten;
+- naleving van wet- en regelgeving, waaronder huurbescherming voor ligplaatsen.
+
+## Hoe nu verder?
+
+Deze acties staan niet op zichzelf. Ze maken deel uit van een bredere inzet om:
+- transparantie af te dwingen;
+- juridische en bestuurlijke druk op te voeren waar nodig;
+- en vooral: de belangen van de bewoners van het Binnenspuikanaal centraal te blijven stellen.
+
+Wij blijven ons samen organiseren, informeren en verzetten waar dat nodig is.
+
+**Samen staan we sterker.**  
+Blijf ons volgen via de website en deel onze berichten om het verhaal van het Binnenspuikanaal zichtbaar te houden.
