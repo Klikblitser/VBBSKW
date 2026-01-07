@@ -108,9 +108,9 @@ Beginnen met het lezen van de volgende **sleuteldocumenten**:
 - **Nieuwe bewijsstukken of argumenten** ontdekken die de positie kunnen versterken
 - Een **gestructureerde samenvatting** maken van de bevindingen
 
-**Met alle zekerheid valt te verwachten dat het bezwaarschrift, welke reeds is afgeleverd bij de minister van Infrastructuur en Waterstaat, zal worden afgewezen. Hiertegen zal beroep worden aangetekend. Het doel hiervan is;
+**Maar voor nu wachten of (wanneer) de minister ons bezwaarschrift afwijst. Dan kan beroep ingesteld worden zodat deze zaak, na jarenlang wachten, eindelijk onder de rechter komt.**
  
-om serieus genomen te worden;
-de juridische onzekerheden voor RWS concreet te maken;
-het besef indaalt dat het risico ongeoorloofd is i.v.m. de vernieuwing van het spui- en gemaalcomplex;
-RWS mogelijk door de minister gemaand wordt om een regeling te treffen.
+- om serieus genomen te worden;
+- de juridische onzekerheden voor RWS concreet te maken;
+- het besef indaalt dat het risico ongeoorloofd is i.v.m. de vernieuwing van het spui- en gemaalcomplex;
+- RWS mogelijk door de minister gemaand wordt om een regeling te treffen.
