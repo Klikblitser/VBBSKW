@@ -40,6 +40,8 @@ Daarnaast heb ik op persoonlijke titel gebruikgemaakt van het inspreekrecht bij 
 - het gebrek aan echte oplossingen voor de bewoners;
 - de noodzaak om bewoners als volwaardige gesprekspartners te behandelen.
 
+Het filmpje van inspraak tijdens de raadsvergadering van 18 december 2025 is [hier](https://youtu.be/4hDoj7dlV7s) te zien.
+
 De boodschap was helder: besluiten over het Binnenspuikanaal mogen niet over de hoofden van bewoners heen worden genomen.
 
 ## Bezwaarschrift persoonlijk overhandigd aan het ministerie
