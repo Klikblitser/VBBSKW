@@ -28,7 +28,9 @@ De afgelopen periode heeft de Vereniging Bewoners Binnenspuikanaal West (VBBSKW)
 Om omwonenden en het bredere publiek te informeren over de situatie in het Binnenspuikanaal hebben we flyers uitgedeeld bij de Albert Heijn in IJmuiden.  
 Veel mensen bleken niet op de hoogte van het feit dat woonbootbewoners, die hier vaak al decennialang wonen, nog steeds in onzekerheid verkeren over hun woonrecht.
 
-De reacties waren overwegend betrokken en steunend. Het onderstreept hoe belangrijk het is om het verhaal van de bewoners zichtbaar te blijven maken.
+De reacties waren overwegend betrokken en steunend. Het onderstreept hoe belangrijk het is om ons verhaal zichtbaar te blijven maken.
+
+Indien men ons financieel wilde steunen was er een qr code op de flyer die [hier](https://gofund.me/f0d5ff38a) naar leidde.
 
 ## Inspreken bij de gemeente Velsen
 
@@ -62,3 +64,5 @@ Wij blijven ons samen organiseren, informeren en verzetten waar dat nodig is.
 
 **Samen staan we sterker.**  
 Blijf ons volgen via de website en deel onze berichten om het verhaal van het Binnenspuikanaal zichtbaar te houden.
+
+**Indien men ons financieel wil steunen kan dat [hier](https://gofund.me/f0d5ff38a)**
