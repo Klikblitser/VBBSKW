@@ -16,7 +16,7 @@ thumbnail: /assets/images/Protest.jpeg
 
 {{ page.date | date: "%d-%m-%Y" }}
 
-![Alt-tekst](https://github.com/Klikblitser/VBBSKW/blob/main/assets/images/Protest.jpeg?raw=true)
+![Alt-tekst](https://github.com/Klikblitser/VBBSKW/blob/main/assets/images/Raad.jpg?raw=true)
 
 # Samen in actie voor het Binnenspuikanaal
 
