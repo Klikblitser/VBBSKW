@@ -6,7 +6,7 @@ title: "In de bres voor ons recht"
 
 date: 2026-01-06
 
-thumbnail: /assets/images/Noordersluisweg1996.jpeg
+thumbnail: /assets/images/Protest.jpeg
 
 ---
 
@@ -14,10 +14,9 @@ thumbnail: /assets/images/Noordersluisweg1996.jpeg
 
 {{ page.title }}
 
-
-
 {{ page.date | date: "%d-%m-%Y" }}
 
+![Alt-tekst](https://github.com/Klikblitser/VBBSKW/blob/main/assets/images/Protest.jpeg?raw=true)
 
 # Samen in actie voor het Binnenspuikanaal
 

@@ -18,6 +18,7 @@ thumbnail: /assets/images/Delfsblauw.jpg
 
 {{ page.date | date: "%d-%m-%Y" }}
 
+![Alt-tekst](https://github.com/Klikblitser/VBBSKW/blob/main/assets/images/Delfsblauw.jpg?raw=true)
 
 **~~Goede voornemens~~... beloften**
 
