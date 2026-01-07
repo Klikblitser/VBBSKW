@@ -2,7 +2,7 @@
 
 layout: default
 
-title: "In de bres voor ons recht"
+title: "GELUK EN VOORSPOED IN 2026"
 
 date: 2026-01-02
 
