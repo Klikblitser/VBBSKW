@@ -2,7 +2,7 @@
 
 layout: default
 
-title: "GELUK EN VOORSPOED IN 2026"
+title: "Geluk en voorspoed in 2026"
 
 date: 2026-01-02
 
@@ -19,7 +19,7 @@ thumbnail: /assets/images/Delfsblauw.jpg
 {{ page.date | date: "%d-%m-%Y" }}
 
 
-**~~Goede voornemens~~... beloftes**
+**~~Goede voornemens~~... beloften**
 
 # Strijdplan 2026
 
