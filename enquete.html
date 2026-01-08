@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <title>Enquête – Ligplaats & Historische Schepen</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 900px;
+            margin: 40px auto;
+            padding: 0 15px;
+            line-height: 1.5;
+        }
+        h1, h2 {
+            color: #2c3e50;
+        }
+        fieldset {
+            margin-bottom: 25px;
+            padding: 20px;
+            border: 1px solid #ccc;
+        }
+        legend {
+            font-weight: bold;
+        }
+        label {
+            display: block;
+            margin: 6px 0;
+        }
+        textarea {
+            width: 100%;
+            min-height: 80px;
+        }
+        .submit {
+            padding: 12px 25px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        .privacy {
+            font-size: 0.9em;
+            color: #555;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+
+<body>
+
+<h1>Enquête – Ligplaatskwesties en Historische Schepen</h1>
+
+<p class="privacy">
+Deze enquête is anoniem. Er worden geen IP-adressen opgeslagen.
+De antwoorden worden uitsluitend gebruikt voor een geanonimiseerde inventarisatie.
+</p>
+
+<form action="mailto:enquete@vbbskw.com"
+      method="post"
+      enctype="text/plain">
+
+<!-- A. Algemene situatie -->
+<fieldset>
+    <legend>A. Algemene situatie</legend>
+
+    <label>
+        1. Type schip:<br>
+        <input type="radio" name="Type schip" value="Historisch varend"> Historisch varend<br>
+        <input type="radio" name="Type schip" value="Historisch niet-varend"> Historisch niet-varend
+    </label>
+
+    <label>
+        2. Is/was het schip bestemd voor bewoning?<br>
+        <input type="radio" name="Bewoning" value="Ja"> Ja<br>
+        <input type="radio" name="Bewoning" value="Nee"> Nee<br>
+        <input type="radio" name="Bewoning" value="In het verleden"> In het verleden
+    </label>
+
+    <label>
+        3. Had/heeft u een vaste ligplaats?<br>
+        <input type="checkbox" name="Ligplaats" value="Vergunning"> Met vergunning<br>
+        <input type="checkbox" name="Ligplaats" value="Gedoogd"> Gedoogd<br>
+        <input type="checkbox" name="Ligplaats" value="Onzekere status"> Onzekere status<br>
+        <input type="checkbox" name="Ligplaats" value="Geen vaste ligplaats"> Geen vaste ligplaats
+    </label>
+</fieldset>
+
+<!-- B. Conflicten -->
+<fieldset>
+    <legend>B. Conflicten</legend>
+
+    <label>
+        4. Heeft u een conflict gehad met:<br>
+        <input type="checkbox" name="Conflict met" value="Gemeente"> Gemeente<br>
+        <input type="checkbox" name="Conflict met" value="Rijkswaterstaat"> Rijkswaterstaat<br>
+        <input type="checkbox" name="Conflict met" value="Provincie"> Provincie<br>
+        <input type="checkbox" name="Conflict met" value="Havenbedrijf"> Havenbedrijf<br>
+        <input type="checkbox" name="Conflict met" value="Geen conflict"> Geen conflict
+    </label>
+
+    <label>
+        5. Waar ging het conflict over?<br>
+        <input type="checkbox" name="Onderwerp conflict" value="Bestemmingsplan"> Bestemmingsplan<br>
+        <input type="checkbox" name="Onderwerp conflict" value="Ligplaatsvergunning"> Ligplaatsvergunning<br>
+        <input type="checkbox" name="Onderwerp conflict" value="Handhaving"> Handhaving<br>
+        <input type="checkbox" name="Onderwerp conflict" value="Einde gedoogbeleid"> Einde gedoogbeleid<br>
+        <input type="checkbox" name="Onderwerp conflict" value="Huur/opzegging"> Huur / opzegging
+    </label>
+</fieldset>
+
+<!-- C. Eigen beoordeling -->
+<fieldset>
+    <legend>C. Eigen beoordeling</legend>
+
+    <label>
+        6. Had u ten tijde van het conflict het gevoel dat:<br>
+        <input type="checkbox" name="Beoordeling" value="Niet kunnen weten"> Ik dit redelijkerwijs niet kon weten<br>
+        <input type="checkbox" name="Beoordeling" value="Langdurig gedoogd"> De situatie langdurig werd gedoogd<br>
+        <input type="checkbox" name="Beoordeling" value="Regels gewijzigd"> Regels later zijn gewijzigd<br>
+        <input type="checkbox" name="Beoordeling" value="Bewust risico"> Ik bewust een juridisch risico heb genomen<br>
+        <input type="checkbox" name="Beoordeling" value="Vergunning afdwingen"> Ik geprobeerd heb een vergunning af te dwingen
+    </label>
+
+    <label>
+        7. Met de kennis van nu vind ik mezelf:<br>
+        <input type="radio" name="Zelfverwijt" value="Niet verwijtbaar"> Niet verwijtbaar<br>
+        <input type="radio" name="Zelfverwijt" value="Gedeeltelijk verwijtbaar"> Gedeeltelijk verwijtbaar<br>
+        <input type="radio" name="Zelfverwijt" value="Volledig verwijtbaar"> Volledig verwijtbaar<br>
+        <input type="radio" name="Zelfverwijt" value="Moeilijk te beoordelen"> Moeilijk te beoordelen
+    </label>
+</fieldset>
+
+<!-- D. Gevolgen -->
+<fieldset>
+    <legend>D. Gevolgen</legend>
+
+    <label>
+        8. Heeft het conflict geleid tot:<br>
+        <input type="checkbox" name="Gevolgen" value="Vertrek schip"> Vertrek schip<br>
+        <input type="checkbox" name="Gevolgen" value="Einde bewoning"> Einde bewoning<br>
+        <input type="checkbox" name="Gevolgen" value="Stilliggen"> Stilliggen zonder perspectief<br>
+        <input type="checkbox" name="Gevolgen" value="Verkoop of sloop"> Verkoop of sloop<br>
+        <input type="checkbox" name="Gevolgen" value="Geen gevolgen"> Geen gevolgen
+    </label>
+
+    <label>
+        9. Toelichting (optioneel):
+        <textarea name="Toelichting"></textarea>
+    </label>
+</fieldset>
+
+<input class="submit" type="submit" value="Verstuur enquête per e-mail">
+
+</form>
+
+</body>
+</html>
