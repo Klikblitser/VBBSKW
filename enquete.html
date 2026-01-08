@@ -53,9 +53,7 @@ Deze enquête is anoniem. Er worden geen IP-adressen opgeslagen.
 De antwoorden worden uitsluitend gebruikt voor een geanonimiseerde inventarisatie.
 </p>
 
-<form action="mailto:enquete@vbbskw.com"
-      method="post"
-      enctype="text/plain">
+<form id="enqueteForm">
 
 <!-- A. Algemene situatie -->
 <fieldset>
@@ -147,9 +145,84 @@ De antwoorden worden uitsluitend gebruikt voor een geanonimiseerde inventarisati
     </label>
 </fieldset>
 
-<input class="submit" type="submit" value="Verstuur enquête per e-mail">
+<button type="submit" class="submit" id="submitBtn">Verstuur enquête</button>
+<div id="statusMessage" style="margin-top: 15px; padding: 10px; display: none;"></div>
 
 </form>
+
+<script>
+(function() {
+    'use strict';
+    
+    // === CONFIGURATIE ===
+    // Vervang dit met jouw Vercel API URL na deployment
+    const API_URL = 'https://jouw-vercel-project.vercel.app/api/enquete';
+    
+    const form = document.getElementById('enqueteForm');
+    const submitBtn = document.getElementById('submitBtn');
+    const statusMessage = document.getElementById('statusMessage');
+    
+    form.addEventListener('submit', async function(e) {
+        e.preventDefault();
+        
+        // Disable button tijdens verzending
+        submitBtn.disabled = true;
+        submitBtn.textContent = 'Bezig met verzenden...';
+        statusMessage.style.display = 'none';
+        
+        // Verzamel alle form data
+        const formData = new FormData(form);
+        const data = {};
+        
+        for (const [key, value] of formData.entries()) {
+            if (data[key]) {
+                // Als key al bestaat, maak er een array van (voor checkboxes)
+                if (Array.isArray(data[key])) {
+                    data[key].push(value);
+                } else {
+                    data[key] = [data[key], value];
+                }
+            } else {
+                data[key] = value;
+            }
+        }
+        
+        try {
+            const response = await fetch(API_URL, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
+            });
+            
+            const result = await response.json();
+            
+            if (response.ok) {
+                statusMessage.style.display = 'block';
+                statusMessage.style.backgroundColor = '#d4edda';
+                statusMessage.style.color = '#155724';
+                statusMessage.style.border = '1px solid #c3e6cb';
+                statusMessage.innerHTML = '✅ <strong>Bedankt!</strong> Uw enquête is succesvol verzonden.';
+                form.reset();
+            } else {
+                throw new Error(result.error || 'Onbekende fout');
+            }
+            
+        } catch (error) {
+            statusMessage.style.display = 'block';
+            statusMessage.style.backgroundColor = '#f8d7da';
+            statusMessage.style.color = '#721c24';
+            statusMessage.style.border = '1px solid #f5c6cb';
+            statusMessage.innerHTML = '❌ <strong>Fout:</strong> ' + error.message + '<br>Probeer het later opnieuw of neem contact op via penningmeester@vbbskw.com';
+        }
+        
+        // Reset button
+        submitBtn.disabled = false;
+        submitBtn.textContent = 'Verstuur enquête';
+    });
+})();
+</script>
 
 </body>
 </html>
