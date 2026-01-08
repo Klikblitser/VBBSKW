@@ -60,7 +60,7 @@ De antwoorden worden uitsluitend gebruikt voor een geanonimiseerde inventarisati
     <legend>A. Algemene situatie</legend>
 
     <label>
-        3. Bent u lid van een behouds- of belangenvereniging?<br>
+        1. Bent u lid van een behouds- of belangenvereniging?<br>
         <input type="checkbox" name="Vereniging" value="LWO"> Ik ben lid van de LWO<br>
         <input type="checkbox" name="Vereniging" value="ExLWO"> Ik was lid van de LWO<br>
         <input type="checkbox" name="Vereniging" value="LVBHB"> Ik ben lid van de LVBHB<br>
@@ -70,33 +70,44 @@ De antwoorden worden uitsluitend gebruikt voor een geanonimiseerde inventarisati
     </label>
 
     <label>
-        1. Type schip:<br>
+        2. Type schip:<br>
         <input type="radio" name="Type schip" value="Historisch varend"> Historisch varend<br>
         <input type="radio" name="Type schip" value="Historisch niet-varend"> Historisch niet-varend
     </label>
 
     <label>
-        2. Is/was het schip primair gebruikt voor bewoning?<br>
+        3. Is/was het schip primair gebruikt voor bewoning?<br>
         <input type="radio" name="Bewoning" value="Ja"> Ja<br>
         <input type="radio" name="Bewoning" value="Nee"> Nee<br>
         <input type="radio" name="Bewoning" value="In het verleden"> In het verleden
     </label>
 
     <label>
-        3. Had/heeft u een vaste ligplaats?<br>
-        <input type="checkbox" name="Ligplaats" value="Vergunning"> Met vergunning<br>
+        4. Had/heeft u een vaste ligplaats?<br>
+        <input type="checkbox" name="Ligplaats" value="Vergunning"> Met gemeentelijke- en/of provinciale vergunning<br>
+        <input type="checkbox" name="Ligplaats" value="Vergunning"> Met vergunning van de Staat<br>
         <input type="checkbox" name="Ligplaats" value="Gedoogd"> Gedoogd<br>
         <input type="checkbox" name="Ligplaats" value="Onzekere status"> Onzekere status<br>
         <input type="checkbox" name="Ligplaats" value="Geen vaste ligplaats"> Geen vaste ligplaats
     </label>
 </fieldset>
 
+<label>
+    5. Welke vorm van huur is of was van toepassing op uw ligplaats?:<br>
+    <input type="checkbox" name="Betaling conform" value="Havengeld"> Havengeld<br>
+    <input type="checkbox" name="Betaling conform" value="Huur via overeenkomst"> Huur via overeenkomst<br>
+    <input type="checkbox" name="Betaling conform" value="Erfpacht"> Erfpacht<br>
+    <input type="checkbox" name="Betaling conform" value="Precario"> Precario<br>
+    <input type="checkbox" name="Betaling conform" value="Concessievergoeding"> Consessievergoeding<br>
+    <input type="checkbox" name="Betaling conform" value="Geen betaling"> Geen betaling<br>
+</label>
+
 <!-- B. Conflicten -->
 <fieldset>
     <legend>B. Conflicten</legend>
 
     <label>
-        4. Heeft u een conflict gehad met:<br>
+        6. Heeft u een conflict gehad met een overheidshandeling van een of meer van de volgende overheden?:<br>
         <input type="checkbox" name="Conflict met" value="Gemeente"> Gemeente<br>
         <input type="checkbox" name="Conflict met" value="Rijkswaterstaat"> Rijkswaterstaat<br>
         <input type="checkbox" name="Conflict met" value="Provincie"> Provincie<br>
@@ -105,7 +116,7 @@ De antwoorden worden uitsluitend gebruikt voor een geanonimiseerde inventarisati
     </label>
 
     <label>
-        5. Waar ging het conflict over?<br>
+        7. Waar ging het conflict over?<br>
         <input type="checkbox" name="Onderwerp conflict" value="Bestemmingsplan"> Bestemmingsplan<br>
         <input type="checkbox" name="Onderwerp conflict" value="Ligplaatsvergunning"> Ligplaatsvergunning<br>
         <input type="checkbox" name="Onderwerp conflict" value="Handhaving"> Handhaving<br>
@@ -119,7 +130,7 @@ De antwoorden worden uitsluitend gebruikt voor een geanonimiseerde inventarisati
     <legend>C. Eigen beoordeling</legend>
 
     <label>
-        6. Had u ten tijde van het conflict het gevoel dat:<br>
+        8. Had u ten tijde van het conflict het gevoel dat:<br>
         <input type="checkbox" name="Beoordeling" value="Niet kunnen weten"> Ik dit redelijkerwijs niet kon weten<br>
         <input type="checkbox" name="Beoordeling" value="Langdurig gedoogd"> De situatie langdurig werd gedoogd<br>
         <input type="checkbox" name="Beoordeling" value="Regels gewijzigd"> Regels later zijn gewijzigd<br>
@@ -128,11 +139,11 @@ De antwoorden worden uitsluitend gebruikt voor een geanonimiseerde inventarisati
     </label>
 
     <label>
-        7. Met de kennis van nu vind ik mezelf:<br>
-        <input type="radio" name="Zelfverwijt" value="Niet verwijtbaar"> Niet verwijtbaar<br>
-        <input type="radio" name="Zelfverwijt" value="Gedeeltelijk verwijtbaar"> Gedeeltelijk verwijtbaar<br>
-        <input type="radio" name="Zelfverwijt" value="Volledig verwijtbaar"> Volledig verwijtbaar<br>
-        <input type="radio" name="Zelfverwijt" value="Moeilijk te beoordelen"> Moeilijk te beoordelen
+        9. Met de kennis van nu vind ik mezelf:<br>
+        <input type="radio" name="Eigenschuld" value="Niet verwijtbaar"> Niet verwijtbaar<br>
+        <input type="radio" name="Eigenschuld" value="Gedeeltelijk verwijtbaar"> Gedeeltelijk verwijtbaar<br>
+        <input type="radio" name="Eigenschuld" value="Volledig verwijtbaar"> Volledig verwijtbaar<br>
+        <input type="radio" name="Eigenschuld" value="Moeilijk te beoordelen"> Moeilijk te beoordelen
     </label>
 </fieldset>
 
@@ -141,7 +152,7 @@ De antwoorden worden uitsluitend gebruikt voor een geanonimiseerde inventarisati
     <legend>D. Gevolgen</legend>
 
     <label>
-        8. Heeft het conflict geleid tot:<br>
+        10. Heeft het conflict geleid tot:<br>
         <input type="checkbox" name="Gevolgen" value="Vertrek schip"> Vertrek schip<br>
         <input type="checkbox" name="Gevolgen" value="Einde bewoning"> Einde bewoning<br>
         <input type="checkbox" name="Gevolgen" value="Stilliggen"> Stilliggen zonder perspectief<br>
@@ -150,7 +161,21 @@ De antwoorden worden uitsluitend gebruikt voor een geanonimiseerde inventarisati
     </label>
 
     <label>
-        9. Toelichting (optioneel):
+        11. Heeft u tijdens een conflict ondersteuning gekregen van:<br>
+        <input type="checkbox" name="Ondersteuning" value="LWO"> LWO<br>
+        <input type="checkbox" name="Ondersteuning" value="LVBHB"> LVBHB<br>
+        <input type="checkbox" name="Ondersteuning" value="Andere vereniging"> Andere vereniging namelijk; <input type="text" name="Andere vereniging" value=""> <br>
+        <input type="checkbox" name="Ondersteuning" value="Gemeente"> Gemeente<br>
+        <input type="checkbox" name="Ondersteuning" value="Rijkswaterstaat"> Rijkswaterstaat<br>
+        <input type="checkbox" name="Ondersteuning" value="Vereniging"> Vereniging<br>
+        <input type="checkbox" name="Ondersteuning" value="Advocaat"> Advocaat<br>
+        <input type="checkbox" name="Ondersteuning" value="Juridische bijstand"> Juridische bijstand<br>
+        <input type="checkbox" name="Ondersteuning" value="Andere"> Andere ondersteuning namelijk; <input type="text" name="Andere ondersteuning" value=""> <br>
+        <input type="checkbox" name="Ondersteuning" value="Geen"> Geen
+    </label>
+
+    <label>
+        12. Toelichting (optioneel):
         <textarea name="Toelichting"></textarea>
     </label>
 </fieldset>
