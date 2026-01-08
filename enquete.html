@@ -53,7 +53,7 @@ Deze enquête is anoniem. Er worden geen IP-adressen opgeslagen.
 De antwoorden worden uitsluitend gebruikt voor een geanonimiseerde inventarisatie.
 </p>
 
-<form id="enqueteForm">
+<form id="enqueteForm" action="https://formspree.io/f/xbdlnwpw" method="POST">
 
 <!-- A. Algemene situatie -->
 <fieldset>
@@ -194,10 +194,6 @@ De antwoorden worden uitsluitend gebruikt voor een geanonimiseerde inventarisati
 (function() {
     'use strict';
     
-    // === CONFIGURATIE ===
-    // Vervang dit met jouw Vercel API URL na deployment
-    const API_URL = 'https://jouw-vercel-project.vercel.app/api/enquete';
-    
     const form = document.getElementById('enqueteForm');
     const submitBtn = document.getElementById('submitBtn');
     const statusMessage = document.getElementById('statusMessage');
@@ -210,33 +206,16 @@ De antwoorden worden uitsluitend gebruikt voor een geanonimiseerde inventarisati
         submitBtn.textContent = 'Bezig met verzenden...';
         statusMessage.style.display = 'none';
         
-        // Verzamel alle form data
         const formData = new FormData(form);
-        const data = {};
-        
-        for (const [key, value] of formData.entries()) {
-            if (data[key]) {
-                // Als key al bestaat, maak er een array van (voor checkboxes)
-                if (Array.isArray(data[key])) {
-                    data[key].push(value);
-                } else {
-                    data[key] = [data[key], value];
-                }
-            } else {
-                data[key] = value;
-            }
-        }
         
         try {
-            const response = await fetch(API_URL, {
+            const response = await fetch(form.action, {
                 method: 'POST',
+                body: formData,
                 headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(data)
+                    'Accept': 'application/json'
+                }
             });
-            
-            const result = await response.json();
             
             if (response.ok) {
                 statusMessage.style.display = 'block';
@@ -246,7 +225,7 @@ De antwoorden worden uitsluitend gebruikt voor een geanonimiseerde inventarisati
                 statusMessage.innerHTML = '✅ <strong>Bedankt!</strong> Uw enquête is succesvol verzonden.';
                 form.reset();
             } else {
-                throw new Error(result.error || 'Onbekende fout');
+                throw new Error('Verzending mislukt');
             }
             
         } catch (error) {
