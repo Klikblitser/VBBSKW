@@ -29,7 +29,9 @@ Veel mensen bleken niet op de hoogte van het feit dat woonbootbewoners, die hier
 
 De reacties waren overwegend betrokken en steunend. Het onderstreept hoe belangrijk het is om ons verhaal zichtbaar te blijven maken.
 
-Indien men ons financieel wilde steunen was er een qr code op de flyer die [hier](https://gofund.me/f0d5ff38a) naar leidde.
+Indien men ons financieel wilde steunen was er een qr code op de flyer die **[hier](https://gofund.me/f0d5ff38a)** naar leidde.
+
+**[De krant](https://archive.is/bpEj5)** was er ook!
 
 ## Inspreken bij de gemeente Velsen
 
@@ -40,7 +42,7 @@ Daarnaast heb ik op persoonlijke titel gebruikgemaakt van het inspreekrecht bij 
 - het gebrek aan echte oplossingen voor de bewoners;
 - de noodzaak om bewoners als volwaardige gesprekspartners te behandelen.
 
-Het filmpje van inspraak tijdens de raadsvergadering van 18 december 2025 is [hier](https://youtu.be/4hDoj7dlV7s) te zien.
+Het filmpje van inspraak tijdens de raadsvergadering van 18 december 2025 is **[hier](https://youtu.be/4hDoj7dlV7s)** te zien.
 
 De boodschap was helder: besluiten over het Binnenspuikanaal mogen niet over de hoofden van bewoners heen worden genomen.
 
