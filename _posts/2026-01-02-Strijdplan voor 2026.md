@@ -81,33 +81,7 @@ Door te informeren bij:
 - Gemeente Zaanstad
 - Gemeente Amsterdam
 - Gemeente Haarlem
-- LVBHB
-
----
-
-## Dossier De Leeuw
-
-### Stap 1: Kernstukken identificeren en lezen
-
-Beginnen met het lezen van de volgende **sleuteldocumenten**:
-
-- *Therry Rapport woonboten 2017.doc*  
-  — Lijkt een samenvatting / rapport te zijn
-- *De juridische positie van waterbewoners.pdf*  
-  — Juridische analyse
-- *Nota van Antwoord Selectieve Onttrekking.pdf*  
-  — Relevant voor de zaak
-- *Ligplaatsbeleid Definitief 12-03.pdf*  
-  — RWS-beleid
-- *181219 ABRvS uitspraak.pdf*  
-  — Belangrijke uitspraak Raad van State
-
-### Stap 2: Vervolgplanning en overzicht
-
-- De **juridische argumenten van de Leeuw** in kaart brengen
-- **Overlap met het eigen dossier** identificeren
-- **Nieuwe bewijsstukken of argumenten** ontdekken die de positie kunnen versterken
-- Een **gestructureerde samenvatting** maken van de bevindingen
+- met behulp van LVBHB
 
 **Maar voor nu wachten of (wanneer) de minister ons bezwaarschrift afwijst. Dan kan beroep ingesteld worden zodat deze zaak, na jarenlang wachten, eindelijk onder de rechter komt.**
  
