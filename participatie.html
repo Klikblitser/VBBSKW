@@ -1,0 +1,754 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Participatie | VBBSKW</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      max-width: 800px;
+      margin: 40px auto;
+      padding: 0 20px;
+      background-color: #F0F8FF;
+      color: #333;
+      line-height: 1.6;
+    }
+    h1, h2, h3 {
+      color: #004080;
+    }
+    a {
+      color: #0066cc;
+      text-decoration: none;
+    }
+    a:hover {
+      text-decoration: underline;
+    }
+
+    /* Tabs */
+    .tabs {
+      margin: 20px 0;
+    }
+    .tab-nav {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 5px;
+      border-bottom: 2px solid #ddd;
+      margin-bottom: 20px;
+    }
+    .tab-btn {
+      padding: 10px 15px;
+      background: none;
+      border: none;
+      font-family: Arial, sans-serif;
+      font-size: 14px;
+      color: #666;
+      cursor: pointer;
+      border-bottom: 2px solid transparent;
+      margin-bottom: -2px;
+    }
+    .tab-btn:hover {
+      color: #004080;
+    }
+    .tab-btn.active {
+      color: #004080;
+      border-bottom-color: #004080;
+      font-weight: bold;
+    }
+    .tab-panel {
+      display: none;
+    }
+    .tab-panel.active {
+      display: block;
+    }
+
+    /* Formulieren */
+    .form-box {
+      background: #fff;
+      border: 1px solid #ddd;
+      padding: 20px;
+      margin-bottom: 20px;
+      border-radius: 4px;
+    }
+    .form-group {
+      margin-bottom: 15px;
+    }
+    .form-label {
+      display: block;
+      font-weight: bold;
+      margin-bottom: 5px;
+      color: #004080;
+    }
+    .form-input,
+    .form-textarea {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      font-family: Arial, sans-serif;
+      font-size: 14px;
+      box-sizing: border-box;
+    }
+    .form-input:focus,
+    .form-textarea:focus {
+      outline: none;
+      border-color: #0066cc;
+    }
+    .form-textarea {
+      min-height: 80px;
+      resize: vertical;
+    }
+    .btn {
+      display: inline-block;
+      padding: 10px 20px;
+      background: #004080;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      font-family: Arial, sans-serif;
+      font-size: 14px;
+      cursor: pointer;
+    }
+    .btn:hover {
+      background: #003366;
+    }
+
+    /* Peilingen */
+    .poll-box {
+      background: #fff;
+      border: 1px solid #ddd;
+      padding: 20px;
+      margin-bottom: 20px;
+      border-radius: 4px;
+    }
+    .poll-question {
+      font-weight: bold;
+      color: #004080;
+      margin-bottom: 15px;
+    }
+    .poll-option {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px;
+      background: #F0F8FF;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      margin-bottom: 8px;
+      cursor: pointer;
+    }
+    .poll-option:hover {
+      border-color: #0066cc;
+    }
+    .poll-option.selected {
+      border-color: #004080;
+      background: #e6f0ff;
+    }
+    .poll-option input {
+      display: none;
+    }
+    .poll-radio {
+      width: 16px;
+      height: 16px;
+      border: 2px solid #999;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+    .poll-option.selected .poll-radio {
+      border-color: #004080;
+      background: #004080;
+    }
+    .poll-results {
+      margin-top: 15px;
+      display: none;
+    }
+    .poll-results.show {
+      display: block;
+    }
+    .result-bar {
+      margin-bottom: 10px;
+    }
+    .result-label {
+      display: flex;
+      justify-content: space-between;
+      font-size: 13px;
+      margin-bottom: 3px;
+    }
+    .result-track {
+      height: 8px;
+      background: #ddd;
+      border-radius: 4px;
+    }
+    .result-fill {
+      height: 100%;
+      background: #004080;
+      border-radius: 4px;
+    }
+
+    /* Ideeën */
+    .idea-card {
+      background: #fff;
+      border: 1px solid #ddd;
+      padding: 15px;
+      margin-bottom: 15px;
+      border-radius: 4px;
+    }
+    .idea-meta {
+      display: flex;
+      justify-content: space-between;
+      font-size: 13px;
+      margin-bottom: 8px;
+    }
+    .idea-author {
+      font-weight: bold;
+      color: #004080;
+    }
+    .idea-date {
+      color: #666;
+    }
+    .idea-content {
+      margin-bottom: 10px;
+    }
+    .idea-votes {
+      display: flex;
+      gap: 8px;
+    }
+    .vote-btn {
+      padding: 5px 10px;
+      background: #F0F8FF;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      font-size: 13px;
+      cursor: pointer;
+    }
+    .vote-btn:hover {
+      background: #e6f0ff;
+    }
+    .vote-btn.voted {
+      background: #004080;
+      color: white;
+      border-color: #004080;
+    }
+
+    /* Leden */
+    .members-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 15px;
+    }
+    .member-card {
+      background: #fff;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      overflow: hidden;
+    }
+    .member-photo {
+      height: 120px;
+      background: #004080;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .member-photo img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      margin: 0;
+      border-radius: 0;
+    }
+    .member-photo-placeholder {
+      width: 50px;
+      height: 50px;
+      background: rgba(255,255,255,0.2);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+    }
+    .member-info {
+      padding: 15px;
+    }
+    .member-name {
+      font-weight: bold;
+      color: #004080;
+      margin-bottom: 10px;
+    }
+    .member-qa {
+      margin-bottom: 8px;
+    }
+    .member-question {
+      font-size: 11px;
+      font-weight: bold;
+      color: #666;
+      text-transform: uppercase;
+    }
+    .member-answer {
+      font-size: 13px;
+    }
+
+    /* Foto upload */
+    .photo-upload {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      margin-bottom: 15px;
+    }
+    .photo-preview {
+      width: 70px;
+      height: 70px;
+      border-radius: 50%;
+      background: #fff;
+      border: 2px dashed #ddd;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      flex-shrink: 0;
+    }
+    .photo-preview img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      margin: 0;
+      border-radius: 0;
+    }
+    .photo-input {
+      display: none;
+    }
+    .photo-btn {
+      display: inline-block;
+      padding: 8px 15px;
+      background: #fff;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      font-size: 13px;
+      cursor: pointer;
+    }
+    .photo-btn:hover {
+      background: #F0F8FF;
+    }
+
+    .question-box {
+      background: #fff;
+      border: 1px solid #ddd;
+      padding: 15px;
+      margin-bottom: 10px;
+      border-radius: 4px;
+    }
+    .question-num {
+      display: inline-block;
+      width: 20px;
+      height: 20px;
+      background: #004080;
+      color: white;
+      border-radius: 50%;
+      text-align: center;
+      font-size: 12px;
+      line-height: 20px;
+      margin-right: 8px;
+    }
+
+    /* Contact */
+    .contact-box {
+      background: #004080;
+      color: white;
+      padding: 20px;
+      border-radius: 4px;
+      margin-bottom: 20px;
+    }
+    .contact-box h3 {
+      color: white;
+      margin-top: 0;
+    }
+    .contact-box a {
+      color: white;
+    }
+
+    /* Empty state */
+    .empty-state {
+      text-align: center;
+      padding: 30px;
+      color: #666;
+      font-style: italic;
+    }
+
+    /* Toast */
+    .toast {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      padding: 12px 20px;
+      background: #004080;
+      color: white;
+      border-radius: 4px;
+      font-size: 14px;
+      transform: translateX(calc(100% + 30px));
+      transition: transform 0.3s;
+      z-index: 1000;
+    }
+    .toast.show {
+      transform: translateX(0);
+    }
+    .toast.success {
+      background: #28a745;
+    }
+    .toast.error {
+      background: #dc3545;
+    }
+
+    @media (max-width: 600px) {
+      .tab-btn {
+        padding: 8px 10px;
+        font-size: 13px;
+      }
+      .photo-upload {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Participatie</h1>
+  <p>Uw stem telt. Deel uw mening, ideeën en maak kennis met andere leden.</p>
+
+  <div class="tabs">
+    <div class="tab-nav">
+      <button class="tab-btn active" data-tab="nieuws">Nieuws</button>
+      <button class="tab-btn" data-tab="peilingen">Peilingen</button>
+      <button class="tab-btn" data-tab="ideeen">Ideeën</button>
+      <button class="tab-btn" data-tab="leden">Leden</button>
+      <button class="tab-btn" data-tab="contact">Contact</button>
+    </div>
+
+    <!-- NIEUWS -->
+    <div class="tab-panel active" id="nieuws">
+      <h2>Nieuws</h2>
+      <p>Laatste updates en mededelingen.</p>
+      <div id="newsList">
+        <div class="empty-state">Er zijn nog geen nieuwsberichten geplaatst.</div>
+      </div>
+    </div>
+
+    <!-- PEILINGEN -->
+    <div class="tab-panel" id="peilingen">
+      <h2>Peilingen</h2>
+      <p>Geef uw mening over belangrijke onderwerpen.</p>
+      
+      <div class="poll-box" data-poll-id="1">
+        <p class="poll-question">Moet kunstmatige intelligentie strenger gereguleerd worden door de overheid?</p>
+        <div class="poll-options">
+          <label class="poll-option">
+            <input type="radio" name="poll1" value="ja">
+            <span class="poll-radio"></span>
+            <span>Ja, strengere regulering is noodzakelijk</span>
+          </label>
+          <label class="poll-option">
+            <input type="radio" name="poll1" value="nee">
+            <span class="poll-radio"></span>
+            <span>Nee, de markt moet zichzelf reguleren</span>
+          </label>
+          <label class="poll-option">
+            <input type="radio" name="poll1" value="gedeeltelijk">
+            <span class="poll-radio"></span>
+            <span>Gedeeltelijk, alleen voor specifieke toepassingen</span>
+          </label>
+        </div>
+        <div class="poll-results"></div>
+        <button class="btn" onclick="submitPoll(this)" style="margin-top: 15px;">Stem verzenden</button>
+      </div>
+    </div>
+
+    <!-- IDEEËN -->
+    <div class="tab-panel" id="ideeen">
+      <h2>Ideeënbus</h2>
+      <p>Heeft u een idee of suggestie? Deel het met de gemeenschap.</p>
+      
+      <div class="form-box">
+        <div class="form-group">
+          <label class="form-label">Uw naam</label>
+          <input type="text" class="form-input" id="ideaName" placeholder="Voer uw naam in">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Uw idee of suggestie</label>
+          <textarea class="form-textarea" id="ideaContent" placeholder="Beschrijf uw idee..."></textarea>
+        </div>
+        <button class="btn" onclick="submitIdea()">Idee indienen</button>
+      </div>
+
+      <h3>Ingediende ideeën</h3>
+      <div id="ideasList">
+        <div class="empty-state">Er zijn nog geen ideeën ingediend. Wees de eerste!</div>
+      </div>
+    </div>
+
+    <!-- LEDEN -->
+    <div class="tab-panel" id="leden">
+      <h2>Leden</h2>
+      <p>Maak kennis met andere leden en stel uzelf voor.</p>
+
+      <div class="form-box">
+        <h3 style="margin-top: 0;">Stel uzelf voor</h3>
+        
+        <div class="form-group">
+          <label class="form-label">Uw naam</label>
+          <input type="text" class="form-input" id="memberName" placeholder="Voer uw naam in">
+        </div>
+
+        <div class="photo-upload">
+          <div class="photo-preview" id="photoPreview">
+            <span style="font-size: 24px; color: #999;">📷</span>
+          </div>
+          <div>
+            <p style="font-size: 13px; color: #666; margin: 0 0 8px 0;">Voeg een foto toe (optioneel)</p>
+            <input type="file" class="photo-input" id="photoInput" accept="image/*" onchange="handlePhotoUpload(event)">
+            <label for="photoInput" class="photo-btn">Foto uploaden</label>
+          </div>
+        </div>
+
+        <div class="question-box">
+          <label class="form-label"><span class="question-num">1</span> Hoe verhoudt je jezelf tot AI (bijv. kritische consument/professioneel)?</label>
+          <input type="text" class="form-input" id="question1" placeholder="Uw antwoord...">
+        </div>
+
+        <div class="question-box">
+          <label class="form-label"><span class="question-num">2</span> Heb je een studie gevolgd over kunstmatige intelligentie of algoritmen?</label>
+          <input type="text" class="form-input" id="question2" placeholder="Uw antwoord...">
+        </div>
+
+        <div class="question-box">
+          <label class="form-label"><span class="question-num">3</span> Wat is jouw persoonlijk belang bij regulering van kunstmatige intelligentie?</label>
+          <textarea class="form-textarea" id="question3" placeholder="Uw antwoord..."></textarea>
+        </div>
+
+        <div class="question-box">
+          <label class="form-label"><span class="question-num">4</span> Zie je kunstmatige intelligentie als een existentiële dreiging op zichzelf of is de macht van kunstmatige intelligentie beperkt tot wat de mensheid aan haar geeft?</label>
+          <textarea class="form-textarea" id="question4" placeholder="Uw antwoord..."></textarea>
+        </div>
+
+        <button class="btn" onclick="submitMemberIntro()">Profiel opslaan</button>
+      </div>
+
+      <h3>Onze leden</h3>
+      <div class="members-grid" id="membersGrid">
+        <div class="empty-state" style="grid-column: 1 / -1;">Er hebben zich nog geen leden voorgesteld. Wees de eerste!</div>
+      </div>
+    </div>
+
+    <!-- CONTACT -->
+    <div class="tab-panel" id="contact">
+      <h2>Contact</h2>
+      <p>Neem contact op met het bestuur.</p>
+      
+      <div class="contact-box">
+        <h3>Contactgegevens</h3>
+        <p>✉️ <a href="mailto:voorzitter@vbbskw.com">voorzitter@vbbskw.com</a></p>
+        <p>🌐 <a href="https://www.vbbskw.com">www.vbbskw.com</a></p>
+      </div>
+
+      <div class="form-box">
+        <h3 style="margin-top: 0;">Stuur een bericht</h3>
+        <div class="form-group">
+          <label class="form-label">Naam</label>
+          <input type="text" class="form-input" id="contactName" placeholder="Uw naam">
+        </div>
+        <div class="form-group">
+          <label class="form-label">E-mail</label>
+          <input type="email" class="form-input" id="contactEmail" placeholder="uw@email.nl">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Bericht</label>
+          <textarea class="form-textarea" id="contactMessage" placeholder="Uw bericht..."></textarea>
+        </div>
+        <button class="btn" onclick="submitContact()">Versturen</button>
+      </div>
+    </div>
+  </div>
+
+  <p><a href="index.html">⬅️ Terug naar de hoofdpagina</a></p>
+
+  <div class="toast" id="toast"></div>
+
+  <script>
+    // Tabs
+    document.querySelectorAll('.tab-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+        document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+        btn.classList.add('active');
+        document.getElementById(btn.dataset.tab).classList.add('active');
+      });
+    });
+
+    // Poll
+    document.querySelectorAll('.poll-option').forEach(option => {
+      option.addEventListener('click', function() {
+        this.closest('.poll-box').querySelectorAll('.poll-option').forEach(o => o.classList.remove('selected'));
+        this.classList.add('selected');
+        this.querySelector('input').checked = true;
+      });
+    });
+
+    function submitPoll(btn) {
+      const box = btn.closest('.poll-box');
+      const selected = box.querySelector('.poll-option.selected');
+      if (!selected) {
+        showToast('Selecteer eerst een optie', 'error');
+        return;
+      }
+      localStorage.setItem('poll_' + box.dataset.pollId, selected.querySelector('input').value);
+      btn.textContent = 'Bedankt voor uw stem';
+      btn.disabled = true;
+      btn.style.opacity = '0.6';
+      showToast('Uw stem is geregistreerd', 'success');
+    }
+
+    // Ideeën
+    function submitIdea() {
+      const name = document.getElementById('ideaName').value.trim();
+      const content = document.getElementById('ideaContent').value.trim();
+      if (!name || !content) {
+        showToast('Vul alle velden in', 'error');
+        return;
+      }
+
+      const list = document.getElementById('ideasList');
+      const empty = list.querySelector('.empty-state');
+      if (empty) empty.remove();
+
+      const card = document.createElement('div');
+      card.className = 'idea-card';
+      card.innerHTML = `
+        <div class="idea-meta">
+          <span class="idea-author">${escapeHtml(name)}</span>
+          <span class="idea-date">${new Date().toLocaleDateString('nl-NL')}</span>
+        </div>
+        <p class="idea-content">${escapeHtml(content)}</p>
+        <div class="idea-votes">
+          <button class="vote-btn" onclick="toggleVote(this)">👍 <span>0</span></button>
+          <button class="vote-btn" onclick="toggleVote(this)">👎 <span>0</span></button>
+        </div>
+      `;
+      list.insertBefore(card, list.firstChild);
+
+      document.getElementById('ideaName').value = '';
+      document.getElementById('ideaContent').value = '';
+      showToast('Uw idee is geplaatst', 'success');
+    }
+
+    function toggleVote(btn) {
+      btn.classList.toggle('voted');
+      const span = btn.querySelector('span');
+      let count = parseInt(span.textContent);
+      span.textContent = btn.classList.contains('voted') ? count + 1 : count - 1;
+    }
+
+    // Leden
+    let uploadedPhoto = null;
+
+    function handlePhotoUpload(event) {
+      const file = event.target.files[0];
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+          uploadedPhoto = e.target.result;
+          document.getElementById('photoPreview').innerHTML = `<img src="${uploadedPhoto}" alt="Preview">`;
+        };
+        reader.readAsDataURL(file);
+      }
+    }
+
+    function submitMemberIntro() {
+      const name = document.getElementById('memberName').value.trim();
+      const q1 = document.getElementById('question1').value.trim();
+      const q2 = document.getElementById('question2').value.trim();
+      const q3 = document.getElementById('question3').value.trim();
+      const q4 = document.getElementById('question4').value.trim();
+
+      if (!name) {
+        showToast('Vul minimaal uw naam in', 'error');
+        return;
+      }
+
+      const grid = document.getElementById('membersGrid');
+      const empty = grid.querySelector('.empty-state');
+      if (empty) empty.remove();
+
+      const card = document.createElement('div');
+      card.className = 'member-card';
+      
+      const photoHTML = uploadedPhoto 
+        ? `<img src="${uploadedPhoto}" alt="${escapeHtml(name)}">`
+        : `<div class="member-photo-placeholder">👤</div>`;
+
+      card.innerHTML = `
+        <div class="member-photo">${photoHTML}</div>
+        <div class="member-info">
+          <div class="member-name">${escapeHtml(name)}</div>
+          ${q1 ? `<div class="member-qa"><p class="member-question">Verhouding tot AI</p><p class="member-answer">${escapeHtml(q1)}</p></div>` : ''}
+          ${q2 ? `<div class="member-qa"><p class="member-question">Studie AI/algoritmen</p><p class="member-answer">${escapeHtml(q2)}</p></div>` : ''}
+          ${q3 ? `<div class="member-qa"><p class="member-question">Persoonlijk belang</p><p class="member-answer">${escapeHtml(q3)}</p></div>` : ''}
+          ${q4 ? `<div class="member-qa"><p class="member-question">AI als dreiging?</p><p class="member-answer">${escapeHtml(q4)}</p></div>` : ''}
+        </div>
+      `;
+
+      grid.insertBefore(card, grid.firstChild);
+
+      document.getElementById('memberName').value = '';
+      document.getElementById('question1').value = '';
+      document.getElementById('question2').value = '';
+      document.getElementById('question3').value = '';
+      document.getElementById('question4').value = '';
+      document.getElementById('photoPreview').innerHTML = '<span style="font-size: 24px; color: #999;">📷</span>';
+      uploadedPhoto = null;
+
+      showToast('Uw profiel is opgeslagen', 'success');
+    }
+
+    // Contact
+    function submitContact() {
+      const name = document.getElementById('contactName').value.trim();
+      const email = document.getElementById('contactEmail').value.trim();
+      const message = document.getElementById('contactMessage').value.trim();
+
+      if (!name || !email || !message) {
+        showToast('Vul alle velden in', 'error');
+        return;
+      }
+
+      showToast('Uw bericht is verzonden', 'success');
+      document.getElementById('contactName').value = '';
+      document.getElementById('contactEmail').value = '';
+      document.getElementById('contactMessage').value = '';
+    }
+
+    // Helpers
+    function showToast(message, type) {
+      const toast = document.getElementById('toast');
+      toast.textContent = message;
+      toast.className = 'toast ' + type + ' show';
+      setTimeout(() => toast.classList.remove('show'), 3000);
+    }
+
+    function escapeHtml(text) {
+      const div = document.createElement('div');
+      div.textContent = text;
+      return div.innerHTML;
+    }
+
+    // Check saved polls
+    document.querySelectorAll('.poll-box').forEach(box => {
+      if (localStorage.getItem('poll_' + box.dataset.pollId)) {
+        const btn = box.querySelector('.btn');
+        btn.textContent = 'U heeft al gestemd';
+        btn.disabled = true;
+        btn.style.opacity = '0.6';
+      }
+    });
+  </script>
+
+</body>
+</html>
+
