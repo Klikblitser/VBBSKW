@@ -150,6 +150,42 @@
       margin-bottom: 5px;
     }
 
+    /* CryptPad Embed */
+    .pad-selector {
+      display: flex;
+      gap: 5px;
+      margin-bottom: 10px;
+    }
+    .pad-tab {
+      padding: 8px 15px;
+      background: #fff;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      font-family: Arial, sans-serif;
+      font-size: 13px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .pad-tab:hover {
+      background: #f0f8ff;
+    }
+    .pad-tab.active {
+      background: #004080;
+      color: white;
+      border-color: #004080;
+    }
+    .cryptpad-embed {
+      background: #fff;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      overflow: hidden;
+    }
+    .cryptpad-embed iframe {
+      width: 100%;
+      height: 500px;
+      display: block;
+    }
+
     /* Formulieren */
     .form-box {
       background: #fff;
@@ -588,26 +624,27 @@
       <hr style="margin: 30px 0; border: none; border-top: 1px solid #ddd;">
 
       <h3>📝 Samen documenten bewerken</h3>
-      <p>Werk samen aan documenten in CryptPad (end-to-end versleuteld):</p>
-      <ul class="pad-list">
-        <li>
-          <a href="https://cryptpad.fr/pad/#/2/pad/edit/vbbskw-notulen/" target="_blank" class="pad-link">
-            📝 <strong>Notulen</strong> - Vergadernotities en besluitenlijst
-          </a>
-        </li>
-        <li>
-          <a href="https://cryptpad.fr/pad/#/2/pad/edit/vbbskw-concepten/" target="_blank" class="pad-link">
-            📄 <strong>Concepten</strong> - Gezamenlijk werken aan brieven
-          </a>
-        </li>
-        <li>
-          <a href="https://cryptpad.fr/pad/#/2/pad/edit/vbbskw-brainstorm/" target="_blank" class="pad-link">
-            💡 <strong>Brainstorm</strong> - Ideeën verzamelen en uitwerken
-          </a>
-        </li>
-      </ul>
-      <p style="font-size: 13px; color: #666;">
-        <a href="https://cryptpad.fr" target="_blank">ℹ️ Over CryptPad</a> - Privacy-vriendelijk, geen account nodig
+      <p>Werk real-time samen met andere leden (end-to-end versleuteld):</p>
+      
+      <div class="pad-selector">
+        <button class="pad-tab active" onclick="switchPad('brainstorm', this)">💡 Brainstorm</button>
+        <button class="pad-tab" onclick="switchPad('notulen', this)">📝 Notulen</button>
+        <button class="pad-tab" onclick="switchPad('concepten', this)">📄 Concepten</button>
+      </div>
+      
+      <div class="cryptpad-embed">
+        <iframe 
+          id="cryptpad-frame"
+          src="https://cryptpad.fr/pad/#/2/pad/edit/PLACEHOLDER-BRAINSTORM"
+          frameborder="0"
+          allowfullscreen
+        ></iframe>
+      </div>
+      
+      <p style="font-size: 13px; color: #666; margin-top: 10px;">
+        🔒 End-to-end versleuteld · Geen account nodig · 
+        <a href="#" onclick="openFullscreen()" style="color: #0066cc;">↗️ Volledig scherm</a> · 
+        <a href="https://cryptpad.fr" target="_blank">Over CryptPad</a>
       </p>
     </div>
 
@@ -940,6 +977,38 @@
       window.location.href = `mailto:voorzitter@vbbskw.com?subject=${subject}&body=${body}`;
       
       showToast('E-mail wordt geopend...', 'success');
+    }
+
+    // ===== CRYPTPAD =====
+    // BELANGRIJK: Vervang deze URLs met uw echte CryptPad URLs!
+    const cryptpadUrls = {
+      brainstorm: 'https://cryptpad.fr/pad/#/2/pad/edit/PLACEHOLDER-BRAINSTORM',
+      notulen: 'https://cryptpad.fr/pad/#/2/pad/edit/PLACEHOLDER-NOTULEN',
+      concepten: 'https://cryptpad.fr/pad/#/2/pad/edit/PLACEHOLDER-CONCEPTEN'
+    };
+
+    function switchPad(padName, btn) {
+      // Update active tab
+      document.querySelectorAll('.pad-tab').forEach(t => t.classList.remove('active'));
+      btn.classList.add('active');
+      
+      // Switch iframe source
+      const frame = document.getElementById('cryptpad-frame');
+      frame.src = cryptpadUrls[padName];
+    }
+
+    function openFullscreen() {
+      const frame = document.getElementById('cryptpad-frame');
+      if (frame.requestFullscreen) {
+        frame.requestFullscreen();
+      } else if (frame.webkitRequestFullscreen) {
+        frame.webkitRequestFullscreen();
+      } else if (frame.msRequestFullscreen) {
+        frame.msRequestFullscreen();
+      } else {
+        // Fallback: open in new tab
+        window.open(frame.src, '_blank');
+      }
     }
 
     // ===== HELPERS =====
