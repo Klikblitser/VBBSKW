@@ -572,7 +572,10 @@
   <div class="toast" id="toast"></div>
 
   <script>
-    // Tabs
+    // ===== CONFIGURATIE =====
+    const API_BASE = 'https://vbbskw.vercel.app/api';
+
+    // ===== TABS =====
     document.querySelectorAll('.tab-btn').forEach(btn => {
       btn.addEventListener('click', () => {
         document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
@@ -582,7 +585,7 @@
       });
     });
 
-    // Poll
+    // ===== POLL =====
     document.querySelectorAll('.poll-option').forEach(option => {
       option.addEventListener('click', function() {
         this.closest('.poll-box').querySelectorAll('.poll-option').forEach(o => o.classList.remove('selected'));
@@ -605,52 +608,141 @@
       showToast('Uw stem is geregistreerd', 'success');
     }
 
-    // Ideeën
-    function submitIdea() {
+    // ===== IDEEËN =====
+    async function loadIdeeen() {
+      try {
+        const response = await fetch(`${API_BASE}/ideeen`);
+        if (!response.ok) throw new Error('Laden mislukt');
+        const ideeen = await response.json();
+        renderIdeeen(ideeen);
+      } catch (error) {
+        console.error('Fout bij laden ideeën:', error);
+      }
+    }
+
+    function renderIdeeen(ideeen) {
+      const list = document.getElementById('ideasList');
+      if (ideeen.length === 0) {
+        list.innerHTML = '<div class="empty-state">Er zijn nog geen ideeën ingediend. Wees de eerste!</div>';
+        return;
+      }
+      list.innerHTML = ideeen.map(idee => `
+        <div class="idea-card" data-id="${idee.id}">
+          <div class="idea-meta">
+            <span class="idea-author">${escapeHtml(idee.naam)}</span>
+            <span class="idea-date">${new Date(idee.created_at).toLocaleDateString('nl-NL')}</span>
+          </div>
+          <p class="idea-content">${escapeHtml(idee.inhoud)}</p>
+          <div class="idea-votes">
+            <button class="vote-btn" onclick="voteIdea('${idee.id}', 'up', this)">👍 <span>${idee.upvotes || 0}</span></button>
+            <button class="vote-btn" onclick="voteIdea('${idee.id}', 'down', this)">👎 <span>${idee.downvotes || 0}</span></button>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    async function submitIdea() {
       const name = document.getElementById('ideaName').value.trim();
       const content = document.getElementById('ideaContent').value.trim();
+      
       if (!name || !content) {
         showToast('Vul alle velden in', 'error');
         return;
       }
 
-      const list = document.getElementById('ideasList');
-      const empty = list.querySelector('.empty-state');
-      if (empty) empty.remove();
+      try {
+        const response = await fetch(`${API_BASE}/ideeen`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ naam: name, inhoud: content })
+        });
 
-      const card = document.createElement('div');
-      card.className = 'idea-card';
-      card.innerHTML = `
-        <div class="idea-meta">
-          <span class="idea-author">${escapeHtml(name)}</span>
-          <span class="idea-date">${new Date().toLocaleDateString('nl-NL')}</span>
-        </div>
-        <p class="idea-content">${escapeHtml(content)}</p>
-        <div class="idea-votes">
-          <button class="vote-btn" onclick="toggleVote(this)">👍 <span>0</span></button>
-          <button class="vote-btn" onclick="toggleVote(this)">👎 <span>0</span></button>
-        </div>
-      `;
-      list.insertBefore(card, list.firstChild);
+        if (!response.ok) throw new Error('Opslaan mislukt');
 
-      document.getElementById('ideaName').value = '';
-      document.getElementById('ideaContent').value = '';
-      showToast('Uw idee is geplaatst', 'success');
+        document.getElementById('ideaName').value = '';
+        document.getElementById('ideaContent').value = '';
+        showToast('Uw idee is geplaatst', 'success');
+        loadIdeeen();
+      } catch (error) {
+        console.error('Fout:', error);
+        showToast('Er ging iets mis bij het opslaan', 'error');
+      }
     }
 
-    function toggleVote(btn) {
-      btn.classList.toggle('voted');
-      const span = btn.querySelector('span');
-      let count = parseInt(span.textContent);
-      span.textContent = btn.classList.contains('voted') ? count + 1 : count - 1;
+    async function voteIdea(id, vote, btn) {
+      // Check of al gestemd
+      const voteKey = `voted_${id}_${vote}`;
+      if (localStorage.getItem(voteKey)) {
+        showToast('U heeft al gestemd', 'error');
+        return;
+      }
+
+      try {
+        const response = await fetch(`${API_BASE}/ideeen`, {
+          method: 'PATCH',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ id, vote })
+        });
+
+        if (!response.ok) throw new Error('Vote mislukt');
+
+        localStorage.setItem(voteKey, 'true');
+        btn.classList.add('voted');
+        const span = btn.querySelector('span');
+        span.textContent = parseInt(span.textContent) + 1;
+      } catch (error) {
+        console.error('Fout:', error);
+        showToast('Er ging iets mis', 'error');
+      }
     }
 
-    // Leden
+    // ===== LEDEN =====
     let uploadedPhoto = null;
+
+    async function loadLeden() {
+      try {
+        const response = await fetch(`${API_BASE}/leden`);
+        if (!response.ok) throw new Error('Laden mislukt');
+        const leden = await response.json();
+        renderLeden(leden);
+      } catch (error) {
+        console.error('Fout bij laden leden:', error);
+      }
+    }
+
+    function renderLeden(leden) {
+      const grid = document.getElementById('membersGrid');
+      if (leden.length === 0) {
+        grid.innerHTML = '<div class="empty-state" style="grid-column: 1 / -1;">Er hebben zich nog geen leden voorgesteld. Wees de eerste!</div>';
+        return;
+      }
+      grid.innerHTML = leden.map(lid => {
+        const photoHTML = lid.foto 
+          ? `<img src="${lid.foto}" alt="${escapeHtml(lid.naam)}">`
+          : `<div class="member-photo-placeholder">👤</div>`;
+        return `
+          <div class="member-card">
+            <div class="member-photo">${photoHTML}</div>
+            <div class="member-info">
+              <div class="member-name">${escapeHtml(lid.naam)}</div>
+              ${lid.vraag1 ? `<div class="member-qa"><p class="member-question">Verhouding tot AI</p><p class="member-answer">${escapeHtml(lid.vraag1)}</p></div>` : ''}
+              ${lid.vraag2 ? `<div class="member-qa"><p class="member-question">Studie AI/algoritmen</p><p class="member-answer">${escapeHtml(lid.vraag2)}</p></div>` : ''}
+              ${lid.vraag3 ? `<div class="member-qa"><p class="member-question">Persoonlijk belang</p><p class="member-answer">${escapeHtml(lid.vraag3)}</p></div>` : ''}
+              ${lid.vraag4 ? `<div class="member-qa"><p class="member-question">AI als dreiging?</p><p class="member-answer">${escapeHtml(lid.vraag4)}</p></div>` : ''}
+            </div>
+          </div>
+        `;
+      }).join('');
+    }
 
     function handlePhotoUpload(event) {
       const file = event.target.files[0];
       if (file) {
+        // Check bestandsgrootte (max 500KB)
+        if (file.size > 500000) {
+          showToast('Foto te groot (max 500KB)', 'error');
+          return;
+        }
         const reader = new FileReader();
         reader.onload = function(e) {
           uploadedPhoto = e.target.result;
@@ -660,7 +752,7 @@
       }
     }
 
-    function submitMemberIntro() {
+    async function submitMemberIntro() {
       const name = document.getElementById('memberName').value.trim();
       const q1 = document.getElementById('question1').value.trim();
       const q2 = document.getElementById('question2').value.trim();
@@ -672,42 +764,39 @@
         return;
       }
 
-      const grid = document.getElementById('membersGrid');
-      const empty = grid.querySelector('.empty-state');
-      if (empty) empty.remove();
+      try {
+        const response = await fetch(`${API_BASE}/leden`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            naam: name,
+            foto: uploadedPhoto,
+            vraag1: q1,
+            vraag2: q2,
+            vraag3: q3,
+            vraag4: q4
+          })
+        });
 
-      const card = document.createElement('div');
-      card.className = 'member-card';
-      
-      const photoHTML = uploadedPhoto 
-        ? `<img src="${uploadedPhoto}" alt="${escapeHtml(name)}">`
-        : `<div class="member-photo-placeholder">👤</div>`;
+        if (!response.ok) throw new Error('Opslaan mislukt');
 
-      card.innerHTML = `
-        <div class="member-photo">${photoHTML}</div>
-        <div class="member-info">
-          <div class="member-name">${escapeHtml(name)}</div>
-          ${q1 ? `<div class="member-qa"><p class="member-question">Verhouding tot AI</p><p class="member-answer">${escapeHtml(q1)}</p></div>` : ''}
-          ${q2 ? `<div class="member-qa"><p class="member-question">Studie AI/algoritmen</p><p class="member-answer">${escapeHtml(q2)}</p></div>` : ''}
-          ${q3 ? `<div class="member-qa"><p class="member-question">Persoonlijk belang</p><p class="member-answer">${escapeHtml(q3)}</p></div>` : ''}
-          ${q4 ? `<div class="member-qa"><p class="member-question">AI als dreiging?</p><p class="member-answer">${escapeHtml(q4)}</p></div>` : ''}
-        </div>
-      `;
+        document.getElementById('memberName').value = '';
+        document.getElementById('question1').value = '';
+        document.getElementById('question2').value = '';
+        document.getElementById('question3').value = '';
+        document.getElementById('question4').value = '';
+        document.getElementById('photoPreview').innerHTML = '<span style="font-size: 24px; color: #999;">📷</span>';
+        uploadedPhoto = null;
 
-      grid.insertBefore(card, grid.firstChild);
-
-      document.getElementById('memberName').value = '';
-      document.getElementById('question1').value = '';
-      document.getElementById('question2').value = '';
-      document.getElementById('question3').value = '';
-      document.getElementById('question4').value = '';
-      document.getElementById('photoPreview').innerHTML = '<span style="font-size: 24px; color: #999;">📷</span>';
-      uploadedPhoto = null;
-
-      showToast('Uw profiel is opgeslagen', 'success');
+        showToast('Uw profiel is opgeslagen', 'success');
+        loadLeden();
+      } catch (error) {
+        console.error('Fout:', error);
+        showToast('Er ging iets mis bij het opslaan', 'error');
+      }
     }
 
-    // Contact
+    // ===== CONTACT =====
     function submitContact() {
       const name = document.getElementById('contactName').value.trim();
       const email = document.getElementById('contactEmail').value.trim();
@@ -718,13 +807,15 @@
         return;
       }
 
-      showToast('Uw bericht is verzonden', 'success');
-      document.getElementById('contactName').value = '';
-      document.getElementById('contactEmail').value = '';
-      document.getElementById('contactMessage').value = '';
+      // mailto link openen
+      const subject = encodeURIComponent('Contact via participatiepagina');
+      const body = encodeURIComponent(`Naam: ${name}\nE-mail: ${email}\n\nBericht:\n${message}`);
+      window.location.href = `mailto:voorzitter@vbbskw.com?subject=${subject}&body=${body}`;
+      
+      showToast('E-mail wordt geopend...', 'success');
     }
 
-    // Helpers
+    // ===== HELPERS =====
     function showToast(message, type) {
       const toast = document.getElementById('toast');
       toast.textContent = message;
@@ -738,17 +829,25 @@
       return div.innerHTML;
     }
 
-    // Check saved polls
-    document.querySelectorAll('.poll-box').forEach(box => {
-      if (localStorage.getItem('poll_' + box.dataset.pollId)) {
-        const btn = box.querySelector('.btn');
-        btn.textContent = 'U heeft al gestemd';
-        btn.disabled = true;
-        btn.style.opacity = '0.6';
-      }
+    // ===== INITIALISATIE =====
+    document.addEventListener('DOMContentLoaded', function() {
+      // Check saved polls
+      document.querySelectorAll('.poll-box').forEach(box => {
+        if (localStorage.getItem('poll_' + box.dataset.pollId)) {
+          const btn = box.querySelector('.btn');
+          btn.textContent = 'U heeft al gestemd';
+          btn.disabled = true;
+          btn.style.opacity = '0.6';
+        }
+      });
+
+      // Laad data van server
+      loadIdeeen();
+      loadLeden();
     });
   </script>
 
 </body>
 </html>
+
 
