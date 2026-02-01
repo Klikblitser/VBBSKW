@@ -65,11 +65,20 @@
     }
 
     /* Nieuws */
+    .news-item-link {
+      text-decoration: none;
+      display: block;
+    }
     .news-item {
       padding: 15px;
       background: #fff;
       border-left: 3px solid #004080;
       margin-bottom: 15px;
+      transition: background 0.2s, border-color 0.2s;
+    }
+    .news-item:hover {
+      background: #f0f8ff;
+      border-left-color: #0066cc;
     }
     .news-date {
       font-size: 12px;
@@ -83,7 +92,12 @@
     .news-excerpt {
       font-size: 14px;
       color: #444;
-      margin: 0;
+      margin: 0 0 10px 0;
+    }
+    .read-more {
+      font-size: 13px;
+      color: #0066cc;
+      font-weight: bold;
     }
 
     /* Formulieren */
@@ -436,7 +450,7 @@
 <body>
 
   <h1>Participatie</h1>
-  <p>Deel je mening, en geef even een korte introductie van jezelf.</p>
+  <p>Uw stem telt. Deel uw mening, ideeën en maak kennis met andere leden.</p>
 
   <div class="tabs">
     <div class="tab-nav">
@@ -455,11 +469,14 @@
         {% if site.nieuws.size > 0 %}
           {% assign sorted_nieuws = site.nieuws | sort: 'date' | reverse %}
           {% for item in sorted_nieuws %}
-            <div class="news-item">
-              <span class="news-date">{{ item.date | date: "%d %B %Y" }}</span>
-              <h3 class="news-title">{{ item.title }}</h3>
-              <p class="news-excerpt">{{ item.content | strip_html | truncatewords: 50 }}</p>
-            </div>
+            <a href="{{ item.url }}" class="news-item-link">
+              <div class="news-item">
+                <span class="news-date">{{ item.date | date: "%d %B %Y" }}</span>
+                <h3 class="news-title">{{ item.title }}</h3>
+                <p class="news-excerpt">{{ item.content | strip_html | truncatewords: 50 }}</p>
+                <span class="read-more">Lees meer →</span>
+              </div>
+            </a>
           {% endfor %}
         {% else %}
           <div class="empty-state">Er zijn nog geen nieuwsberichten geplaatst.</div>

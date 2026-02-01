@@ -12,6 +12,6 @@ sass:
 # Collecties voor participatie nieuws
 collections:
   nieuws:
-    output: false
-    sort_by: date
+    output: true
+    permalink: /nieuws/:title/
 

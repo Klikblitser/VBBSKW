@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{{ page.title }} | VBBSKW</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      max-width: 800px;
+      margin: 40px auto;
+      padding: 0 20px;
+      background-color: #F0F8FF;
+      color: #333;
+      line-height: 1.6;
+    }
+    h1, h2, h3 {
+      color: #004080;
+    }
+    a {
+      color: #0066cc;
+      text-decoration: none;
+    }
+    a:hover {
+      text-decoration: underline;
+    }
+    .nieuws-date {
+      color: #666;
+      font-style: italic;
+      margin-bottom: 20px;
+    }
+    .nieuws-content {
+      margin: 20px 0;
+    }
+    .terug-link {
+      margin-top: 30px;
+      padding-top: 20px;
+      border-top: 1px solid #ddd;
+    }
+  </style>
+</head>
+<body>
+  <article>
+    <h1>{{ page.title }}</h1>
+    <p class="nieuws-date">{{ page.date | date: "%d %B %Y" }}</p>
+    
+    <div class="nieuws-content">
+      {{ content }}
+    </div>
+  </article>
+  
+  <p class="terug-link"><a href="/participatie.html">⬅️ Terug naar participatie</a></p>
+</body>
+</html>
+
