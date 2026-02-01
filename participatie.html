@@ -581,17 +581,17 @@
           <label class="poll-option">
             <input type="radio" name="poll1" value="ja">
             <span class="poll-radio"></span>
-            <span>Ja, strengere regulering is noodzakelijk</span>
+            <span class="poll-label">Ja, strengere regulering is noodzakelijk</span>
           </label>
           <label class="poll-option">
             <input type="radio" name="poll1" value="nee">
             <span class="poll-radio"></span>
-            <span>Nee, de markt moet zichzelf reguleren</span>
+            <span class="poll-label">Nee, de markt moet zichzelf reguleren</span>
           </label>
           <label class="poll-option">
             <input type="radio" name="poll1" value="gedeeltelijk">
             <span class="poll-radio"></span>
-            <span>Gedeeltelijk, alleen voor specifieke toepassingen</span>
+            <span class="poll-label">Gedeeltelijk, alleen voor specifieke toepassingen</span>
           </label>
         </div>
         <div class="poll-results"></div>
@@ -758,18 +758,92 @@
       });
     });
 
-    function submitPoll(btn) {
+    async function submitPoll(btn) {
       const box = btn.closest('.poll-box');
+      const peilingId = box.dataset.pollId;
       const selected = box.querySelector('.poll-option.selected');
+      
       if (!selected) {
         showToast('Selecteer eerst een optie', 'error');
         return;
       }
-      localStorage.setItem('poll_' + box.dataset.pollId, selected.querySelector('input').value);
-      btn.textContent = 'Bedankt voor uw stem';
-      btn.disabled = true;
-      btn.style.opacity = '0.6';
-      showToast('Uw stem is geregistreerd', 'success');
+
+      // Check of al gestemd
+      if (localStorage.getItem('poll_' + peilingId)) {
+        showToast('U heeft al gestemd', 'error');
+        return;
+      }
+
+      const antwoord = selected.querySelector('input').value;
+
+      try {
+        btn.disabled = true;
+        btn.textContent = 'Verzenden...';
+
+        const response = await fetch(`${API_BASE}/peilingen`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ peiling_id: peilingId, antwoord: antwoord })
+        });
+
+        if (!response.ok) throw new Error('Stem mislukt');
+
+        localStorage.setItem('poll_' + peilingId, antwoord);
+        btn.textContent = 'Bedankt voor uw stem!';
+        btn.style.opacity = '0.6';
+        showToast('Uw stem is geregistreerd', 'success');
+        
+        // Laad en toon resultaten
+        loadPollResults(peilingId, box);
+      } catch (error) {
+        console.error('Fout:', error);
+        btn.disabled = false;
+        btn.textContent = 'Stem verzenden';
+        showToast('Er ging iets mis', 'error');
+      }
+    }
+
+    async function loadPollResults(peilingId, box) {
+      try {
+        const response = await fetch(`${API_BASE}/peilingen?peiling_id=${peilingId}`);
+        if (!response.ok) throw new Error('Laden mislukt');
+        
+        const data = await response.json();
+        renderPollResults(box, data);
+      } catch (error) {
+        console.error('Fout bij laden resultaten:', error);
+      }
+    }
+
+    function renderPollResults(box, data) {
+      const resultsDiv = box.querySelector('.poll-results');
+      if (!resultsDiv || data.totaal === 0) return;
+
+      let html = `<p style="font-size: 13px; color: #666; margin-bottom: 10px;">Totaal ${data.totaal} stem${data.totaal === 1 ? '' : 'men'}</p>`;
+      
+      // Get all options from the poll
+      const options = box.querySelectorAll('.poll-option');
+      options.forEach(opt => {
+        const value = opt.querySelector('input').value;
+        const label = opt.querySelector('.poll-label')?.textContent || value;
+        const count = data.resultaten[value] || 0;
+        const percentage = data.totaal > 0 ? Math.round((count / data.totaal) * 100) : 0;
+        
+        html += `
+          <div class="result-bar">
+            <div class="result-label">
+              <span>${label}</span>
+              <span>${percentage}% (${count})</span>
+            </div>
+            <div class="result-track">
+              <div class="result-fill" style="width: ${percentage}%"></div>
+            </div>
+          </div>
+        `;
+      });
+
+      resultsDiv.innerHTML = html;
+      resultsDiv.classList.add('show');
     }
 
     // ===== IDEEËN =====
@@ -1026,9 +1100,15 @@
 
     // ===== INITIALISATIE =====
     document.addEventListener('DOMContentLoaded', function() {
-      // Check saved polls
+      // Check saved polls en laad resultaten
       document.querySelectorAll('.poll-box').forEach(box => {
-        if (localStorage.getItem('poll_' + box.dataset.pollId)) {
+        const peilingId = box.dataset.pollId;
+        
+        // Laad altijd de huidige resultaten
+        loadPollResults(peilingId, box);
+        
+        // Als al gestemd, disable de knop
+        if (localStorage.getItem('poll_' + peilingId)) {
           const btn = box.querySelector('.btn');
           btn.textContent = 'U heeft al gestemd';
           btn.disabled = true;
