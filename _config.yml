@@ -9,3 +9,9 @@ plugins:
 sass:
   style: compressed
 
+# Collecties voor participatie nieuws
+collections:
+  nieuws:
+    output: false
+    sort_by: date
+
