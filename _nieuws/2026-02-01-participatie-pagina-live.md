@@ -4,12 +4,8 @@ title: "Participatiepagina is live!"
 date: 2026-02-01
 ---
 
-Vandaag lanceren we onze nieuwe participatiepagina. Hier kunt u:
+Welkom op de participatiepagina.
 
-- Uw mening geven via peilingen
-- Ideeën delen met andere leden
-- Uzelf voorstellen aan de gemeenschap
-- Contact opnemen met het bestuur
+De volgende podcast van het journalistieke team van de Piraten Partij zal over AI gaan. Omdat dit een heel breed onderwerp is (geworden in korte tijd) gaan we samen bepalen welke onderwerpen we het liefst willen bespreken. Om dit op een democratische manier te doen is op deze manier mogelijk om ideeën te deponeren en jezelf even voor te stellen.
 
-We nodigen alle leden uit om zich voor te stellen en actief mee te doen!
-
+Alvast bedankt!
