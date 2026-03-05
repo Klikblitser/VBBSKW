@@ -6,7 +6,7 @@ title: "Het Spiegelhuis der Waarheid"
 
 date: 2026-03-05
 
-thumbnail: /assets/images/shield%20of%20bionic%20lady%20justitia.jpg
+thumbnail: /assets/images/shield of bionic lady justitia.jpg
 
 ---
 
@@ -16,7 +16,7 @@ Het Spiegelhuis der Waarheid
 
 
 
-\_De strijd om betekenis in een tijdperk van algoritmische waarheden\_
+*De strijd om betekenis in een tijdperk van algoritmische waarheden*
 
 
 
