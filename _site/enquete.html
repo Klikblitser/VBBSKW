@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <title>Enquête – Ligplaatsen voor woonboten</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+    body {
+      font-family: Arial, sans-serif;
+      max-width: 800px;
+      margin: 40px auto;
+      padding: 0 20px;
+      background-color: #F0F8FF;
+      color: #333;
+    }
+    h1, h2 {
+      color: #004080;
+        }
+        fieldset {
+            margin-bottom: 25px;
+            padding: 20px;
+            border: 1px solid #ccc;
+        }
+        legend {
+            font-weight: bold;
+        }
+        label {
+            display: block;
+            margin: 6px 0;
+        }
+        textarea {
+            width: 100%;
+            min-height: 80px;
+        }
+        .submit {
+            padding: 12px 25px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        .privacy {
+            font-size: 0.9em;
+            color: #010661;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+
+<body>
+
+<h1>Enquête – Ligplaatskwesties en Historische Schepen</h1>
+
+<p class="privacy">
+Deze enquête is anoniem. Er worden geen IP-adressen opgeslagen.
+De antwoorden worden uitsluitend gebruikt voor een geanonimiseerde inventarisatie.
+</p>
+
+<form id="enqueteForm" action="https://formspree.io/f/xbdlnwpw" method="POST">
+
+<!-- A. Algemene situatie -->
+<fieldset>
+    <legend>A. Algemene situatie</legend>
+
+    <label>
+        1. Bent u lid van een behouds- of belangenvereniging?<br>
+        <input type="checkbox" name="Vereniging" value="LWO"> Ik ben lid van de LWO<br>
+        <input type="checkbox" name="Vereniging" value="ExLWO"> Ik <strong>WAS</strong> lid van de LWO<br>
+        <input type="checkbox" name="Vereniging" value="LVBHB"> Ik ben lid van de LVBHB<br>
+        <input type="checkbox" name="Vereniging" value="ExLVBHB"> Ik <strong>WAS</strong> lid van de LVBHB<br>
+        <input type="checkbox" name="Vereniging" value="Andere"> Andere vereniging namelijk; <input type="text" name="Andere vereniging" value=""> <br>
+        <input type="checkbox" name="Vereniging" value="Geen"> Geen<br>       
+    </label>
+
+
+    <label>
+        2. Type schip:<br>
+        <input type="radio" name="Type schip" value="Historisch varend"> Historisch varend<br>
+        <input type="radio" name="Type schip" value="Historisch stilligend"> Historisch stilligend<br>
+        <input type="radio" name="Type schip" value="Varend"> Varend<br>
+        <input type="radio" name="Type schip" value="Stilligend"> Stilligend<br>
+        <input type="radio" name="Type schip" value="Moderne waterwoning"> Moderne waterwoning<br>
+        <input type="radio" name="Type schip" value="Ark"> Ark<br>
+        <input type="radio" name="Type schip" value="Schark"> Schark<br>
+        <input type="radio" name="Type schip" value="Andere"> Andere type schip namelijk; <input type="text" name="Andere type schip" value=""> <br>
+    </label>
+
+    <label>
+        3. Is/was het schip primair gebruikt voor bewoning?<br>
+        <input type="radio" name="Bewoning" value="Ja"> Ja<br>
+        <input type="radio" name="Bewoning" value="Nee"> Nee<br>
+        <input type="radio" name="Bewoning" value="In het verleden"> In het verleden
+    </label>
+
+    <label>
+        4. Had/heeft u een vaste ligplaats?<br>
+        <input type="checkbox" name="Ligplaats" value="Vergunning van gemeente- en/of provincie"> Met gemeentelijke- en/of provinciale vergunning<br>
+        <input type="checkbox" name="Ligplaats" value="Vergunning van staat"> Met vergunning van de Staat<br>
+        <input type="checkbox" name="Ligplaats" value="Ontheffing van gemeente- en/of provincie"> Met ontheffing van gemeente- en/of provincie<br>
+        <input type="checkbox" name="Ligplaats" value="Ontheffing van staat"> Met ontheffing van de Staat<br>
+        <input type="checkbox" name="Ligplaats" value="Gedoogd"> Gedoogd<br>
+        <input type="checkbox" name="Ligplaats" value="Onzekere status"> Onzekere status<br>
+        <input type="checkbox" name="Ligplaats" value="Geen vaste ligplaats"> Geen vaste ligplaats
+    </label>
+
+<label>
+    5. Welke vorm van huur is of was van toepassing op uw ligplaats?:<br>
+    <input type="checkbox" name="Betaling conform" value="Havengeld"> Havengeld<br>
+    <input type="checkbox" name="Betaling conform" value="Huur via overeenkomst"> Huur via overeenkomst<br>
+    <input type="checkbox" name="Betaling conform" value="Erfpacht"> Erfpacht<br>
+    <input type="checkbox" name="Betaling conform" value="Precario"> Precario<br>
+    <input type="checkbox" name="Betaling conform" value="Concessievergoeding"> Consessievergoeding<br>
+    <input type="checkbox" name="Betaling conform" value="Geen betaling"> Geen betaling<br>
+</label>
+</fieldset>
+
+<!-- B. Conflicten -->
+<fieldset>
+    <legend>B. Conflicten</legend>
+
+    <label>
+        6. Heeft u een conflict gehad met een overheidshandeling van een of meer van de volgende overheden?:<br>
+        <input type="checkbox" name="Conflict met" value="Gemeente"> Gemeente<br>
+        <input type="checkbox" name="Conflict met" value="Rijkswaterstaat"> Rijkswaterstaat<br>
+        <input type="checkbox" name="Conflict met" value="Provincie"> Provincie<br>
+        <input type="checkbox" name="Conflict met" value="Havenbedrijf"> Havenbedrijf<br>
+        <input type="checkbox" name="Conflict met" value="Geen conflict"> Geen conflict
+    </label>
+
+    <label>
+        7. Waar ging het conflict over?<br>
+        <input type="checkbox" name="Onderwerp conflict" value="Bestemmingsplan"> Bestemmingsplan<br>
+        <input type="checkbox" name="Onderwerp conflict" value="Ligplaatsvergunning"> Ligplaatsvergunning<br>
+        <input type="checkbox" name="Onderwerp conflict" value="Handhaving"> Handhaving<br>
+        <input type="checkbox" name="Onderwerp conflict" value="Einde gedoogbeleid"> Einde gedoogbeleid<br>
+        <input type="checkbox" name="Onderwerp conflict" value="Huur/opzegging"> Huur / opzegging
+    </label>
+</fieldset>
+
+<!-- C. Eigen beoordeling -->
+<fieldset>
+    <legend>C. Eigen beoordeling</legend>
+
+    <label>
+        8. Had u ten tijde van het conflict het gevoel dat:<br>
+        <input type="checkbox" name="Beoordeling" value="Niet kunnen weten"> Ik dit redelijkerwijs niet kon weten<br>
+        <input type="checkbox" name="Beoordeling" value="Langdurig gedoogd"> De situatie langdurig werd gedoogd<br>
+        <input type="checkbox" name="Beoordeling" value="Regels gewijzigd"> Regels later zijn gewijzigd<br>
+        <input type="checkbox" name="Beoordeling" value="Bewust risico"> Ik bewust een juridisch risico heb genomen<br>
+        <input type="checkbox" name="Beoordeling" value="Vergunning afdwingen"> Ik geprobeerd heb een vergunning af te dwingen
+    </label>
+
+    <label>
+        9. Met de kennis van nu vind ik mezelf:<br>
+        <input type="radio" name="Eigenschuld" value="Niet verwijtbaar"> Niet verwijtbaar<br>
+        <input type="radio" name="Eigenschuld" value="Gedeeltelijk verwijtbaar"> Gedeeltelijk verwijtbaar<br>
+        <input type="radio" name="Eigenschuld" value="Volledig verwijtbaar"> Volledig verwijtbaar<br>
+        <input type="radio" name="Eigenschuld" value="Moeilijk te beoordelen"> Moeilijk te beoordelen
+    </label>
+</fieldset>
+
+<!-- D. Gevolgen -->
+<fieldset>
+    <legend>D. Gevolgen</legend>
+
+    <label>
+        10. Heeft het conflict geleid tot:<br>
+        <input type="checkbox" name="Gevolgen" value="Vertrek schip"> Vertrek schip<br>
+        <input type="checkbox" name="Gevolgen" value="Einde bewoning"> Einde bewoning<br>
+        <input type="checkbox" name="Gevolgen" value="Stilliggen"> Stilliggen zonder perspectief<br>
+        <input type="checkbox" name="Gevolgen" value="Verkoop of sloop"> Verkoop of sloop<br>
+        <input type="checkbox" name="Gevolgen" value="Geen gevolgen"> Geen gevolgen
+    </label>
+
+    <label>
+        11. Heeft u tijdens een conflict ondersteuning gekregen van:<br>
+        <input type="checkbox" name="Ondersteuning" value="LWO"> LWO<br>
+        <input type="checkbox" name="Ondersteuning" value="LVBHB"> LVBHB<br>
+        <input type="checkbox" name="Ondersteuning" value="Andere vereniging"> Andere vereniging namelijk; <input type="text" name="Andere vereniging" value=""> <br>
+        <input type="checkbox" name="Ondersteuning" value="Gemeente"> Gemeente<br>
+        <input type="checkbox" name="Ondersteuning" value="Rijkswaterstaat"> Rijkswaterstaat<br>
+        <input type="checkbox" name="Ondersteuning" value="Vereniging"> Vereniging<br>
+        <input type="checkbox" name="Ondersteuning" value="Advocaat"> Advocaat<br>
+        <input type="checkbox" name="Ondersteuning" value="Juridische bijstand"> Juridische bijstand<br>
+        <input type="checkbox" name="Ondersteuning" value="Andere"> Andere ondersteuning namelijk; <input type="text" name="Andere ondersteuning" value=""> <br>
+        <input type="checkbox" name="Ondersteuning" value="Geen"> Geen
+    </label>
+
+    <label>
+        12. Toelichting (optioneel):
+        <textarea name="Toelichting"></textarea>
+    </label>
+</fieldset>
+
+<button type="submit" class="submit" id="submitBtn">Verstuur enquête</button>
+<div id="statusMessage" style="margin-top: 15px; padding: 10px; display: none;"></div>
+
+</form>
+
+<script>
+(function() {
+    'use strict';
+    
+    const form = document.getElementById('enqueteForm');
+    const submitBtn = document.getElementById('submitBtn');
+    const statusMessage = document.getElementById('statusMessage');
+    
+    form.addEventListener('submit', async function(e) {
+        e.preventDefault();
+        
+        // Disable button tijdens verzending
+        submitBtn.disabled = true;
+        submitBtn.textContent = 'Bezig met verzenden...';
+        statusMessage.style.display = 'none';
+        
+        const formData = new FormData(form);
+        
+        try {
+            const response = await fetch(form.action, {
+                method: 'POST',
+                body: formData,
+                headers: {
+                    'Accept': 'application/json'
+                }
+            });
+            
+            if (response.ok) {
+                statusMessage.style.display = 'block';
+                statusMessage.style.backgroundColor = '#d4edda';
+                statusMessage.style.color = '#155724';
+                statusMessage.style.border = '1px solid #c3e6cb';
+                statusMessage.innerHTML = '✅ <strong>Bedankt!</strong> Uw enquête is succesvol verzonden.';
+                form.reset();
+            } else {
+                throw new Error('Verzending mislukt');
+            }
+            
+        } catch (error) {
+            statusMessage.style.display = 'block';
+            statusMessage.style.backgroundColor = '#f8d7da';
+            statusMessage.style.color = '#721c24';
+            statusMessage.style.border = '1px solid #f5c6cb';
+            statusMessage.innerHTML = '❌ <strong>Fout:</strong> ' + error.message + '<br>Probeer het later opnieuw of neem contact op via penningmeester@vbbskw.com';
+        }
+        
+        // Reset button
+        submitBtn.disabled = false;
+        submitBtn.textContent = 'Verstuur enquête';
+    });
+})();
+</script>
+
+</body>
+</html>
+<p><a href="index.html">⬅️ Terug naar de hoofdpagina</a></p>

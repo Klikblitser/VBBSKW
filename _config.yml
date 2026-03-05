@@ -9,9 +9,12 @@ plugins:
 sass:
   style: compressed
 
-# Collecties voor participatie nieuws
+# Collecties voor participatie nieuws en posts
 collections:
   nieuws:
     output: true
     permalink: /nieuws/:title/
+  posts2:
+    output: true
+    permalink: /:year/:month/:day/:title/
 
