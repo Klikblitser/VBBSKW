@@ -24,7 +24,7 @@ We zouden aan de vooravond staan van AGI. Terwijl er geen algemeen aanvaarde def
 
 
 
-Wat betekend AI-geletterd zijn uberhaubt? Het bevestigingsvooroordeel wat mensen hebben bestond al voor AI, en wordt met de technologie alleen maar erger. Wanneer een voordeel bevestigd wordt zal de gebruiker het gevaar van hallucinatie eerder verwerpen dan meewegen in de beoordeling van het model.
+Wat betekend AI-geletterd zijn uberhaubt? Het bevestigingsvooroordeel wat mensen hebben bestond al voor AI, en wordt met de technologie alleen maar erger. Wanneer een voordeel bevestigd wordt zal de gebruiker het gevaar van hallucinatie eerder verwerpen dan meewegen in de beoordeling van het resultaat.
 
 
 
