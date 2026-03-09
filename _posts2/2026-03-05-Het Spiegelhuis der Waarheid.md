@@ -20,7 +20,7 @@ Het Spiegelhuis der Waarheid
 
 
 
-We zouden aan de vooravond staan van AGI. Terwijl er geen algemeen aanvaarde defenitie bestaat van wat menselijk intelligentie inhoud menen de AI guru's het ei van columbus binnenkort aan ons te mogen presenteren. Terwijl de EU heel ambitieus komt met een AI-verordening waarin ook is opgenomen dat medewerkers van overheid en bedrijven in europa AI-geletterd moeten zijn om zich hiermee bij te laten staan. Wederom worden de ethische kwesties vooral vertaald naar technische- en juridische kaders terwijl het maatschappelijk debat grotendeels adviserend en optioneel wordt behandeld.
+We zouden aan de vooravond staan van AGI. Terwijl er geen algemeen aanvaarde defenitie bestaat van wat menselijk intelligentie inhoud menen de AI guru's het ei van columbus binnenkort aan ons te mogen presenteren. Sinds de EU heel ambitieus met een AI-verordening is gekomen waarin ook is opgenomen dat medewerkers van overheden en bedrijven in europa AI-geletterd moeten zijn wanneer zij hiervan gebruik maken. Wederom worden de ethische kwesties vooral vertaald naar technische- en juridische kaders terwijl het maatschappelijk debat grotendeels adviserend en optioneel wordt behandeld.
 
 
 
