@@ -38,5 +38,5 @@ Waar we ons meer zorgen om moeten maken is dat wij, het proletariaat, te afgelei
 
 
 
-Het probleem is dat ethische vraagstukken vooral worden vertaald naar technische regels en juridische kaders. Het maatschappelijke debat blijft vaak adviserend en optioneel. Terwijl we ons juist zorgen zouden moeten maken over hoe AI onze perceptie van de werkelijkheid vormgeeft, en wie daarbij de macht heeft. Want kunstmatige waarheid is geen objectieve weergave van de realiteit, maar een constructie gebaseerd op data die door mensen (en dus met vooroordelen) is geselecteerd. Want een samenleving waar de heersende macht en het kapitaal bepaald wat 'de waarheid' is zal uiteindelijk vervallen aan een technocratische tirannie.
+Het probleem is dat ethische vraagstukken vooral worden vertaald naar technische regels en juridische kaders. Het maatschappelijke debat blijft vaak adviserend en optioneel. Terwijl we ons juist zorgen zouden moeten maken over hoe AI onze perceptie van de werkelijkheid vormgeeft, en wie daarbij de macht heeft. Want kunstmatige waarheid is geen objectieve weergave van de realiteit, maar een constructie gebaseerd op data die door mensen (en dus met vooroordelen) is geselecteerd. Een samenleving waar de heersende macht en het kapitaal bepaald wat 'de waarheid' is zal uiteindelijk vervallen aan een technocratische tirannie.
 
