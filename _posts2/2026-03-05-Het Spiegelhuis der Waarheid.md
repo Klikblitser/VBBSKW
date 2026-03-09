@@ -20,7 +20,7 @@ Het Spiegelhuis der Waarheid
 
 
 
-We zouden aan de vooravond staan van AGI. Terwijl er geen algemeen aanvaarde defenitie bestaat van wat menselijk intelligentie inhoud menen de AI guru's het ei van columbus binnenkort aan ons te mogen presenteren. Sinds de EU heel ambitieus met een AI-verordening is gekomen waarin ook is opgenomen dat medewerkers van overheden en bedrijven in europa AI-geletterd moeten zijn wanneer zij hiervan gebruik maken. Wederom worden de ethische kwesties vooral vertaald naar technische- en juridische kaders terwijl het maatschappelijk debat grotendeels adviserend en optioneel wordt behandeld.
+We zouden aan de vooravond staan van AGI. Terwijl er geen algemeen aanvaarde definitie bestaat van wat menselijk intelligentie inhoud menen de AI guru's het ei van Columbus binnenkort aan ons te mogen presenteren. Sinds de EU heel ambitieus met een AI-verordening is gekomen waarin ook is opgenomen dat medewerkers van overheden en bedrijven in Europa AI-geletterd moeten zijn wanneer zij hiervan gebruik maken. Wederom worden de ethische kwesties vooral vertaald naar technische- en juridische kaders terwijl het maatschappelijk debat grotendeels adviserend en optioneel wordt behandeld.
 
 
 
@@ -28,13 +28,9 @@ Wat betekend AI-geletterd zijn uberhaubt? Het bevestigingsvooroordeel wat mensen
 
 
 
-Waar ik me meer zorgen om maak is dat het volk te afgeleid is om hetgeen dat we geleerd hebben van de industriële revolutie en de parallellen daarmee (o.a. geletterdheid) toe te passen en hoe we overheden en regeringen toelaten om hun propaganda campagnes uit te rollen en het vel over onze ogen te trekken.
+Waar we ons meer zorgen om moeten maken is dat wij, het proletariaat, te afgeleid is om hetgeen dat we geleerd hebben van de industriële revolutie en de parallellen daarmee (o.a. geletterdheid) toe te passen en hoe we overheden en regeringen toelaten om hun propaganda campagnes uit te rollen en het vel over onze ogen te trekken.
 
 
 
-Kunstmatige waarheid is een weergave van de werkelijkheid waarbij de door mensen aangeleverde data en gegevens door een computer vormgegeven wordt. Omdat doelmatig ‘waarheid’ altijd een subjectieve ervaring van de werkelijkheid communiceerd moeten mensen vat houden op de data of gegevens die gevoed worden aan een dergelijk waarheids-model. Deze data of gegevens zouden sociocratisch bepaald moet bijdragen het voortbestaan van het (menselijk) leven.
-
-
-
-
+Kunstmatige waarheid is een weergave van de werkelijkheid waarbij de door mensen aangeleverde data en gegevens door een computer vormgegeven wordt. Omdat doelmatig ‘de waarheid’ altijd een subjectieve perceptie van de werkelijkheid communiceert moeten meerdere perspectieven, inclusief die van de burger op die waarheid, vertegenwoordigd worden in de data. Om hier vat op te houden moeten deze data of gegevens sociocratisch bepaald worden en op die manier bijdragen aan een oprechte samenleving. Want een samenleving waar de heersende macht en het kapitaal bepaald wat waarheid is zal uiteindelijk vervallen aan tirannie.
 
