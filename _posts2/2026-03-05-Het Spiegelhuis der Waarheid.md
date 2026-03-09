@@ -2,9 +2,15 @@
 
 layout: default
 
+
+
 title: "Het Spiegelhuis der Waarheid"
 
+
+
 date: 2026-03-05
+
+
 
 thumbnail: /assets/images/shield%20of%20bionic%20lady%20justitia.jpg
 
@@ -28,9 +34,9 @@ Wat betekend AI-geletterd zijn uberhaubt? Het bevestigingsvooroordeel wat mensen
 
 
 
-Waar we ons meer zorgen om moeten maken is dat wij, het proletariaat, te afgeleid is om hetgeen dat we geleerd hebben van de industriële revolutie en de parallellen daarmee (o.a. geletterdheid) toe te passen en hoe we overheden en regeringen toelaten om hun propaganda campagnes uit te rollen en het vel over onze ogen te trekken.
+Waar we ons meer zorgen om moeten maken is dat wij, het proletariaat, te afgeleid zijn om hetgeen dat we geleerd hebben van de industriële revolutie en de parallellen daarmee (o.a. geletterdheid) toe te passen. We moeten overheden en regeringen niet toelaten om hun propaganda campagnes uit te rollen en het vel over onze ogen te trekken.
 
 
 
-Kunstmatige waarheid is een weergave van de werkelijkheid waarbij de door mensen aangeleverde data en gegevens door een computer vormgegeven wordt. Omdat doelmatig ‘de waarheid’ altijd een subjectieve perceptie van de werkelijkheid communiceert moeten meerdere perspectieven, inclusief die van de burger op die waarheid, vertegenwoordigd worden in de data. Om hier vat op te houden moeten deze data of gegevens sociocratisch bepaald worden en op die manier bijdragen aan een oprechte samenleving. Want een samenleving waar de heersende macht en het kapitaal bepaald wat waarheid is zal uiteindelijk vervallen aan tirannie.
+Het probleem is dat ethische vraagstukken vooral worden vertaald naar technische regels en juridische kaders. Het maatschappelijke debat blijft vaak adviserend en optioneel. Terwijl we ons juist zorgen zouden moeten maken over hoe AI onze perceptie van de werkelijkheid vormgeeft, en wie daarbij de macht heeft. Want kunstmatige waarheid is geen objectieve weergave van de realiteit, maar een constructie gebaseerd op data die door mensen (en dus met vooroordelen) is geselecteerd. Want een samenleving waar de heersende macht en het kapitaal bepaald wat 'de waarheid' is zal uiteindelijk vervallen aan een technocratische tirannie.
 
