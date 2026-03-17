@@ -8,12 +8,10 @@
     <main class="page-content" aria-label="Content">
       <div class="wrapper">
         {{ content }}
-        {% if page.url != "/blog.html" and page.url != "/blog2.html" %}
         {% if page.collection == "posts2" %}
           <p><a href="{{ "/blog2.html" | relative_url }}">⬅️ Terug naar het blogoverzicht</a></p>
-        {% else %}
+        {% elsif page.collection == "posts" %}
           <p><a href="{{ "/blog.html" | relative_url }}">⬅️ Terug naar het blogoverzicht</a></p>
-        {% endif %}
         {% endif %}
       </div>
     </main>
