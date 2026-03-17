@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contact - VBBSKW</title>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      max-width: 900px;
+      margin: 40px auto;
+      padding: 0 20px;
+      background-color: #F0F8FF;
+      color: #333;
+      line-height: 1.6;
+    }
+    h1, h2 {
+      color: #004080;
+    }
+    h1 {
+      border-bottom: 2px solid #004080;
+      padding-bottom: 10px;
+    }
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 30px;
+      margin-top: 30px;
+    }
+    @media (max-width: 700px) {
+      .contact-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+    .contact-info {
+      background-color: #fff;
+      border: 1px solid #004080;
+      border-radius: 8px;
+      padding: 25px;
+    }
+    .contact-info h2 {
+      margin-top: 0;
+    }
+    .contact-item {
+      margin: 15px 0;
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+    }
+    .contact-item span {
+      font-size: 1.2em;
+    }
+    #map {
+      height: 350px;
+      border-radius: 8px;
+      border: 1px solid #004080;
+      filter: grayscale(100%);
+    }
+    #map:hover {
+      filter: grayscale(50%);
+      transition: filter 0.3s ease;
+    }
+    .map-container {
+      background-color: #fff;
+      border-radius: 8px;
+      padding: 15px;
+      border: 1px solid #004080;
+    }
+    .map-container h2 {
+      margin-top: 0;
+      margin-bottom: 15px;
+    }
+    a {
+      color: #004080;
+    }
+    .back-link {
+      margin-top: 30px;
+      display: inline-block;
+    }
+    .privacy-note {
+      font-size: 0.85em;
+      color: #666;
+      margin-top: 10px;
+      font-style: italic;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Contact</h1>
+  <p>Heeft u vragen over de VBBSKW of wilt u lid worden? Neem gerust contact met ons op.</p>
+
+  <div class="contact-grid">
+    <div class="contact-info">
+      <h2>Contactgegevens</h2>
+      
+      <div class="contact-item">
+        <span>✉️</span>
+        <div>
+          <strong>E-mail</strong><br>
+          <a href="mailto:voorzitter@vbbskw.com">voorzitter@vbbskw.com</a>
+        </div>
+      </div>
+
+      <div class="contact-item">
+        <span>🏠</span>
+        <div>
+          <strong>Locatie</strong><br>
+          Binnenspuikanaal West<br>
+          IJmuiden
+        </div>
+      </div>
+
+      <h2 style="margin-top: 30px;">Lid worden?</h2>
+      <p>Stuur een e-mail naar <a href="mailto:voorzitter@vbbskw.com">voorzitter@vbbskw.com</a> met uw lidmaatschapsaanvraag. U ontvangt dan de statuten en het inschrijfformulier.</p>
+    </div>
+
+    <div class="map-container">
+      <h2>Locatie</h2>
+      <div id="map"></div>
+      <p class="privacy-note">Deze kaart wordt geladen via OpenStreetMap. Hierbij wordt uw IP-adres gedeeld met OpenStreetMap servers. <a href="/privacy.html">Meer info</a></p>
+    </div>
+  </div>
+
+  <a href="https://www.vbbskw.com" class="back-link">⬅️ Terug naar de hoofdpagina</a>
+
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script>
+    // Coördinaten voor Binnenspuikanaal, IJmuiden
+    // Pas deze aan naar de exacte locatie indien nodig
+    var lat = 52.4615;
+    var lon = 4.6055;
+    
+    var map = L.map('map').setView([lat, lon], 15);
+    
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      maxZoom: 19,
+      attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+    }).addTo(map);
+    
+    // Marker op de locatie
+    L.marker([lat, lon]).addTo(map)
+      .bindPopup('<strong>VBBSKW</strong><br>Binnenspuikanaal West')
+      .openPopup();
+  </script>
+
+</body>
+</html>
