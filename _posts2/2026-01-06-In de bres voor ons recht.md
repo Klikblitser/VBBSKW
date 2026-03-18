@@ -20,7 +20,7 @@ thumbnail: /assets/images/Protest.jpeg
 
 # Samen in actie voor het Binnenspuikanaal
 
-De afgelopen periode heeft de Vereniging Bewoners Binnenspuikanaal West (VBBSKW) zich op meerdere fronten actief ingezet om aandacht te vragen voor de positie en rechten van de bewoners van het Binnenspuikanaal. Met zichtbare acties, inspraak en formele stappen richting de overheid laten wij zien dat wij ons niet stil laten wegdrukken.
+De afgelopen periode hebben wij ons op meerdere fronten actief ingezet om aandacht te vragen voor de positie en rechten van de bewoners van het Binnenspuikanaal. Met zichtbare acties, inspraak en formele stappen richting de overheid laten wij zien dat wij ons niet stil laten wegdrukken.
 
 ## Flyeren bij Albert Heijn IJmuiden
 
@@ -50,7 +50,7 @@ De boodschap was helder: besluiten over het Binnenspuikanaal mogen niet over de 
 
 Een belangrijk recent moment was het **persoonlijk overhandigen van een bezwaarschrift aan het ministerie van Infrastructuur en Waterstaat**.  
 
-Als intercom en knopjes-druk fanaat had ik gigantisch veel plezier vorige week vrijdag. Een soort real-live van het kastje naar de muur... máár de brief is uiteindelijk, in een fietsenstalling naast een prullenbak dan wel, afgeleverd aan het juiste adres (de expeditie) mét ontvangstbevestiging.
+Als intercom-, bel- en knopjes-druk fanaat had ik gigantisch veel plezier vorige week vrijdag. Een soort real-live van het kastje naar de muur... máár de brief is uiteindelijk, in een fietsenstalling naast een prullenbak dan wel, afgeleverd aan het juiste adres (de expeditie) mét ontvangstbevestiging.
 
 ## Hoe nu verder?
 
