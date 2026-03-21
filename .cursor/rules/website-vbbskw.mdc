@@ -26,9 +26,15 @@ Statische website voor VBBSKW (Vereniging Binnenspuikanaal West), gebouwd met **
 
 ## Werkwijze
 - Gebruik altijd Jekyll-conforme front matter (`---`) bovenaan `.html` en `.md` bestanden die door Jekyll verwerkt worden.
-- Wijzigingen worden live gezet via `git add`, `git commit` en `git push` over SSH.
-- Test wijzigingen lokaal met `bundle exec jekyll serve` vóór publicatie.
 - Houd het `_site/` mapje buiten versiebeheer (staat in `.gitignore`).
+
+## Deployment — automatisch na elke wijziging
+Na elke bestandsaanpassing voert de assistent **direct** de volgende stappen uit (tenzij de gebruiker expliciet anders vraagt):
+1. `git add <gewijzigd bestand>`
+2. `git commit -m "<korte Nederlandse beschrijving van de wijziging>"`
+3. `git push` (via SSH naar `origin main`)
+
+Werk altijd op de `main` branch tenzij de gebruiker een andere branch opgeeft. Maak **geen** aparte feature-branches tenzij expliciet gevraagd. Zo gaan wijzigingen meteen live via GitHub Pages.
 
 ## Stijl en conventies
 - Schrijf Nederlandse tekst op de website (de doelgroep is Nederlandstalig).
@@ -39,4 +45,3 @@ Statische website voor VBBSKW (Vereniging Binnenspuikanaal West), gebouwd met **
 ## Deployment via SSH
 - De remote repository is bereikbaar via SSH vanaf deze pc.
 - Controleer altijd eerst de remote met `git remote -v` bij twijfel.
-- Gebruik `git status` en `git diff` vóór elke commit.
