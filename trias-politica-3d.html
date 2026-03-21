@@ -1,0 +1,560 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Trias Politica · 3D</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=IBM+Plex+Mono:wght@300;400;500&display=swap');
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg:       #0c0a08;
+    --panel:    #131109;
+    --border:   #2a2518;
+    --text:     #d4c9a8;
+    --dim:      #5a5240;
+    --accent-a: #e8a030;
+    --accent-b: #6a9fd8;
+    --accent-c: #c47f7f;
+    --gold:     #c8a84b;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'IBM Plex Mono', monospace;
+    height: 100vh;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+  }
+
+  header {
+    padding: 14px 26px;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: baseline;
+    gap: 18px;
+    flex-shrink: 0;
+    background: var(--panel);
+  }
+  header h1 {
+    font-family: 'Playfair Display', serif;
+    font-weight: 400;
+    font-size: 1.3rem;
+    color: var(--gold);
+  }
+  header h1 em { font-style: italic; color: #d4c9a8; }
+  header span { font-size: 0.62rem; color: var(--dim); letter-spacing: 0.12em; text-transform: uppercase; }
+
+  .workspace { display: flex; flex: 1; overflow: hidden; }
+
+  #canvas-wrap { flex: 1; position: relative; cursor: grab; }
+  #canvas-wrap:active { cursor: grabbing; }
+  canvas { display: block; width: 100% !important; height: 100% !important; }
+
+  .sidebar {
+    width: 290px;
+    flex-shrink: 0;
+    border-left: 1px solid var(--border);
+    background: var(--panel);
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+    padding: 18px;
+    gap: 20px;
+  }
+
+  .section-title {
+    font-size: 0.58rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--dim);
+    margin-bottom: 10px;
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 6px;
+  }
+
+  .centers-grid { display: flex; flex-direction: column; gap: 10px; }
+  .center-card { border: 1px solid var(--border); border-radius: 4px; padding: 10px 13px; }
+  .center-card.a { border-left: 3px solid var(--accent-a); }
+  .center-card.b { border-left: 3px solid var(--accent-b); }
+  .center-card.c { border-left: 3px solid var(--accent-c); }
+
+  .center-label {
+    font-family: 'Playfair Display', serif;
+    font-size: 0.88rem;
+    margin-bottom: 5px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .center-desc { font-size: 0.62rem; color: var(--dim); line-height: 1.5; }
+
+  .dot { width: 7px; height: 7px; border-radius: 50%; flex-shrink: 0; }
+  .dot-a { background: var(--accent-a); box-shadow: 0 0 6px var(--accent-a); }
+  .dot-b { background: var(--accent-b); box-shadow: 0 0 6px var(--accent-b); }
+  .dot-c { background: var(--accent-c); box-shadow: 0 0 6px var(--accent-c); }
+
+  .rings-list { display: flex; flex-direction: column; gap: 3px; max-height: 240px; overflow-y: auto; }
+  .ring-item {
+    display: flex; align-items: center; gap: 8px;
+    padding: 5px 8px; border-radius: 3px;
+    border: 1px solid transparent;
+    cursor: pointer; transition: all 0.12s; font-size: 0.67rem;
+  }
+  .ring-item:hover { border-color: var(--border); background: rgba(255,255,255,0.02); }
+  .ring-item.selected { border-color: var(--gold); background: rgba(200,168,75,0.06); }
+  .ring-name { flex: 1; color: var(--text); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .ring-type {
+    font-size: 0.54rem; padding: 1px 5px; border-radius: 2px;
+    border: 1px solid var(--border); color: var(--dim);
+    text-transform: uppercase; letter-spacing: 0.06em;
+  }
+  .ring-item.bridge .ring-type { border-color: var(--gold); color: var(--gold); }
+
+  .control-row { display: flex; align-items: center; justify-content: space-between; gap: 8px; margin-bottom: 10px; }
+  label { font-size: 0.7rem; color: var(--text); flex: 1; }
+
+  input[type=range] {
+    -webkit-appearance: none; width: 100px; height: 2px;
+    background: var(--border); border-radius: 2px; outline: none; cursor: pointer;
+  }
+  input[type=range]::-webkit-slider-thumb {
+    -webkit-appearance: none; width: 11px; height: 11px;
+    border-radius: 50%; background: var(--gold); cursor: pointer;
+  }
+  .val-badge { font-size: 0.66rem; color: var(--gold); min-width: 30px; text-align: right; }
+
+  select {
+    background: var(--bg); border: 1px solid var(--border); color: var(--text);
+    font-family: 'IBM Plex Mono', monospace; font-size: 0.68rem;
+    padding: 4px 6px; border-radius: 3px; cursor: pointer; outline: none;
+  }
+  select:focus { border-color: var(--gold); }
+
+  .btn {
+    display: inline-flex; align-items: center; gap: 6px;
+    padding: 5px 11px; border-radius: 3px; border: 1px solid var(--border);
+    background: transparent; color: var(--text);
+    font-family: 'IBM Plex Mono', monospace; font-size: 0.66rem;
+    cursor: pointer; letter-spacing: 0.06em; transition: all 0.15s;
+  }
+  .btn:hover { border-color: var(--gold); color: var(--gold); }
+
+  .legend { display: flex; flex-direction: column; gap: 7px; }
+  .legend-item { display: flex; align-items: flex-start; gap: 10px; font-size: 0.63rem; line-height: 1.5; color: var(--dim); }
+  .legend-pill { flex-shrink: 0; margin-top: 3px; width: 9px; height: 9px; border-radius: 50%; }
+
+  #tooltip {
+    position: fixed; pointer-events: none;
+    background: var(--panel); border: 1px solid var(--border);
+    border-left: 3px solid var(--gold); border-radius: 4px;
+    padding: 8px 13px; font-size: 0.68rem; color: var(--text);
+    max-width: 230px; display: none; z-index: 100; line-height: 1.6;
+    font-family: 'IBM Plex Mono', monospace;
+  }
+  #tooltip strong { display: block; font-family: 'Playfair Display', serif; font-size: 0.95rem; color: var(--gold); margin-bottom: 3px; }
+
+  ::-webkit-scrollbar { width: 3px; }
+  ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+  .hint { font-size: 0.6rem; color: var(--dim); line-height: 1.8; }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>Trias Politica · <em>Nederland</em></h1>
+  <span>Machtsverdeling — 3D informatiekringen</span>
+</header>
+
+<div class="workspace">
+  <div id="canvas-wrap"><canvas id="c"></canvas></div>
+
+  <aside class="sidebar">
+
+    <div>
+      <div class="section-title">De drie machten</div>
+      <div class="centers-grid">
+        <div class="center-card a">
+          <div class="center-label"><span class="dot dot-a"></span>Uitvoerende macht</div>
+          <div class="center-desc">Regering · Ministeries · Uitvoeringsorganisaties</div>
+        </div>
+        <div class="center-card b">
+          <div class="center-label"><span class="dot dot-b"></span>Wetgevende macht</div>
+          <div class="center-desc">Tweede Kamer · Eerste Kamer · Wetgevingsproces</div>
+        </div>
+        <div class="center-card c">
+          <div class="center-label"><span class="dot dot-c"></span>Rechtspraak</div>
+          <div class="center-desc">Rechterlijke macht · Rechtbanken · Hoge Raad</div>
+        </div>
+      </div>
+    </div>
+
+    <div>
+      <div class="section-title">Informatiekringen</div>
+      <div class="rings-list" id="ringsList"></div>
+    </div>
+
+    <div id="ringEditor" style="display:none;">
+      <div class="section-title">Ring bewerken</div>
+      <div class="control-row">
+        <label>Centrum</label>
+        <select id="editCenter" onchange="updateSelectedRing()">
+          <option value="A">Uitvoering</option>
+          <option value="B">Wetgever</option>
+          <option value="C">Rechtspraak</option>
+          <option value="AB">Uitv. + Wetg.</option>
+          <option value="BC">Wetg. + Recht.</option>
+          <option value="AC">Uitv. + Recht.</option>
+          <option value="ABC">Alle drie</option>
+        </select>
+      </div>
+      <div class="control-row">
+        <label>Grootte</label>
+        <input type="range" id="editSize" min="0.3" max="2.5" step="0.05" value="1" oninput="updateSelectedRing()">
+        <span class="val-badge" id="editSizeVal">1.0</span>
+      </div>
+      <div class="control-row">
+        <label>Dikte</label>
+        <input type="range" id="editThick" min="1" max="8" step="0.5" value="2" oninput="updateSelectedRing()">
+        <span class="val-badge" id="editThickVal">2</span>
+      </div>
+      <div class="control-row">
+        <label>Kanteling °</label>
+        <input type="range" id="editTilt" min="0" max="180" step="1" value="0" oninput="updateSelectedRing()">
+        <span class="val-badge" id="editTiltVal">0°</span>
+      </div>
+    </div>
+
+    <div>
+      <div class="section-title">Type ringen</div>
+      <div class="legend">
+        <div class="legend-item">
+          <div class="legend-pill" style="background:#3a3020;border:1px solid var(--dim)"></div>
+          <span><strong style="color:var(--text)">Domeinring</strong> — gebonden aan één macht; diep maar smal bereik</span>
+        </div>
+        <div class="legend-item">
+          <div class="legend-pill" style="background:var(--gold);opacity:0.8"></div>
+          <span><strong style="color:var(--text)">Brugring</strong> — verbindt meerdere machten; bepaalt de machtsbalans (gouden rand)</span>
+        </div>
+      </div>
+    </div>
+
+    <div>
+      <div class="section-title">Weergave</div>
+      <div class="control-row">
+        <label>Auto-rotatie</label>
+        <input type="range" id="rotSpeed" min="0" max="2" step="0.05" value="0.25"
+          oninput="rotateSpeed=parseFloat(this.value);document.getElementById('rotVal').textContent=parseFloat(this.value).toFixed(2)">
+        <span class="val-badge" id="rotVal">0.25</span>
+      </div>
+      <div class="control-row">
+        <label>Verbindingen</label>
+        <button class="btn" id="connBtn" onclick="toggleConnections()">aan</button>
+      </div>
+      <div class="control-row">
+        <label>Bol-schaal</label>
+        <input type="range" id="sphereScale" min="0.5" max="2" step="0.05" value="1"
+          oninput="sphereGroup&&sphereGroup.scale.setScalar(parseFloat(this.value));document.getElementById('scaleVal').textContent=parseFloat(this.value).toFixed(2)">
+        <span class="val-badge" id="scaleVal">1.00</span>
+      </div>
+    </div>
+
+    <div class="hint">
+      🖱 Sleep → roteren<br>
+      🔍 Scroll → zoom<br>
+      👆 Hover → beschrijving<br>
+      ✦ Gouden rand = brugring
+    </div>
+
+  </aside>
+</div>
+
+<div id="tooltip"></div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script>
+const BRIDGE_CENTERS = new Set(['AB','BC','AC','ABC']);
+
+const state = {
+  centers: {
+    A: { label:'Uitvoerende macht', color:0xe8a030 },
+    B: { label:'Wetgevende macht',  color:0x6a9fd8 },
+    C: { label:'Rechtspraak',       color:0xc47f7f },
+  },
+  rings: [
+    { id:1,  name:'Beleid',               center:'A',   size:1.0,  thick:2,   tilt:20,  desc:'Ministeriële besluitvorming en beleidsvorming door het kabinet.' },
+    { id:2,  name:'Handhaving',           center:'A',   size:0.85, thick:2,   tilt:105, desc:'Politie, inspectiediensten en uitvoeringsorganisaties zoals UWV en Belastingdienst.' },
+    { id:3,  name:'Wetgeving',            center:'B',   size:1.0,  thick:2,   tilt:40,  desc:'Initiatiefwetten, amendementen en het formele wetgevingsproces in het parlement.' },
+    { id:4,  name:'Democratisch mandaat', center:'B',   size:0.88, thick:2,   tilt:135, desc:'Verkiezingen, coalitieakkoord en de grondslag van volksvertegenwoordiging.' },
+    { id:5,  name:'Rechtspraak',          center:'C',   size:1.0,  thick:2,   tilt:65,  desc:'Civiel, straf- en bestuursrecht; de onafhankelijke rechterlijke macht.' },
+    { id:6,  name:'Jurisprudentie',       center:'C',   size:0.82, thick:2,   tilt:155, desc:'Precedentwerking van uitspraken; het levende recht via rechterlijke interpretatie.' },
+    { id:7,  name:'Toezicht',             center:'AB',  size:1.2,  thick:2.5, tilt:55,  desc:'Parlementaire controle op het kabinet — moties, debatten, enquêterecht.' },
+    { id:8,  name:'Grondwet',             center:'BC',  size:1.3,  thick:3,   tilt:85,  desc:'Constitutionele toetsing; fundament van alle wetgeving en rechtspraak.' },
+    { id:9,  name:'Bestuursrecht',        center:'AC',  size:1.1,  thick:2.5, tilt:25,  desc:'Overheid voor de rechter; burgers die overheidsbesluiten aanvechten bij de rechter.' },
+    { id:10, name:'Staatsmacht',          center:'ABC', size:1.5,  thick:3.5, tilt:10,  desc:'Soevereiniteit, legitimiteit en de fundamentele machtsverdeling van de democratische rechtsstaat.' },
+  ],
+  nextId: 11,
+  selectedRingId: null,
+  showConnections: true,
+};
+
+// THREE setup
+const canvas   = document.getElementById('c');
+const wrap     = document.getElementById('canvas-wrap');
+const renderer = new THREE.WebGLRenderer({ canvas, antialias:true });
+renderer.setPixelRatio(Math.min(devicePixelRatio,2));
+renderer.setClearColor(0x0c0a08,1);
+
+const scene  = new THREE.Scene();
+const camera = new THREE.PerspectiveCamera(44,1,0.1,200);
+camera.position.set(0,0,7.5);
+
+scene.add(new THREE.AmbientLight(0xfff5e0,0.38));
+const pt1 = new THREE.PointLight(0xffe0a0,1.2,60);
+pt1.position.set(6,8,4); scene.add(pt1);
+const pt2 = new THREE.PointLight(0xa0c0ff,0.45,60);
+pt2.position.set(-6,-4,6); scene.add(pt2);
+
+const sphereGroup = new THREE.Group();
+scene.add(sphereGroup);
+let ringObjects = [];
+let rotateSpeed = 0.25;
+
+function getCenterPos(key) {
+  const r = 1.35;
+  const base = {
+    A: new THREE.Vector3(0, r, 0),
+    B: new THREE.Vector3(-r*0.866, -r*0.5, 0),
+    C: new THREE.Vector3( r*0.866, -r*0.5, 0),
+  };
+  const keys = [...new Set(key.split(''))];
+  const pos = new THREE.Vector3();
+  keys.forEach(k => pos.add(base[k]));
+  pos.divideScalar(keys.length);
+  return pos;
+}
+
+function blendColors(key) {
+  const cols = { A:0xe8a030, B:0x6a9fd8, C:0xc47f7f };
+  const keys = [...new Set(key.split(''))];
+  if (keys.length===1) return cols[keys[0]];
+  let r=0,g=0,b=0;
+  keys.forEach(k=>{ r+=(cols[k]>>16)&0xff; g+=(cols[k]>>8)&0xff; b+=cols[k]&0xff; });
+  return (Math.round(r/keys.length)<<16)|(Math.round(g/keys.length)<<8)|Math.round(b/keys.length);
+}
+function hexFromInt(n){ return '#'+n.toString(16).padStart(6,'0'); }
+
+function buildScene() {
+  while(sphereGroup.children.length) sphereGroup.remove(sphereGroup.children[0]);
+  ringObjects=[];
+
+  // Ghost wireframe sphere
+  sphereGroup.add(new THREE.Mesh(
+    new THREE.SphereGeometry(2,48,48),
+    new THREE.MeshBasicMaterial({color:0x1e1a10,wireframe:true,transparent:true,opacity:0.10})
+  ));
+  // Inner solid sphere for depth
+  sphereGroup.add(new THREE.Mesh(
+    new THREE.SphereGeometry(1.96,32,32),
+    new THREE.MeshPhongMaterial({color:0x100d07,transparent:true,opacity:0.5,shininess:8})
+  ));
+
+  // Centers
+  ['A','B','C'].forEach(k=>{
+    const pos=getCenterPos(k), col=state.centers[k].color;
+    const orb=new THREE.Mesh(new THREE.SphereGeometry(0.15,20,20),
+      new THREE.MeshPhongMaterial({color:col,emissive:col,emissiveIntensity:0.6,shininess:140}));
+    orb.position.copy(pos); sphereGroup.add(orb);
+
+    const halo=new THREE.Mesh(new THREE.TorusGeometry(0.26,0.018,8,64),
+      new THREE.MeshBasicMaterial({color:col,transparent:true,opacity:0.4}));
+    halo.position.copy(pos); halo.lookAt(new THREE.Vector3(0,0,0));
+    sphereGroup.add(halo);
+  });
+
+  // Center connections
+  if(state.showConnections){
+    [['A','B'],['B','C'],['A','C']].forEach(([a,b])=>{
+      const geo=new THREE.BufferGeometry().setFromPoints([getCenterPos(a),getCenterPos(b)]);
+      const col=blendColors(a+b);
+      sphereGroup.add(new THREE.Line(geo,new THREE.LineBasicMaterial({color:col,transparent:true,opacity:0.18})));
+    });
+  }
+
+  // Rings
+  state.rings.forEach(ring=>{
+    const col=blendColors(ring.center);
+    const isBridge=BRIDGE_CENTERS.has(ring.center);
+    const isSel=ring.id===state.selectedRingId;
+
+    const mesh=new THREE.Mesh(
+      new THREE.TorusGeometry(ring.size, ring.thick*0.013, 14, 140),
+      new THREE.MeshPhongMaterial({
+        color:col, emissive:col,
+        emissiveIntensity: isSel?0.8 : isBridge?0.38 : 0.18,
+        shininess:110, transparent:true,
+        opacity: isSel?0.98 : isBridge?0.8 : 0.62,
+      })
+    );
+    const pos=getCenterPos(ring.center);
+    mesh.position.copy(pos);
+    mesh.rotation.x=THREE.MathUtils.degToRad(ring.tilt);
+    mesh.rotation.z=THREE.MathUtils.degToRad(ring.tilt*0.4);
+    mesh.lookAt(pos.clone().multiplyScalar(2));
+
+    // Gold outline for bridge rings
+    if(isBridge){
+      const out=new THREE.Mesh(
+        new THREE.TorusGeometry(ring.size+0.045,0.013,8,140),
+        new THREE.MeshBasicMaterial({color:0xc8a84b,transparent:true,opacity:isSel?0.95:0.4})
+      );
+      out.position.copy(mesh.position);
+      out.quaternion.copy(mesh.quaternion);
+      sphereGroup.add(out);
+    }
+
+    mesh.userData={ringId:ring.id,name:ring.name,desc:ring.desc,isBridge};
+    sphereGroup.add(mesh);
+    ringObjects.push({mesh,ring});
+  });
+}
+
+function resize(){
+  const w=wrap.clientWidth,h=wrap.clientHeight;
+  renderer.setSize(w,h,false);
+  camera.aspect=w/h;
+  camera.updateProjectionMatrix();
+}
+window.addEventListener('resize',resize); resize();
+
+let autoRot=true;
+function animate(){
+  requestAnimationFrame(animate);
+  if(autoRot) sphereGroup.rotation.y+=rotateSpeed*0.004;
+  renderer.render(scene,camera);
+}
+
+// Orbit
+let isDragging=false,prevMX=0,prevMY=0;
+wrap.addEventListener('mousedown',e=>{isDragging=true;prevMX=e.clientX;prevMY=e.clientY;autoRot=false;});
+window.addEventListener('mouseup',()=>{isDragging=false;setTimeout(()=>autoRot=true,2500);});
+window.addEventListener('mousemove',e=>{
+  if(!isDragging)return;
+  sphereGroup.rotation.y+=(e.clientX-prevMX)*0.007;
+  sphereGroup.rotation.x+=(e.clientY-prevMY)*0.007;
+  prevMX=e.clientX;prevMY=e.clientY;
+});
+wrap.addEventListener('wheel',e=>{
+  camera.position.z=Math.max(2.5,Math.min(16,camera.position.z+e.deltaY*0.01));
+},{passive:true});
+
+let prevTouch=null;
+wrap.addEventListener('touchstart',e=>{prevTouch=e.touches[0];autoRot=false;},{passive:true});
+wrap.addEventListener('touchmove',e=>{
+  if(!prevTouch)return;
+  const t=e.touches[0];
+  sphereGroup.rotation.y+=(t.clientX-prevTouch.clientX)*0.007;
+  sphereGroup.rotation.x+=(t.clientY-prevTouch.clientY)*0.007;
+  prevTouch=t;
+},{passive:true});
+wrap.addEventListener('touchend',()=>{prevTouch=null;setTimeout(()=>autoRot=true,2500);});
+
+// Raycasting
+const raycaster=new THREE.Raycaster();
+const mouse=new THREE.Vector2();
+const tooltip=document.getElementById('tooltip');
+
+wrap.addEventListener('mousemove',e=>{
+  const rect=wrap.getBoundingClientRect();
+  mouse.x=((e.clientX-rect.left)/rect.width)*2-1;
+  mouse.y=-((e.clientY-rect.top)/rect.height)*2+1;
+  raycaster.setFromCamera(mouse,camera);
+  const hits=raycaster.intersectObjects(ringObjects.map(r=>r.mesh));
+  if(hits.length){
+    const d=hits[0].object.userData;
+    tooltip.style.display='block';
+    tooltip.style.left=(e.clientX+14)+'px';
+    tooltip.style.top=(e.clientY-10)+'px';
+    tooltip.innerHTML=`<strong>${d.name}</strong>${d.desc||''}`;
+    wrap.style.cursor=isDragging?'grabbing':'pointer';
+  } else {
+    tooltip.style.display='none';
+    wrap.style.cursor=isDragging?'grabbing':'grab';
+  }
+});
+
+wrap.addEventListener('click',e=>{
+  if(Math.abs(e.movementX)+Math.abs(e.movementY)>4)return;
+  const rect=wrap.getBoundingClientRect();
+  mouse.x=((e.clientX-rect.left)/rect.width)*2-1;
+  mouse.y=-((e.clientY-rect.top)/rect.height)*2+1;
+  raycaster.setFromCamera(mouse,camera);
+  const hits=raycaster.intersectObjects(ringObjects.map(r=>r.mesh));
+  selectRing(hits.length?hits[0].object.userData.ringId:null);
+});
+
+// UI
+function renderRingList(){
+  const list=document.getElementById('ringsList');
+  list.innerHTML='';
+  state.rings.forEach(ring=>{
+    const isBridge=BRIDGE_CENTERS.has(ring.center);
+    const div=document.createElement('div');
+    div.className='ring-item'+(isBridge?' bridge':'')+(ring.id===state.selectedRingId?' selected':'');
+    div.innerHTML=`
+      <span class="dot" style="background:${hexFromInt(blendColors(ring.center))};box-shadow:0 0 5px ${hexFromInt(blendColors(ring.center))}50"></span>
+      <span class="ring-name">${ring.name}</span>
+      <span class="ring-type">${isBridge?'brug':'domein'}</span>
+    `;
+    div.addEventListener('click',()=>selectRing(ring.id));
+    list.appendChild(div);
+  });
+}
+
+function selectRing(id){
+  state.selectedRingId=id;
+  const editor=document.getElementById('ringEditor');
+  if(!id){editor.style.display='none';renderRingList();buildScene();return;}
+  const ring=state.rings.find(r=>r.id===id);
+  if(!ring)return;
+  editor.style.display='block';
+  document.getElementById('editCenter').value=ring.center;
+  document.getElementById('editSize').value=ring.size;
+  document.getElementById('editThick').value=ring.thick;
+  document.getElementById('editTilt').value=ring.tilt;
+  document.getElementById('editSizeVal').textContent=ring.size.toFixed(2);
+  document.getElementById('editThickVal').textContent=ring.thick;
+  document.getElementById('editTiltVal').textContent=ring.tilt+'°';
+  renderRingList();buildScene();
+}
+
+function updateSelectedRing(){
+  const ring=state.rings.find(r=>r.id===state.selectedRingId);
+  if(!ring)return;
+  ring.center=document.getElementById('editCenter').value;
+  ring.size=parseFloat(document.getElementById('editSize').value);
+  ring.thick=parseFloat(document.getElementById('editThick').value);
+  ring.tilt=parseInt(document.getElementById('editTilt').value);
+  document.getElementById('editSizeVal').textContent=ring.size.toFixed(2);
+  document.getElementById('editThickVal').textContent=ring.thick;
+  document.getElementById('editTiltVal').textContent=ring.tilt+'°';
+  renderRingList();buildScene();
+}
+
+function toggleConnections(){
+  state.showConnections=!state.showConnections;
+  document.getElementById('connBtn').textContent=state.showConnections?'aan':'uit';
+  buildScene();
+}
+
+buildScene();
+renderRingList();
+animate();
+</script>
+</body>
+</html>
