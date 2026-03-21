@@ -1,0 +1,42 @@
+---
+description: Instructies voor onderhoud en ontwikkeling van de VBBSKW website
+alwaysApply: true
+---
+
+# VBBSKW Website — Werkregels
+
+## Over dit project
+Statische website voor VBBSKW (Vereniging Binnenspuikanaal West), gebouwd met **Jekyll** en gehost via **GitHub Pages**. De repository is lokaal aanwezig op `C:\Users\t470\Documents\Boot\VBBSKW\Website\VBBSKW` en bereikbaar via SSH.
+
+## Technische stack
+- **Generator**: Jekyll (statisch)
+- **Hosting**: GitHub Pages
+- **Deployment**: via Git push (SSH)
+- **Talen**: HTML, Liquid (Jekyll templating), SCSS/CSS, Markdown
+
+## Bestandsstructuur
+- `_layouts/` — Paginasjablonen
+- `_includes/` — Herbruikbare HTML-fragmenten
+- `_posts/` en `_posts2/` — Blogberichten (Markdown of HTML)
+- `_nieuws/` — Nieuwsberichten
+- `_sass/` — Stijlbestanden
+- `assets/` — Afbeeldingen, JS, CSS
+- `_config.yml` — Jekyll configuratie
+- `api/` — Statische API-bestanden
+
+## Werkwijze
+- Gebruik altijd Jekyll-conforme front matter (`---`) bovenaan `.html` en `.md` bestanden die door Jekyll verwerkt worden.
+- Wijzigingen worden live gezet via `git add`, `git commit` en `git push` over SSH.
+- Test wijzigingen lokaal met `bundle exec jekyll serve` vóór publicatie.
+- Houd het `_site/` mapje buiten versiebeheer (staat in `.gitignore`).
+
+## Stijl en conventies
+- Schrijf Nederlandse tekst op de website (de doelgroep is Nederlandstalig).
+- Houd HTML semantisch en toegankelijk.
+- Nieuwe pagina's krijgen een passend `layout:` in de front matter.
+- Afbeeldingen horen in `assets/images/` (maak de map aan indien nodig).
+
+## Deployment via SSH
+- De remote repository is bereikbaar via SSH vanaf deze pc.
+- Controleer altijd eerst de remote met `git remote -v` bij twijfel.
+- Gebruik `git status` en `git diff` vóór elke commit.
