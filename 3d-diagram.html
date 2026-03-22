@@ -385,9 +385,14 @@
           <span class="val-badge" id="editSubThickVal">1.5</span>
         </div>
         <div class="control-row">
-          <label>Positie °</label>
+          <label>Starthoek °</label>
           <input type="range" id="editSubAngle" min="0" max="360" step="5" value="0" oninput="updateSelectedSubRing()">
           <span class="val-badge" id="editSubAngleVal">0°</span>
+        </div>
+        <div class="control-row">
+          <label>Snelheid</label>
+          <input type="range" id="editSubSpeed" min="0" max="3" step="0.1" value="0.5" oninput="updateSelectedSubRing()">
+          <span class="val-badge" id="editSubSpeedVal">0.5</span>
         </div>
       </div>
     </div>
@@ -483,6 +488,7 @@ let ringObjects   = [];  // { mesh, ringData }
 let connObjects   = [];  // lines
 let centerSpheres = {};
 let labelSprites  = {};
+let subRingMeshes = [];  // { mesh, parentPos, t1, t2, orbitRadius, subRing, ring }
 
 let rotateSpeed = 0.3;
 
@@ -519,10 +525,11 @@ function blendColors(keys) {
 function buildScene() {
   // Clear
   while (sphereGroup.children.length) sphereGroup.remove(sphereGroup.children[0]);
-  ringObjects  = [];
-  connObjects  = [];
+  ringObjects   = [];
+  connObjects   = [];
   centerSpheres = {};
   labelSprites  = {};
+  subRingMeshes = [];
 
   // Ghost sphere (wireframe reference)
   const ghostGeo = new THREE.SphereGeometry(2, 32, 32);
@@ -593,25 +600,36 @@ function buildScene() {
     sphereGroup.add(mesh);
     ringObjects.push({ mesh, ring });
 
-    // Draw sub-rings for this ring
+    // Draw sub-rings (planetary orbits) for this ring
     (ring.subRings || []).forEach(sub => {
       const subCol = blendColors(ring.center);
 
-      // Compute tangent-based offset direction on the sphere surface
+      // Tangent plane at parent pos (orbit plane tangent to sphere surface)
       const radial = pos.clone().normalize();
       let t1 = new THREE.Vector3(0, 1, 0);
       if (Math.abs(radial.dot(t1)) > 0.85) t1.set(1, 0, 0);
       const right = new THREE.Vector3().crossVectors(radial, t1).normalize();
       const fwd   = new THREE.Vector3().crossVectors(right, radial).normalize();
 
-      const aRad  = THREE.MathUtils.degToRad(sub.offsetAngle || 0);
-      const dir   = right.clone().multiplyScalar(Math.cos(aRad)).add(fwd.clone().multiplyScalar(Math.sin(aRad)));
-      const subPos = pos.clone().add(dir.multiplyScalar(ring.size + sub.size + 0.18));
+      const orbitRadius = ring.size + sub.size + 0.2;
 
-      // Thin connecting line from parent center to sub-ring
-      const lineGeo = new THREE.BufferGeometry().setFromPoints([pos.clone(), subPos.clone()]);
-      const lineMat = new THREE.LineBasicMaterial({ color: subCol, transparent: true, opacity: 0.28 });
-      sphereGroup.add(new THREE.Line(lineGeo, lineMat));
+      // Draw orbit path circle
+      const orbitPts = [];
+      for (let i = 0; i <= 80; i++) {
+        const a = (i / 80) * Math.PI * 2;
+        orbitPts.push(pos.clone()
+          .add(right.clone().multiplyScalar(Math.cos(a) * orbitRadius))
+          .add(fwd.clone().multiplyScalar(Math.sin(a) * orbitRadius)));
+      }
+      const orbitGeo = new THREE.BufferGeometry().setFromPoints(orbitPts);
+      const orbitMat = new THREE.LineBasicMaterial({ color: subCol, transparent: true, opacity: 0.18 });
+      sphereGroup.add(new THREE.Line(orbitGeo, orbitMat));
+
+      // Initial position based on offsetAngle (starthoek)
+      const initAngle = THREE.MathUtils.degToRad(sub.offsetAngle || 0);
+      const initPos = pos.clone()
+        .add(right.clone().multiplyScalar(Math.cos(initAngle) * orbitRadius))
+        .add(fwd.clone().multiplyScalar(Math.sin(initAngle) * orbitRadius));
 
       const isSelSub = sub.id === state.selectedSubRingId && ring.id === state.selectedRingId;
       const subGeo = new THREE.TorusGeometry(sub.size, sub.thick * 0.011, 8, 64);
@@ -619,14 +637,17 @@ function buildScene() {
         color: subCol, emissive: subCol,
         emissiveIntensity: isSelSub ? 0.65 : 0.2,
         shininess: 60, transparent: true,
-        opacity: isSelSub ? 0.92 : 0.52,
+        opacity: isSelSub ? 0.92 : 0.55,
       });
       const subMesh = new THREE.Mesh(subGeo, subMat);
-      subMesh.position.copy(subPos);
-      subMesh.lookAt(subPos.clone().multiplyScalar(2));
+      subMesh.position.copy(initPos);
+      subMesh.lookAt(initPos.clone().multiplyScalar(2));
       subMesh.userData = { ringId: ring.id, subRingId: sub.id, name: sub.name, isSubRing: true };
       sphereGroup.add(subMesh);
       ringObjects.push({ mesh: subMesh, ring, subRing: sub });
+
+      // Store orbit data for animation loop
+      subRingMeshes.push({ mesh: subMesh, parentPos: pos.clone(), t1: right.clone(), t2: fwd.clone(), orbitRadius, subRing: sub });
     });
   });
 }
@@ -646,6 +667,20 @@ let autoRot = true;
 function animate() {
   requestAnimationFrame(animate);
   if (autoRot) sphereGroup.rotation.y += rotateSpeed * 0.005;
+
+  // Orbital animation: sub-ringen cirkelen om hun ouderring
+  const t = performance.now() * 0.001;
+  subRingMeshes.forEach(({ mesh, parentPos, t1, t2, orbitRadius, subRing }) => {
+    const speed = (subRing.orbitSpeed !== undefined ? subRing.orbitSpeed : 0.5);
+    const phase = THREE.MathUtils.degToRad(subRing.offsetAngle || 0);
+    const angle = t * speed + phase;
+    const newPos = parentPos.clone()
+      .add(t1.clone().multiplyScalar(Math.cos(angle) * orbitRadius))
+      .add(t2.clone().multiplyScalar(Math.sin(angle) * orbitRadius));
+    mesh.position.copy(newPos);
+    mesh.lookAt(newPos.clone().multiplyScalar(2));
+  });
+
   renderer.render(scene, camera);
 }
 
@@ -855,7 +890,7 @@ function addSubRing() {
   const inp = document.getElementById('newSubRingName');
   const name = inp.value.trim() || 'Sub-ring ' + state.nextSubId;
   const offsetAngle = (ring.subRings.length * 60) % 360;
-  ring.subRings.push({ id: state.nextSubId++, name, size: 0.4, thick: 1.5, offsetAngle });
+  ring.subRings.push({ id: state.nextSubId++, name, size: 0.4, thick: 1.5, offsetAngle, orbitSpeed: 0.5 });
   inp.value = '';
   renderRingList();
   renderSubRingList();
@@ -897,13 +932,15 @@ function selectSubRing(parentId, subId) {
   if (!sub) return;
   const ed = document.getElementById('subRingEditor');
   ed.style.display = 'block';
-  document.getElementById('editSubName').value  = sub.name;
-  document.getElementById('editSubSize').value  = sub.size;
-  document.getElementById('editSubThick').value = sub.thick;
-  document.getElementById('editSubAngle').value = sub.offsetAngle || 0;
+  document.getElementById('editSubName').value   = sub.name;
+  document.getElementById('editSubSize').value   = sub.size;
+  document.getElementById('editSubThick').value  = sub.thick;
+  document.getElementById('editSubAngle').value  = sub.offsetAngle || 0;
+  document.getElementById('editSubSpeed').value  = sub.orbitSpeed !== undefined ? sub.orbitSpeed : 0.5;
   document.getElementById('editSubSizeVal').textContent  = sub.size.toFixed(2);
   document.getElementById('editSubThickVal').textContent = sub.thick;
   document.getElementById('editSubAngleVal').textContent = (sub.offsetAngle || 0) + '°';
+  document.getElementById('editSubSpeedVal').textContent = (sub.orbitSpeed !== undefined ? sub.orbitSpeed : 0.5);
   renderRingList();
   renderSubRingList();
   buildScene();
@@ -918,9 +955,11 @@ function updateSelectedSubRing() {
   sub.size        = parseFloat(document.getElementById('editSubSize').value);
   sub.thick       = parseFloat(document.getElementById('editSubThick').value);
   sub.offsetAngle = parseInt(document.getElementById('editSubAngle').value);
+  sub.orbitSpeed  = parseFloat(document.getElementById('editSubSpeed').value);
   document.getElementById('editSubSizeVal').textContent  = sub.size.toFixed(2);
   document.getElementById('editSubThickVal').textContent = sub.thick;
   document.getElementById('editSubAngleVal').textContent = sub.offsetAngle + '°';
+  document.getElementById('editSubSpeedVal').textContent = sub.orbitSpeed;
   renderSubRingList();
   buildScene();
 }
