@@ -421,6 +421,19 @@
     </div>
 
     <div>
+      <div class="section-title">Gegevens</div>
+      <div style="display:flex;flex-direction:column;gap:6px;">
+        <button class="btn primary" onclick="exportJSON()">⬇ Exporteer JSON</button>
+        <label class="btn" style="width:100%;justify-content:center;cursor:pointer;box-sizing:border-box;">
+          ⬆ Importeer JSON
+          <input type="file" accept=".json" style="display:none" onchange="importJSON(this.files[0])">
+        </label>
+        <button class="btn" onclick="resetState()" style="color:#ff6e6e;border-color:#3a1e1e;">↺ Reset naar standaard</button>
+      </div>
+      <div id="saveIndicator" style="font-size:0.62rem;color:var(--accent-c);margin-top:8px;opacity:0;transition:opacity 0.5s;">✓ Opgeslagen</div>
+    </div>
+
+    <div>
       <div class="hint">
         🖱 Sleep om te roteren<br>
         🔍 Scroll om in/uit te zoomen<br>
@@ -814,6 +827,7 @@ function updateSelectedRing() {
   document.getElementById('editSizeVal').textContent  = ring.size.toFixed(2);
   document.getElementById('editThickVal').textContent = ring.thick;
   document.getElementById('editTiltVal').textContent  = ring.tilt + '°';
+  saveState();
   renderRingList();
   buildScene();
 }
@@ -821,8 +835,9 @@ function updateSelectedRing() {
 function addRing() {
   const inp  = document.getElementById('newRingName');
   const name = inp.value.trim() || 'Ring ' + state.nextId;
-  state.rings.push({ id: state.nextId++, name, center: 'A', size: 1, thick: 2, tilt: Math.floor(Math.random()*180) });
+  state.rings.push({ id: state.nextId++, name, center: 'A', size: 1, thick: 2, tilt: Math.floor(Math.random()*180), subRings: [] });
   inp.value = '';
+  saveState();
   renderRingList();
   buildScene();
 }
@@ -830,20 +845,21 @@ function addRing() {
 function deleteRing(id, e) {
   e.stopPropagation();
   state.rings = state.rings.filter(r => r.id !== id);
+  saveState();
   if (state.selectedRingId === id) selectRing(null);
   else { renderRingList(); buildScene(); }
 }
 
 function updateCenterLabel(key, val) {
   state.centers[key].label = val;
+  saveState();
 }
 
 function updateCenterColor(key, hex) {
   state.centers[key].hexStr  = hex;
   state.centers[key].color   = parseInt(hex.slice(1), 16);
-  // Update CSS dots
-  const map = { A: 'dot-a', B: 'dot-b', C: 'dot-c' };
   document.querySelectorAll('.dot-' + key.toLowerCase()).forEach(d => d.style.background = hex);
+  saveState();
   buildScene();
   renderRingList();
 }
@@ -851,11 +867,13 @@ function updateCenterColor(key, hex) {
 function toggleConnections() {
   state.showConnections = !state.showConnections;
   document.getElementById('connBtn').textContent = state.showConnections ? 'aan' : 'uit';
+  saveState();
   buildScene();
 }
 function toggleLabels() {
   state.showLabels = !state.showLabels;
   document.getElementById('lblBtn').textContent = state.showLabels ? 'aan' : 'uit';
+  saveState();
 }
 
 function updateSphereScale(s) {
@@ -892,6 +910,7 @@ function addSubRing() {
   const offsetAngle = (ring.subRings.length * 60) % 360;
   ring.subRings.push({ id: state.nextSubId++, name, size: 0.4, thick: 1.5, offsetAngle, orbitSpeed: 0.5 });
   inp.value = '';
+  saveState();
   renderRingList();
   renderSubRingList();
   buildScene();
@@ -906,6 +925,7 @@ function deleteSubRing(parentId, subId, e) {
     state.selectedSubRingId = null;
     document.getElementById('subRingEditor').style.display = 'none';
   }
+  saveState();
   renderRingList();
   renderSubRingList();
   buildScene();
@@ -960,8 +980,83 @@ function updateSelectedSubRing() {
   document.getElementById('editSubThickVal').textContent = sub.thick;
   document.getElementById('editSubAngleVal').textContent = sub.offsetAngle + '°';
   document.getElementById('editSubSpeedVal').textContent = sub.orbitSpeed;
+  saveState();
   renderSubRingList();
   buildScene();
+}
+
+// ───────────────────────── LOCALSTORAGE ─────────────────────────
+const LS_KEY = 'vbbskw-3d-diagram';
+
+function saveState() {
+  const data = {
+    centers: state.centers,
+    rings: state.rings,
+    nextId: state.nextId,
+    nextSubId: state.nextSubId,
+    showConnections: state.showConnections,
+    showLabels: state.showLabels,
+  };
+  localStorage.setItem(LS_KEY, JSON.stringify(data));
+  // Flash de "Opgeslagen" indicator
+  const ind = document.getElementById('saveIndicator');
+  ind.style.opacity = '1';
+  clearTimeout(ind._t);
+  ind._t = setTimeout(() => { ind.style.opacity = '0'; }, 1500);
+}
+
+function loadState() {
+  const raw = localStorage.getItem(LS_KEY);
+  if (!raw) return;
+  try {
+    const data = JSON.parse(raw);
+    if (data.centers)           state.centers        = data.centers;
+    if (data.rings)             state.rings          = data.rings;
+    if (data.nextId)            state.nextId         = data.nextId;
+    if (data.nextSubId)         state.nextSubId      = data.nextSubId;
+    if (data.showConnections !== undefined) state.showConnections = data.showConnections;
+    if (data.showLabels      !== undefined) state.showLabels      = data.showLabels;
+
+    // Sync UI
+    ['A','B','C'].forEach(k => {
+      document.getElementById('label'+k).value = state.centers[k].label;
+      document.getElementById('color'+k).value = state.centers[k].hexStr;
+    });
+    document.getElementById('connBtn').textContent = state.showConnections ? 'aan' : 'uit';
+    document.getElementById('lblBtn').textContent  = state.showLabels      ? 'aan' : 'uit';
+  } catch(e) {
+    console.warn('Kon opgeslagen diagram niet laden:', e);
+  }
+}
+
+function resetState() {
+  if (!confirm('Alle opgeslagen data wissen en terugzetten naar standaard?')) return;
+  localStorage.removeItem(LS_KEY);
+  location.reload();
+}
+
+function exportJSON() {
+  const raw = localStorage.getItem(LS_KEY) || JSON.stringify({ centers: state.centers, rings: state.rings });
+  const blob = new Blob([raw], { type: 'application/json' });
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = '3d-diagram-backup.json';
+  a.click();
+}
+
+function importJSON(file) {
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = e => {
+    try {
+      JSON.parse(e.target.result); // valideer
+      localStorage.setItem(LS_KEY, e.target.result);
+      location.reload();
+    } catch {
+      alert('Ongeldig JSON-bestand.');
+    }
+  };
+  reader.readAsText(file);
 }
 
 // Enter key on new ring input
@@ -969,6 +1064,7 @@ document.getElementById('newRingName').addEventListener('keydown', e => { if (e.
 document.getElementById('newSubRingName').addEventListener('keydown', e => { if (e.key==='Enter') addSubRing(); });
 
 // ───────────────────────── BOOT ─────────────────────────
+loadState();
 buildScene();
 renderRingList();
 animate();
