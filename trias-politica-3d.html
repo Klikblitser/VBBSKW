@@ -306,7 +306,7 @@ const state = {
 // THREE setup
 const canvas   = document.getElementById('c');
 const wrap     = document.getElementById('canvas-wrap');
-const renderer = new THREE.WebGLRenderer({ canvas, antialias:true });
+const renderer = new THREE.WebGLRenderer({ canvas, antialias:true, logarithmicDepthBuffer:true });
 renderer.setPixelRatio(Math.min(devicePixelRatio,2));
 renderer.setClearColor(0x0c0a08,1);
 
@@ -353,15 +353,10 @@ function buildScene() {
   while(sphereGroup.children.length) sphereGroup.remove(sphereGroup.children[0]);
   ringObjects=[];
 
-  // Ghost wireframe sphere
+  // Ghost wireframe sphere — depthWrite off so it never occludes anything
   sphereGroup.add(new THREE.Mesh(
     new THREE.SphereGeometry(2,48,48),
-    new THREE.MeshBasicMaterial({color:0x1e1a10,wireframe:true,transparent:true,opacity:0.10})
-  ));
-  // Inner solid sphere for depth
-  sphereGroup.add(new THREE.Mesh(
-    new THREE.SphereGeometry(1.96,32,32),
-    new THREE.MeshPhongMaterial({color:0x100d07,transparent:true,opacity:0.5,shininess:8})
+    new THREE.MeshBasicMaterial({color:0x1e1a10,wireframe:true,transparent:true,opacity:0.10,depthWrite:false})
   ));
 
   // Centers
@@ -372,7 +367,7 @@ function buildScene() {
     orb.position.copy(pos); sphereGroup.add(orb);
 
     const halo=new THREE.Mesh(new THREE.TorusGeometry(0.26,0.018,8,64),
-      new THREE.MeshBasicMaterial({color:col,transparent:true,opacity:0.4}));
+      new THREE.MeshBasicMaterial({color:col,transparent:true,depthWrite:false,opacity:0.5}));
     halo.position.copy(pos); halo.lookAt(new THREE.Vector3(0,0,0));
     sphereGroup.add(halo);
   });
@@ -397,8 +392,8 @@ function buildScene() {
       new THREE.MeshPhongMaterial({
         color:col, emissive:col,
         emissiveIntensity: isSel?0.8 : isBridge?0.38 : 0.18,
-        shininess:110, transparent:true,
-        opacity: isSel?0.98 : isBridge?0.8 : 0.62,
+        shininess:110, transparent:true, depthWrite:false,
+        opacity: isSel?0.98 : isBridge?0.82 : 0.72,
       })
     );
     const pos=getCenterPos(ring.center);
@@ -411,7 +406,7 @@ function buildScene() {
     if(isBridge){
       const out=new THREE.Mesh(
         new THREE.TorusGeometry(ring.size+0.045,0.013,8,140),
-        new THREE.MeshBasicMaterial({color:0xc8a84b,transparent:true,opacity:isSel?0.95:0.4})
+        new THREE.MeshBasicMaterial({color:0xc8a84b,transparent:true,depthWrite:false,opacity:isSel?0.95:0.4})
       );
       out.position.copy(mesh.position);
       out.quaternion.copy(mesh.quaternion);
