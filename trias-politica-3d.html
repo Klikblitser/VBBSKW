@@ -50,22 +50,61 @@
   header h1 em { font-style: italic; color: #d4c9a8; }
   header span { font-size: 0.62rem; color: var(--dim); letter-spacing: 0.12em; text-transform: uppercase; }
 
-  .workspace { display: flex; flex: 1; overflow: hidden; }
+  .workspace { display: flex; flex: 1; overflow: hidden; position: relative; }
 
   #canvas-wrap { flex: 1; position: relative; cursor: grab; }
   #canvas-wrap:active { cursor: grabbing; }
   canvas { display: block; width: 100% !important; height: 100% !important; }
 
+  /* ── Sidebar / drawer ── */
   .sidebar {
+    position: absolute;
+    top: 0; right: 0; bottom: 0;
     width: 290px;
-    flex-shrink: 0;
-    border-left: 1px solid var(--border);
     background: var(--panel);
+    border-left: 1px solid var(--border);
     display: flex;
     flex-direction: column;
     overflow-y: auto;
     padding: 18px;
     gap: 20px;
+    transform: translateX(0);
+    transition: transform 0.32s cubic-bezier(0.4,0,0.2,1);
+    z-index: 20;
+  }
+  .sidebar.collapsed { transform: translateX(100%); }
+
+  /* Toggle tab */
+  #sidebar-toggle {
+    position: absolute;
+    top: 50%;
+    right: 290px;
+    transform: translateY(-50%);
+    z-index: 30;
+    width: 28px;
+    height: 72px;
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-right: none;
+    border-radius: 6px 0 0 6px;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    transition: right 0.32s cubic-bezier(0.4,0,0.2,1), background 0.15s;
+    padding: 0;
+  }
+  #sidebar-toggle:hover { background: #1e1a10; }
+  #sidebar-toggle.collapsed { right: 0; }
+  .toggle-arrow { font-size: 0.75rem; color: var(--gold); line-height: 1; transition: transform 0.32s; user-select: none; }
+  .toggle-label { writing-mode: vertical-rl; font-size: 0.5rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--dim); user-select: none; }
+
+  @media (max-width: 639px) {
+    .sidebar { width: min(290px, 88vw); }
+    #sidebar-toggle { right: min(290px, 88vw); }
+    #sidebar-toggle.collapsed { right: 0; }
   }
 
   .section-title {
@@ -174,7 +213,8 @@
 <div class="workspace">
   <div id="canvas-wrap"><canvas id="c"></canvas></div>
 
-  <aside class="sidebar">
+  <button id="sidebar-toggle" onclick="toggleSidebar()" title="Paneel in/uitklappen"><span class="toggle-arrow" id="toggle-arrow">›</span><span class="toggle-label">paneel</span></button>
+  <aside class="sidebar" id="sidebar">
 
     <div>
       <div class="section-title">De drie machten</div>
@@ -262,6 +302,19 @@
           oninput="sphereGroup&&sphereGroup.scale.setScalar(parseFloat(this.value));document.getElementById('scaleVal').textContent=parseFloat(this.value).toFixed(2)">
         <span class="val-badge" id="scaleVal">1.00</span>
       </div>
+    </div>
+
+    <div>
+      <div class="section-title">Gegevens</div>
+      <div style="display:flex;flex-direction:column;gap:6px;">
+        <button class="btn" onclick="exportJSON()" style="justify-content:center;">⬇ Exporteer JSON</button>
+        <label class="btn" style="justify-content:center;cursor:pointer;box-sizing:border-box;">
+          ⬆ Importeer JSON
+          <input type="file" accept=".json" style="display:none" onchange="importJSON(this.files[0])">
+        </label>
+        <button class="btn" onclick="resetState()" style="justify-content:center;color:#c47f7f;border-color:#3a1e1e;">↺ Reset naar standaard</button>
+      </div>
+      <div id="saveIndicator" style="font-size:0.6rem;color:var(--accent-b);margin-top:8px;opacity:0;transition:opacity 0.5s;">✓ Opgeslagen</div>
     </div>
 
     <div class="hint">
@@ -538,15 +591,108 @@ function updateSelectedRing(){
   document.getElementById('editSizeVal').textContent=ring.size.toFixed(2);
   document.getElementById('editThickVal').textContent=ring.thick;
   document.getElementById('editTiltVal').textContent=ring.tilt+'°';
+  saveState();
   renderRingList();buildScene();
 }
 
 function toggleConnections(){
   state.showConnections=!state.showConnections;
   document.getElementById('connBtn').textContent=state.showConnections?'aan':'uit';
+  saveState();
   buildScene();
 }
 
+// ───────────────────────── LOCALSTORAGE ─────────────────────────
+const LS_KEY = 'vbbskw-trias-politica-3d';
+
+function saveState() {
+  const data = {
+    rings: state.rings,
+    nextId: state.nextId,
+    showConnections: state.showConnections,
+  };
+  localStorage.setItem(LS_KEY, JSON.stringify(data));
+  const ind = document.getElementById('saveIndicator');
+  ind.style.opacity = '1';
+  clearTimeout(ind._t);
+  ind._t = setTimeout(() => { ind.style.opacity = '0'; }, 1500);
+}
+
+function loadState() {
+  const raw = localStorage.getItem(LS_KEY);
+  if (!raw) return;
+  try {
+    const data = JSON.parse(raw);
+    if (data.rings)             state.rings          = data.rings;
+    if (data.nextId)            state.nextId         = data.nextId;
+    if (data.showConnections !== undefined) state.showConnections = data.showConnections;
+    document.getElementById('connBtn').textContent = state.showConnections ? 'aan' : 'uit';
+  } catch(e) {
+    console.warn('Kon opgeslagen diagram niet laden:', e);
+  }
+}
+
+function resetState() {
+  if (!confirm('Alle opgeslagen data wissen en terugzetten naar standaard?')) return;
+  localStorage.removeItem(LS_KEY);
+  location.reload();
+}
+
+function exportJSON() {
+  const raw = localStorage.getItem(LS_KEY) || JSON.stringify({ rings: state.rings });
+  const blob = new Blob([raw], { type: 'application/json' });
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = 'trias-politica-backup.json';
+  a.click();
+}
+
+function importJSON(file) {
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = e => {
+    try {
+      JSON.parse(e.target.result);
+      localStorage.setItem(LS_KEY, e.target.result);
+      location.reload();
+    } catch {
+      alert('Ongeldig JSON-bestand.');
+    }
+  };
+  reader.readAsText(file);
+}
+
+// ── Sidebar toggle ──
+let sidebarOpen = window.innerWidth >= 640;
+
+function toggleSidebar() {
+  sidebarOpen = !sidebarOpen;
+  applyPanelState();
+}
+
+function applyPanelState() {
+  const sidebar = document.getElementById('sidebar');
+  const toggle  = document.getElementById('sidebar-toggle');
+  const arrow   = document.getElementById('toggle-arrow');
+  if (sidebarOpen) {
+    sidebar.classList.remove('collapsed');
+    toggle.classList.remove('collapsed');
+    arrow.textContent = '›';
+    arrow.style.transform = 'rotate(0deg)';
+  } else {
+    sidebar.classList.add('collapsed');
+    toggle.classList.add('collapsed');
+    arrow.textContent = '‹';
+    arrow.style.transform = 'rotate(0deg)';
+  }
+  // Let canvas resize after transition
+  setTimeout(resize, 350);
+}
+
+// Init panel state
+applyPanelState();
+
+loadState();
 buildScene();
 renderRingList();
 animate();
