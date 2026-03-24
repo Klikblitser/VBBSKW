@@ -557,7 +557,7 @@ let ringObjects   = [];  // { mesh, ringData }
 let connObjects   = [];  // lines
 let centerSpheres = {};
 let labelSprites  = {};
-let subRingMeshes = [];  // { mesh, parentPos, t1, t2, orbitRadius, subRing, ring }
+let subRingMeshes = [];  // { mesh, parentPos, xAxis, yAxis, ringSize, parentQuat, subRing }
 
 let rotateSpeed = 0.3;
 
@@ -575,6 +575,18 @@ function getCenterPos(key) {
   keys.forEach(k => pos.add(positions[k]));
   pos.divideScalar(keys.length);
   return pos;
+}
+
+// ───────────────────────── RING ASSEN HELPER ─────────────────────────
+// Berekent de lokale X- en Y-as van een ring na lookAt(pos*2),
+// zodat sub-ringen exact op de omtrek van de ouderring gepositioneerd kunnen worden.
+function getRingAxes(pos) {
+  const zAxis = pos.clone().normalize(); // lokale Z van de ring (naar buiten)
+  let up = new THREE.Vector3(0, 1, 0);
+  if (Math.abs(up.dot(zAxis)) > 0.999) up.set(1, 0, 0);
+  const xAxis = new THREE.Vector3().crossVectors(up, zAxis).normalize();
+  const yAxis = new THREE.Vector3().crossVectors(zAxis, xAxis).normalize();
+  return { xAxis, yAxis };
 }
 
 // ───────────────────────── COLOR HELPERS ─────────────────────────
@@ -669,36 +681,19 @@ function buildScene() {
     sphereGroup.add(mesh);
     ringObjects.push({ mesh, ring });
 
-    // Draw sub-rings (planetary orbits) for this ring
+    // Lokale assen van de ouderring (zelfde als na lookAt)
+    const { xAxis, yAxis } = getRingAxes(pos);
+    const parentQuat = mesh.quaternion.clone();
+
+    // Sub-ringen — geplaatst ÓP de omtrek van de ouderring, zelfde oriëntatie
     (ring.subRings || []).forEach(sub => {
       const subCol = blendColors(ring.center);
 
-      // Tangent plane at parent pos (orbit plane tangent to sphere surface)
-      const radial = pos.clone().normalize();
-      let t1 = new THREE.Vector3(0, 1, 0);
-      if (Math.abs(radial.dot(t1)) > 0.85) t1.set(1, 0, 0);
-      const right = new THREE.Vector3().crossVectors(radial, t1).normalize();
-      const fwd   = new THREE.Vector3().crossVectors(right, radial).normalize();
-
-      const orbitRadius = ring.size + sub.size + 0.2;
-
-      // Draw orbit path circle
-      const orbitPts = [];
-      for (let i = 0; i <= 80; i++) {
-        const a = (i / 80) * Math.PI * 2;
-        orbitPts.push(pos.clone()
-          .add(right.clone().multiplyScalar(Math.cos(a) * orbitRadius))
-          .add(fwd.clone().multiplyScalar(Math.sin(a) * orbitRadius)));
-      }
-      const orbitGeo = new THREE.BufferGeometry().setFromPoints(orbitPts);
-      const orbitMat = new THREE.LineBasicMaterial({ color: subCol, transparent: true, opacity: 0.18 });
-      sphereGroup.add(new THREE.Line(orbitGeo, orbitMat));
-
-      // Initial position based on offsetAngle (starthoek)
+      // Beginpositie op de omtrek van de ouderring
       const initAngle = THREE.MathUtils.degToRad(sub.offsetAngle || 0);
       const initPos = pos.clone()
-        .add(right.clone().multiplyScalar(Math.cos(initAngle) * orbitRadius))
-        .add(fwd.clone().multiplyScalar(Math.sin(initAngle) * orbitRadius));
+        .add(xAxis.clone().multiplyScalar(Math.cos(initAngle) * ring.size))
+        .add(yAxis.clone().multiplyScalar(Math.sin(initAngle) * ring.size));
 
       const isSelSub = sub.id === state.selectedSubRingId && ring.id === state.selectedRingId;
       const subGeo = new THREE.TorusGeometry(sub.size, sub.thick * 0.011, 8, 64);
@@ -706,17 +701,25 @@ function buildScene() {
         color: subCol, emissive: subCol,
         emissiveIntensity: isSelSub ? 0.65 : 0.2,
         shininess: 60, transparent: true,
-        opacity: isSelSub ? 0.92 : 0.55,
+        opacity: isSelSub ? 0.92 : 0.58,
       });
       const subMesh = new THREE.Mesh(subGeo, subMat);
       subMesh.position.copy(initPos);
-      subMesh.lookAt(initPos.clone().multiplyScalar(2));
+      subMesh.quaternion.copy(parentQuat); // zelfde hoek als ouderring
       subMesh.userData = { ringId: ring.id, subRingId: sub.id, name: sub.name, isSubRing: true };
       sphereGroup.add(subMesh);
       ringObjects.push({ mesh: subMesh, ring, subRing: sub });
 
-      // Store orbit data for animation loop
-      subRingMeshes.push({ mesh: subMesh, parentPos: pos.clone(), t1: right.clone(), t2: fwd.clone(), orbitRadius, subRing: sub });
+      // Sla orbitgegevens op voor de animatielus
+      subRingMeshes.push({
+        mesh: subMesh,
+        parentPos: pos.clone(),
+        xAxis: xAxis.clone(),
+        yAxis: yAxis.clone(),
+        ringSize: ring.size,
+        parentQuat: parentQuat.clone(),
+        subRing: sub,
+      });
     });
   });
 }
@@ -737,17 +740,17 @@ function animate() {
   requestAnimationFrame(animate);
   if (autoRot) sphereGroup.rotation.y += rotateSpeed * 0.005;
 
-  // Orbital animation: sub-ringen cirkelen om hun ouderring
+  // Orbital animatie: sub-ringen glijden ÓP de omtrek van de ouderring
   const t = performance.now() * 0.001;
-  subRingMeshes.forEach(({ mesh, parentPos, t1, t2, orbitRadius, subRing }) => {
+  subRingMeshes.forEach(({ mesh, parentPos, xAxis, yAxis, ringSize, parentQuat, subRing }) => {
     const speed = (subRing.orbitSpeed !== undefined ? subRing.orbitSpeed : 0.5);
     const phase = THREE.MathUtils.degToRad(subRing.offsetAngle || 0);
     const angle = t * speed + phase;
     const newPos = parentPos.clone()
-      .add(t1.clone().multiplyScalar(Math.cos(angle) * orbitRadius))
-      .add(t2.clone().multiplyScalar(Math.sin(angle) * orbitRadius));
+      .add(xAxis.clone().multiplyScalar(Math.cos(angle) * ringSize))
+      .add(yAxis.clone().multiplyScalar(Math.sin(angle) * ringSize));
     mesh.position.copy(newPos);
-    mesh.lookAt(newPos.clone().multiplyScalar(2));
+    mesh.quaternion.copy(parentQuat); // behoudt dezelfde hoek als ouderring
   });
 
   renderer.render(scene, camera);
