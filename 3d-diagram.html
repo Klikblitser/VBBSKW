@@ -445,11 +445,6 @@
           <input type="range" id="editSubAngle" min="0" max="360" step="5" value="0" oninput="updateSelectedSubRing()">
           <span class="val-badge" id="editSubAngleVal">0°</span>
         </div>
-        <div class="control-row">
-          <label>Snelheid</label>
-          <input type="range" id="editSubSpeed" min="0" max="3" step="0.1" value="0.5" oninput="updateSelectedSubRing()">
-          <span class="val-badge" id="editSubSpeedVal">0.5</span>
-        </div>
       </div>
     </div>
 
@@ -740,18 +735,6 @@ function animate() {
   requestAnimationFrame(animate);
   if (autoRot) sphereGroup.rotation.y += rotateSpeed * 0.005;
 
-  // Orbital animatie: sub-ringen glijden ÓP de omtrek van de ouderring
-  const t = performance.now() * 0.001;
-  subRingMeshes.forEach(({ mesh, parentPos, xAxis, yAxis, ringSize, parentQuat, subRing }) => {
-    const speed = (subRing.orbitSpeed !== undefined ? subRing.orbitSpeed : 0.5);
-    const phase = THREE.MathUtils.degToRad(subRing.offsetAngle || 0);
-    const angle = t * speed + phase;
-    const newPos = parentPos.clone()
-      .add(xAxis.clone().multiplyScalar(Math.cos(angle) * ringSize))
-      .add(yAxis.clone().multiplyScalar(Math.sin(angle) * ringSize));
-    mesh.position.copy(newPos);
-    mesh.quaternion.copy(parentQuat); // behoudt dezelfde hoek als ouderring
-  });
 
   renderer.render(scene, camera);
 }
@@ -974,7 +957,7 @@ function addSubRing() {
   const inp = document.getElementById('newSubRingName');
   const name = inp.value.trim() || 'Sub-ring ' + state.nextSubId;
   const offsetAngle = (ring.subRings.length * 60) % 360;
-  ring.subRings.push({ id: state.nextSubId++, name, size: 0.4, thick: 1.5, offsetAngle, orbitSpeed: 0.5 });
+  ring.subRings.push({ id: state.nextSubId++, name, size: 0.4, thick: 1.5, offsetAngle });
   inp.value = '';
   saveState();
   renderRingList();
@@ -1022,11 +1005,9 @@ function selectSubRing(parentId, subId) {
   document.getElementById('editSubSize').value   = sub.size;
   document.getElementById('editSubThick').value  = sub.thick;
   document.getElementById('editSubAngle').value  = sub.offsetAngle || 0;
-  document.getElementById('editSubSpeed').value  = sub.orbitSpeed !== undefined ? sub.orbitSpeed : 0.5;
   document.getElementById('editSubSizeVal').textContent  = sub.size.toFixed(2);
   document.getElementById('editSubThickVal').textContent = sub.thick;
   document.getElementById('editSubAngleVal').textContent = (sub.offsetAngle || 0) + '°';
-  document.getElementById('editSubSpeedVal').textContent = (sub.orbitSpeed !== undefined ? sub.orbitSpeed : 0.5);
   renderRingList();
   renderSubRingList();
   buildScene();
@@ -1041,11 +1022,9 @@ function updateSelectedSubRing() {
   sub.size        = parseFloat(document.getElementById('editSubSize').value);
   sub.thick       = parseFloat(document.getElementById('editSubThick').value);
   sub.offsetAngle = parseInt(document.getElementById('editSubAngle').value);
-  sub.orbitSpeed  = parseFloat(document.getElementById('editSubSpeed').value);
   document.getElementById('editSubSizeVal').textContent  = sub.size.toFixed(2);
   document.getElementById('editSubThickVal').textContent = sub.thick;
   document.getElementById('editSubAngleVal').textContent = sub.offsetAngle + '°';
-  document.getElementById('editSubSpeedVal').textContent = sub.orbitSpeed;
   saveState();
   renderSubRingList();
   buildScene();
