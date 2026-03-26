@@ -507,18 +507,15 @@ const state = {
     C: { label: 'Wetenschap',  color: 0x7dffb3, hexStr: '#7dffb3' }
   },
   rings: [
-    { id:1, name:'Data', center:'A',   size:1.0, thick:2, tilt:0,   subRings:[] },
-    { id:2, name:'Ethiek', center:'B', size:0.9, thick:2, tilt:30,  subRings:[] },
-    { id:3, name:'Biologie', center:'C', size:1.1, thick:2, tilt:60, subRings:[] },
-    { id:4, name:'AI', center:'AB', size:1.2, thick:2, tilt:45,     subRings:[] },
-    { id:5, name:'Klimaat', center:'BC', size:0.85, thick:2, tilt:90, subRings:[] },
-    { id:6, name:'Kwantum', center:'AC', size:1.0, thick:2, tilt:20, subRings:[] },
-    { id:7, name:'Systemen', center:'ABC', size:1.4, thick:3, tilt:10, subRings:[] },
-    { id:8, name:'Netwerken', center:'A', size:0.75, thick:2, tilt:75, subRings:[] },
-    { id:9, name:'Gedrag', center:'B', size:1.0, thick:2, tilt:120,  subRings:[] },
-    { id:10, name:'Energie', center:'C', size:0.9, thick:2, tilt:150, subRings:[] },
+    { id:1, name:'Data',     center:'A',   size:1.0, thick:2, tilt:0, subRings:[] },
+    { id:2, name:'Ethiek',   center:'B',   size:0.9, thick:2, tilt:0, subRings:[] },
+    { id:3, name:'Biologie', center:'C',   size:1.1, thick:2, tilt:0, subRings:[] },
+    { id:4, name:'AI',       center:'AB',  size:1.2, thick:2, tilt:0, subRings:[] },
+    { id:5, name:'Klimaat',  center:'BC',  size:0.85,thick:2, tilt:0, subRings:[] },
+    { id:6, name:'Kwantum',  center:'AC',  size:1.0, thick:2, tilt:0, subRings:[] },
+    { id:7, name:'Systemen', center:'ABC', size:1.4, thick:3, tilt:0, subRings:[] },
   ],
-  nextId: 11,
+  nextId: 8,
   nextSubId: 1,
   selectedPath: [],   // pad van ID's van root naar geselecteerd knooppunt
   showConnections: true,
@@ -1063,8 +1060,12 @@ function updateSphereScale(s) {
 // ───────────────────────── LOCALSTORAGE ─────────────────────────
 const LS_KEY = 'vbbskw-3d-diagram';
 
+// Huidig schema-versienummer. Oude bestanden (zonder dit veld) krijgen automatisch migratie.
+const SCHEMA_VERSION = 2;
+
 function saveState() {
   const data = {
+    schemaVersion: SCHEMA_VERSION,
     centers: state.centers,
     rings: state.rings,
     nextId: state.nextId,
@@ -1073,17 +1074,18 @@ function saveState() {
     showLabels: state.showLabels,
   };
   localStorage.setItem(LS_KEY, JSON.stringify(data));
-  // Flash de "Opgeslagen" indicator
   const ind = document.getElementById('saveIndicator');
   ind.style.opacity = '1';
   clearTimeout(ind._t);
   ind._t = setTimeout(() => { ind.style.opacity = '0'; }, 1500);
 }
 
-// Migreer node-boom: zorg dat elk knooppunt subRings:[] heeft
-function migrateNode(node) {
+// Migreer node-boom: subRings:[] toevoegen; bij oud formaat (v<2) tilt normaliseren naar 0
+function migrateNode(node, isOldSchema) {
   if (!node.subRings) node.subRings = [];
-  node.subRings.forEach(migrateNode);
+  // Tilt had vóór schema v2 geen visueel effect; reset om verkeerde oriëntaties te voorkomen
+  if (isOldSchema) node.tilt = 0;
+  node.subRings.forEach(s => migrateNode(s, isOldSchema));
 }
 
 function loadState() {
@@ -1091,6 +1093,8 @@ function loadState() {
   if (!raw) return;
   try {
     const data = JSON.parse(raw);
+    const isOld = !data.schemaVersion || data.schemaVersion < SCHEMA_VERSION;
+
     if (data.centers)           state.centers        = data.centers;
     if (data.rings)             state.rings          = data.rings;
     if (data.nextId)            state.nextId         = data.nextId;
@@ -1098,8 +1102,8 @@ function loadState() {
     if (data.showConnections !== undefined) state.showConnections = data.showConnections;
     if (data.showLabels      !== undefined) state.showLabels      = data.showLabels;
 
-    // Migreer: voeg subRings toe op elk knooppunt dat het mist
-    state.rings.forEach(migrateNode);
+    // Migreer: subRings toevoegen + tilt normaliseren voor oude bestanden
+    state.rings.forEach(r => migrateNode(r, isOld));
 
     // Sync UI
     ['A','B','C'].forEach(k => {
