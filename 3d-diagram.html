@@ -383,6 +383,12 @@
     <div id="ringEditor" style="display:none;">
       <div class="section-title">Ring bewerken</div>
       <div class="control-row">
+        <label>Naam</label>
+        <input type="text" id="editRingName"
+          style="width:140px;border:1px solid var(--border);padding:3px 6px;border-radius:4px;background:var(--bg);color:var(--text);font-family:'DM Mono',monospace;font-size:0.68rem;outline:none;"
+          oninput="updateSelectedRing()">
+      </div>
+      <div class="control-row">
         <label>Centrum</label>
         <select id="editCenter" onchange="updateSelectedRing()" style="background:var(--bg);border:1px solid var(--border);color:var(--text);font-family:'DM Mono',monospace;font-size:0.72rem;padding:4px 8px;border-radius:4px;cursor:pointer;">
           <option value="A">A</option>
@@ -406,7 +412,7 @@
       </div>
       <div class="control-row">
         <label>Kanteling °</label>
-        <input type="range" id="editTilt" min="0" max="180" step="1" value="0" oninput="updateSelectedRing()">
+        <input type="range" id="editTilt" min="0" max="360" step="1" value="0" oninput="updateSelectedRing()">
         <span class="val-badge" id="editTiltVal">0°</span>
       </div>
 
@@ -441,7 +447,7 @@
           <span class="val-badge" id="editSubThickVal">1.5</span>
         </div>
         <div class="control-row">
-          <label>Starthoek °</label>
+          <label>Klokpositie °</label>
           <input type="range" id="editSubAngle" min="0" max="360" step="5" value="0" oninput="updateSelectedSubRing()">
           <span class="val-badge" id="editSubAngleVal">0°</span>
         </div>
@@ -607,11 +613,6 @@ function buildScene() {
   labelSprites  = {};
   subRingMeshes = [];
 
-  // Ghost sphere (wireframe reference)
-  const ghostGeo = new THREE.SphereGeometry(2, 32, 32);
-  const ghostMat = new THREE.MeshBasicMaterial({ color: 0x1e2235, wireframe: true, transparent: true, opacity: 0.18 });
-  sphereGroup.add(new THREE.Mesh(ghostGeo, ghostMat));
-
   // Draw centers
   ['A','B','C'].forEach(key => {
     const pos   = getCenterPos(key);
@@ -665,30 +666,33 @@ function buildScene() {
     const pos    = getCenterPos(ring.center);
     mesh.position.copy(pos);
 
-    // Tilt the ring around Y then X
-    mesh.rotation.x = THREE.MathUtils.degToRad(ring.tilt);
-    mesh.rotation.z = THREE.MathUtils.degToRad(ring.tilt * 0.5);
-
     // Orient to face outward from center
     mesh.lookAt(pos.clone().multiplyScalar(2));
+
+    // Apply tilt as visible in-plane rotation after lookAt
+    mesh.rotateOnAxis(new THREE.Vector3(1, 0, 0), THREE.MathUtils.degToRad(ring.tilt));
 
     mesh.userData = { ringId: ring.id, name: ring.name, isSubRing: false };
     sphereGroup.add(mesh);
     ringObjects.push({ mesh, ring });
 
-    // Lokale assen van de ouderring (zelfde als na lookAt)
-    const { xAxis, yAxis } = getRingAxes(pos);
+    // Lokale assen van de ouderring: parentNormal + rechts/omhoog in het ringvlak
+    const parentNormal = pos.clone().normalize();
+    let rightVec = new THREE.Vector3(0, 1, 0);
+    if (Math.abs(rightVec.dot(parentNormal)) > 0.999) rightVec.set(1, 0, 0);
+    rightVec = new THREE.Vector3().crossVectors(rightVec, parentNormal).normalize();
+    const localUp = new THREE.Vector3().crossVectors(parentNormal, rightVec).normalize();
     const parentQuat = mesh.quaternion.clone();
 
-    // Sub-ringen — geplaatst ÓP de omtrek van de ouderring, zelfde oriëntatie
+    // Sub-ringen — kloksgewijze klokpositie op de ouderring
     (ring.subRings || []).forEach(sub => {
       const subCol = blendColors(ring.center);
 
-      // Beginpositie op de omtrek van de ouderring
-      const initAngle = THREE.MathUtils.degToRad(sub.offsetAngle || 0);
+      // clockAngle negatief → kloksgewijs: 0°=3u, 90°=6u, 180°=9u, 270°=12u
+      const clockAngle = -THREE.MathUtils.degToRad(sub.offsetAngle || 0);
       const initPos = pos.clone()
-        .add(xAxis.clone().multiplyScalar(Math.cos(initAngle) * ring.size))
-        .add(yAxis.clone().multiplyScalar(Math.sin(initAngle) * ring.size));
+        .add(rightVec.clone().multiplyScalar(Math.cos(clockAngle) * ring.size))
+        .add(localUp.clone().multiplyScalar(Math.sin(clockAngle) * ring.size));
 
       const isSelSub = sub.id === state.selectedSubRingId && ring.id === state.selectedRingId;
       const subGeo = new THREE.TorusGeometry(sub.size, sub.thick * 0.011, 8, 64);
@@ -854,10 +858,11 @@ function selectRing(id) {
   const ring = state.rings.find(r => r.id === id);
   if (!ring) return;
   editor.style.display = 'block';
-  document.getElementById('editCenter').value = ring.center;
-  document.getElementById('editSize').value   = ring.size;
-  document.getElementById('editThick').value  = ring.thick;
-  document.getElementById('editTilt').value   = ring.tilt;
+  document.getElementById('editRingName').value = ring.name;
+  document.getElementById('editCenter').value   = ring.center;
+  document.getElementById('editSize').value     = ring.size;
+  document.getElementById('editThick').value    = ring.thick;
+  document.getElementById('editTilt').value     = ring.tilt;
   document.getElementById('editSizeVal').textContent  = ring.size.toFixed(2);
   document.getElementById('editThickVal').textContent = ring.thick;
   document.getElementById('editTiltVal').textContent  = ring.tilt + '°';
@@ -869,6 +874,8 @@ function selectRing(id) {
 function updateSelectedRing() {
   const ring = state.rings.find(r => r.id === state.selectedRingId);
   if (!ring) return;
+  const newName = document.getElementById('editRingName').value.trim();
+  if (newName) ring.name = newName;
   ring.center = document.getElementById('editCenter').value;
   ring.size   = parseFloat(document.getElementById('editSize').value);
   ring.thick  = parseFloat(document.getElementById('editThick').value);
@@ -1140,44 +1147,10 @@ document.getElementById('newSubRingName').addEventListener('keydown', e => { if 
 
 // ───────────────────────── BOOT ─────────────────────────
 applyPanelState();
-
-function applyJSONDefaults(data) {
-  if (data.centers) {
-    ['A','B','C'].forEach(k => {
-      if (data.centers[k]) {
-        const hex = data.centers[k].hexStr;
-        state.centers[k] = { label: data.centers[k].label, hexStr: hex, color: parseInt(hex.replace('#',''), 16) };
-      }
-    });
-  }
-  if (Array.isArray(data.rings))          state.rings          = data.rings;
-  if (data.nextId    != null)             state.nextId         = data.nextId;
-  if (data.nextSubId != null)             state.nextSubId      = data.nextSubId;
-  if (data.showConnections !== undefined) state.showConnections = data.showConnections;
-  if (data.showLabels      !== undefined) state.showLabels      = data.showLabels;
-}
-
-function syncUI() {
-  ['A','B','C'].forEach(k => {
-    document.getElementById('label'+k).value = state.centers[k].label;
-    document.getElementById('color'+k).value = state.centers[k].hexStr;
-  });
-  document.getElementById('connBtn').textContent = state.showConnections ? 'aan' : 'uit';
-  document.getElementById('lblBtn').textContent  = state.showLabels      ? 'aan' : 'uit';
-}
-
-function boot() {
-  loadState();   // past localStorage-overrides toe (indien aanwezig)
-  syncUI();      // synchroniseer altijd de UI met de huidige state
-  buildScene();
-  renderRingList();
-  animate();
-}
-
-fetch('3d-diagram-basic.json')
-  .then(r => r.json())
-  .then(data => { applyJSONDefaults(data); boot(); })
-  .catch(() => boot()); // val terug op hardgecodeerde state bij fout
+loadState();
+buildScene();
+renderRingList();
+animate();
 </script>
 </body>
 </html>
