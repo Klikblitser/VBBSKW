@@ -1,0 +1,586 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>3D Informatiekringen · JSON</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=DM+Mono:wght@300;400;500&family=Fraunces:ital,wght@0,100;0,300;0,700;1,100&display=swap');
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --bg: #07080f; --panel: #0d0f1a; --border: #1e2235;
+    --text: #c8cde0; --dim: #555b78; --gold: #f5c842;
+  }
+  body { background:var(--bg); color:var(--text); font-family:'DM Mono',monospace; height:100vh; overflow:hidden; display:flex; flex-direction:column; }
+
+  header { padding:12px 20px; border-bottom:1px solid var(--border); display:flex; align-items:center; gap:14px; flex-shrink:0; background:var(--panel); flex-wrap:wrap; }
+  header h1 { font-family:'Fraunces',serif; font-weight:300; font-size:1.15rem; color:#fff; letter-spacing:-0.01em; }
+  header .sub { font-size:0.62rem; color:var(--dim); letter-spacing:0.1em; text-transform:uppercase; flex:1; }
+
+  .import-bar { display:flex; align-items:center; gap:8px; margin-left:auto; }
+  .import-bar label.btn { cursor:pointer; }
+  #file-input { display:none; }
+  .loaded-name { font-size:0.62rem; color:var(--gold); max-width:160px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+
+  .workspace { display:flex; flex:1; overflow:hidden; position:relative; }
+  #canvas-wrap { flex:1; position:relative; cursor:grab; }
+  #canvas-wrap:active { cursor:grabbing; }
+  canvas { display:block; width:100%!important; height:100%!important; }
+
+  /* Sidebar drawer */
+  .sidebar {
+    position:absolute; top:0; right:0; bottom:0; width:280px;
+    background:var(--panel); border-left:1px solid var(--border);
+    display:flex; flex-direction:column; overflow-y:auto; padding:16px; gap:18px;
+    transform:translateX(0); transition:transform 0.3s cubic-bezier(0.4,0,0.2,1); z-index:20;
+  }
+  .sidebar.collapsed { transform:translateX(100%); }
+  #sidebar-toggle {
+    position:absolute; top:50%; right:280px; transform:translateY(-50%);
+    z-index:30; width:26px; height:68px; background:var(--panel);
+    border:1px solid var(--border); border-right:none; border-radius:6px 0 0 6px;
+    cursor:pointer; display:flex; flex-direction:column; align-items:center;
+    justify-content:center; gap:4px; transition:right 0.3s cubic-bezier(0.4,0,0.2,1);
+  }
+  #sidebar-toggle:hover { background:#13152a; }
+  #sidebar-toggle.collapsed { right:0; }
+  .toggle-arrow { font-size:0.75rem; color:var(--gold); user-select:none; }
+  .toggle-lbl { writing-mode:vertical-rl; font-size:0.5rem; letter-spacing:0.1em; text-transform:uppercase; color:var(--dim); user-select:none; }
+  @media(max-width:639px){ .sidebar{width:min(280px,90vw);} #sidebar-toggle{right:min(280px,90vw);} #sidebar-toggle.collapsed{right:0;} }
+
+  .section-title { font-size:0.6rem; letter-spacing:0.14em; text-transform:uppercase; color:var(--dim); margin-bottom:8px; border-bottom:1px solid var(--border); padding-bottom:5px; }
+
+  .centers-list { display:flex; flex-direction:column; gap:6px; }
+  .center-chip { display:flex; align-items:center; gap:8px; padding:6px 10px; border-radius:4px; border:1px solid var(--border); font-size:0.7rem; }
+  .dot { width:8px; height:8px; border-radius:50%; flex-shrink:0; }
+
+  .rings-list { display:flex; flex-direction:column; gap:3px; max-height:220px; overflow-y:auto; }
+  .ring-item { display:flex; align-items:center; gap:7px; padding:4px 7px; border-radius:3px; border:1px solid transparent; cursor:pointer; transition:all 0.12s; font-size:0.66rem; }
+  .ring-item:hover { border-color:var(--border); background:rgba(255,255,255,0.02); }
+  .ring-item.selected { border-color:var(--gold); background:rgba(245,200,66,0.05); }
+  .ring-name { flex:1; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+  .layer-badge { font-size:0.52rem; padding:1px 5px; border-radius:2px; border:1px solid var(--border); color:var(--dim); text-transform:uppercase; }
+  .layer-badge.bridge { border-color:var(--gold); color:var(--gold); }
+  .layer-badge.sub { border-color:#555b78; color:#555b78; }
+
+  .control-row { display:flex; align-items:center; justify-content:space-between; gap:8px; margin-bottom:9px; }
+  label { font-size:0.7rem; color:var(--text); flex:1; }
+  input[type=range] { -webkit-appearance:none; width:100px; height:2px; background:var(--border); border-radius:2px; outline:none; cursor:pointer; }
+  input[type=range]::-webkit-slider-thumb { -webkit-appearance:none; width:11px; height:11px; border-radius:50%; background:var(--gold); cursor:pointer; }
+  .val-badge { font-size:0.66rem; color:var(--gold); min-width:28px; text-align:right; }
+
+  .btn { display:inline-flex; align-items:center; gap:5px; padding:5px 10px; border-radius:3px; border:1px solid var(--border); background:transparent; color:var(--text); font-family:'DM Mono',monospace; font-size:0.66rem; cursor:pointer; letter-spacing:0.06em; transition:all 0.15s; }
+  .btn:hover { border-color:var(--gold); color:var(--gold); }
+  .btn.primary { border-color:var(--gold); color:var(--gold); }
+
+  #tooltip { position:fixed; pointer-events:none; background:var(--panel); border:1px solid var(--border); border-left:3px solid var(--gold); border-radius:4px; padding:8px 12px; font-size:0.68rem; color:var(--text); max-width:220px; display:none; z-index:100; line-height:1.55; }
+  #tooltip strong { display:block; font-family:'Fraunces',serif; font-size:0.95rem; color:var(--gold); margin-bottom:2px; }
+  #tooltip em { font-size:0.6rem; color:var(--dim); font-style:normal; }
+
+  .legend-row { display:flex; align-items:center; gap:8px; font-size:0.62rem; color:var(--dim); margin-bottom:5px; }
+  .legend-swatch { width:22px; height:4px; border-radius:2px; }
+
+  .hint { font-size:0.6rem; color:var(--dim); line-height:1.8; }
+  ::-webkit-scrollbar { width:3px; } ::-webkit-scrollbar-thumb { background:var(--border); border-radius:2px; }
+
+  #drop-overlay { position:absolute; inset:0; background:rgba(7,8,15,0.85); display:none; align-items:center; justify-content:center; flex-direction:column; gap:12px; z-index:50; border:2px dashed var(--gold); border-radius:4px; pointer-events:none; }
+  #drop-overlay.active { display:flex; }
+  #drop-overlay span { font-size:1rem; color:var(--gold); }
+</style>
+</head>
+<body>
+
+<header>
+  <h1 id="diagram-title">3D Informatiekringen</h1>
+  <span class="sub" id="diagram-sub">sleep, scroll, hover · laad JSON om te beginnen</span>
+  <div class="import-bar">
+    <span class="loaded-name" id="loaded-name"></span>
+    <label class="btn primary" for="file-input">⬆ JSON laden</label>
+    <input type="file" id="file-input" accept=".json">
+    <button class="btn" onclick="loadDefault()">voorbeeld</button>
+  </div>
+</header>
+
+<div class="workspace">
+  <div id="canvas-wrap">
+    <canvas id="c"></canvas>
+    <div id="drop-overlay"><span>📂</span><span>Laat JSON los om te laden</span></div>
+  </div>
+
+  <button id="sidebar-toggle" onclick="toggleSidebar()">
+    <span class="toggle-arrow" id="toggle-arrow">›</span>
+    <span class="toggle-lbl">info</span>
+  </button>
+
+  <aside class="sidebar" id="sidebar">
+
+    <div>
+      <div class="section-title">Centra</div>
+      <div class="centers-list" id="centersList"></div>
+    </div>
+
+    <div>
+      <div class="section-title">Ringen <span id="ring-count" style="color:var(--gold)"></span></div>
+      <div class="rings-list" id="ringsList"></div>
+    </div>
+
+    <div>
+      <div class="section-title">Weergave</div>
+      <div class="control-row">
+        <label>Auto-rotatie</label>
+        <input type="range" id="rotSpeed" min="0" max="2" step="0.05" value="0.3"
+          oninput="rotateSpeed=parseFloat(this.value);document.getElementById('rotVal').textContent=parseFloat(this.value).toFixed(2)">
+        <span class="val-badge" id="rotVal">0.30</span>
+      </div>
+      <div class="control-row">
+        <label>Verbindingen</label>
+        <button class="btn" id="connBtn" onclick="toggleConns()">aan</button>
+      </div>
+      <div class="control-row">
+        <label>Dubbel koppel</label>
+        <button class="btn" id="dblBtn" onclick="toggleDoubling()">aan</button>
+      </div>
+      <div class="control-row">
+        <label>Sub-ringen</label>
+        <button class="btn" id="subBtn" onclick="toggleSubs()">aan</button>
+      </div>
+      <div class="control-row">
+        <label>Bol-schaal</label>
+        <input type="range" id="sphereScale" min="0.4" max="2.2" step="0.05" value="1"
+          oninput="sphereGroup&&sphereGroup.scale.setScalar(parseFloat(this.value));document.getElementById('scaleVal').textContent=parseFloat(this.value).toFixed(2)">
+        <span class="val-badge" id="scaleVal">1.00</span>
+      </div>
+    </div>
+
+    <div>
+      <div class="section-title">Legenda</div>
+      <div class="legend-row"><div class="legend-swatch" style="background:var(--gold)"></div> Brugring (meerdere centra)</div>
+      <div class="legend-row"><div class="legend-swatch" style="background:#555b78"></div> Sub-ring (laag 2)</div>
+      <div class="legend-row"><div class="legend-swatch" style="background:#c8cde0;opacity:0.4"></div> Domeinring (laag 1)</div>
+      <div class="legend-row" style="margin-top:4px">
+        <div style="width:22px;height:2px;border-top:2px dashed var(--gold);opacity:0.6"></div>
+        Dubbele koppeling
+      </div>
+    </div>
+
+    <div class="hint">
+      🖱 Sleep → roteren<br>
+      🔍 Scroll → zoom<br>
+      👆 Hover → details<br>
+      📂 JSON slepen op canvas
+    </div>
+
+  </aside>
+</div>
+
+<div id="tooltip"></div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script>
+// ─────────────────────── STATE ───────────────────────
+let state = {
+  meta: { title:'3D Informatiekringen', subtitle:'', description:'' },
+  centers: [],
+  rings: [],
+  doublings: [],
+  showConns: true,
+  showDoubling: true,
+  showSubs: true,
+  selectedRingId: null,
+};
+
+// ─────────────────────── DEFAULT DATA (3-center example) ───────────────────────
+const DEFAULT_DATA = {
+  meta: { title:'Informatiekringen · 3D', subtitle:'Voorbeeld structuur', description:'' },
+  centers: [
+    { id:'A', label:'Technologie',  color:'#4fc8ff', size:1.2 },
+    { id:'B', label:'Maatschappij', color:'#ff6eb4', size:1.2 },
+    { id:'C', label:'Wetenschap',   color:'#7dffb3', size:1.2 },
+  ],
+  rings: [
+    { id:1,  name:'Data',       center:'A',   size:1.0, thick:2, tilt:0,   layer:1, desc:'Data-infrastructuur en informatieverwerking.' },
+    { id:2,  name:'Ethiek',     center:'B',   size:0.9, thick:2, tilt:30,  layer:1, desc:'Normatieve vraagstukken en ethische kaders.' },
+    { id:3,  name:'Biologie',   center:'C',   size:1.1, thick:2, tilt:60,  layer:1, desc:'Levensprocessen en biologische systemen.' },
+    { id:4,  name:'AI',         center:'A+B', size:1.2, thick:2, tilt:45,  layer:0, desc:'Interface tussen technologie en maatschappij.' },
+    { id:5,  name:'Klimaat',    center:'B+C', size:0.85,thick:2, tilt:90,  layer:0, desc:'Klimaatcrisis als maatschappelijk-wetenschappelijk vraagstuk.' },
+    { id:6,  name:'Kwantum',    center:'A+C', size:1.0, thick:2, tilt:20,  layer:0, desc:'Fundamentele taal van wetenschap én digitale infrastructuur.' },
+    { id:7,  name:'Systemen',   center:'A+B+C',size:1.4,thick:3, tilt:10,  layer:0, desc:'Meta-concept dat alle domeinen verbindt.' },
+    { id:8,  name:'Netwerken',  center:'A',   size:0.75,thick:2, tilt:75,  layer:1, desc:'Digitale netwerken en communicatie-infrastructuur.' },
+    { id:9,  name:'Gedrag',     center:'B',   size:1.0, thick:2, tilt:120, layer:1, desc:'Menselijk en collectief gedrag.' },
+    { id:10, name:'Energie',    center:'C',   size:0.9, thick:2, tilt:150, layer:1, desc:'Energiesystemen en duurzame transitie.' },
+  ],
+  doublings: []
+};
+
+// ─────────────────────── THREE SETUP ───────────────────────
+const canvas   = document.getElementById('c');
+const wrap     = document.getElementById('canvas-wrap');
+const renderer = new THREE.WebGLRenderer({ canvas, antialias:true, logarithmicDepthBuffer:true });
+renderer.setPixelRatio(Math.min(devicePixelRatio,2));
+renderer.setClearColor(0x07080f,1);
+
+const scene  = new THREE.Scene();
+const camera = new THREE.PerspectiveCamera(44,1,0.1,200);
+camera.position.set(0,0,8);
+
+scene.add(new THREE.AmbientLight(0xffffff,0.35));
+const ptL = new THREE.PointLight(0xffffff,1,60); ptL.position.set(5,8,5); scene.add(ptL);
+const ptR = new THREE.PointLight(0x8899ff,0.4,60); ptR.position.set(-5,-4,6); scene.add(ptR);
+
+const sphereGroup = new THREE.Group();
+scene.add(sphereGroup);
+let ringObjects  = [];
+let rotateSpeed  = 0.3;
+
+// ─────────────────────── GEOMETRY HELPERS ───────────────────────
+// Distribute N centers evenly on a sphere surface using golden angle
+function getCenterPositions(centers) {
+  const n   = centers.length;
+  const r   = 1.5;
+  const pos = {};
+  if (n === 1) {
+    pos[centers[0].id] = new THREE.Vector3(0, r, 0);
+    return pos;
+  }
+  // Fibonacci sphere distribution
+  const golden = Math.PI * (3 - Math.sqrt(5));
+  centers.forEach((c, i) => {
+    const y     = 1 - (i / (n-1)) * 2;
+    const rad   = Math.sqrt(1 - y*y);
+    const theta = golden * i;
+    pos[c.id]   = new THREE.Vector3(rad * Math.cos(theta), y, rad * Math.sin(theta)).multiplyScalar(r);
+  });
+  return pos;
+}
+
+function blendHex(hexArr) {
+  let r=0,g=0,b=0;
+  hexArr.forEach(h => {
+    const n = parseInt(h.replace('#',''),16);
+    r += (n>>16)&0xff; g += (n>>8)&0xff; b += n&0xff;
+  });
+  const l = hexArr.length;
+  return '#' + [Math.round(r/l),Math.round(g/l),Math.round(b/l)].map(v=>v.toString(16).padStart(2,'0')).join('');
+}
+
+function hexToInt(h) { return parseInt(h.replace('#',''),16); }
+
+function blendedColor(centerKey, centers) {
+  const ids  = [...new Set(centerKey.split('+'))];
+  const cols = ids.map(id => { const c = centers.find(x=>x.id===id); return c ? c.color : '#888888'; });
+  return blendHex(cols);
+}
+
+function getCenterPos(centerKey, posMap) {
+  const ids = [...new Set(centerKey.split('+'))];
+  const v   = new THREE.Vector3();
+  ids.forEach(id => { if(posMap[id]) v.add(posMap[id]); });
+  v.divideScalar(ids.length);
+  return v;
+}
+
+// ─────────────────────── BUILD SCENE ───────────────────────
+function buildScene() {
+  while(sphereGroup.children.length) sphereGroup.remove(sphereGroup.children[0]);
+  ringObjects = [];
+
+  const { centers, rings, doublings } = state;
+  const posMap = getCenterPositions(centers);
+
+  // Ghost wireframe
+  sphereGroup.add(new THREE.Mesh(
+    new THREE.SphereGeometry(2.1, 40, 40),
+    new THREE.MeshBasicMaterial({ color:0x1e2235, wireframe:true, transparent:true, opacity:0.10, depthWrite:false })
+  ));
+
+  // Draw doublings (dashed arcs between centers)
+  if (state.showDoubling && doublings.length) {
+    doublings.forEach(d => {
+      const pA = posMap[d.from], pB = posMap[d.to];
+      if (!pA || !pB) return;
+      // Arc via midpoint offset toward center
+      const mid = pA.clone().add(pB).multiplyScalar(0.5);
+      const pull = mid.length() < 0.1 ? 0.5 : 0.3;
+      mid.multiplyScalar(1 - pull);
+      const curve = new THREE.QuadraticBezierCurve3(pA, mid, pB);
+      const pts   = curve.getPoints(32);
+      const geo   = new THREE.BufferGeometry().setFromPoints(pts);
+      const col   = blendHex([posMap[d.from] ? centers.find(c=>c.id===d.from)?.color||'#888' : '#888',
+                               posMap[d.to]   ? centers.find(c=>c.id===d.to  )?.color||'#888' : '#888']);
+      const mat   = new THREE.LineBasicMaterial({ color:hexToInt(col), transparent:true, opacity:0.45, depthWrite:false });
+      sphereGroup.add(new THREE.Line(geo, mat));
+    });
+  }
+
+  // Draw center-to-center connections
+  if (state.showConns) {
+    for (let i=0; i<centers.length; i++) {
+      for (let j=i+1; j<centers.length; j++) {
+        const pA = posMap[centers[i].id], pB = posMap[centers[j].id];
+        const col = blendHex([centers[i].color, centers[j].color]);
+        const geo = new THREE.BufferGeometry().setFromPoints([pA, pB]);
+        sphereGroup.add(new THREE.Line(geo, new THREE.LineBasicMaterial({ color:hexToInt(col), transparent:true, opacity:0.15, depthWrite:false })));
+      }
+    }
+  }
+
+  // Draw center nodes
+  centers.forEach(c => {
+    const pos = posMap[c.id];
+    if (!pos) return;
+    const col = hexToInt(c.color);
+    // Node sphere
+    const orb = new THREE.Mesh(
+      new THREE.SphereGeometry(0.13,16,16),
+      new THREE.MeshPhongMaterial({ color:col, emissive:col, emissiveIntensity:0.65, shininess:120 })
+    );
+    orb.position.copy(pos);
+    sphereGroup.add(orb);
+    // Halo ring
+    const halo = new THREE.Mesh(
+      new THREE.TorusGeometry(0.24, 0.016, 8, 56),
+      new THREE.MeshBasicMaterial({ color:col, transparent:true, opacity:0.45, depthWrite:false })
+    );
+    halo.position.copy(pos);
+    halo.lookAt(new THREE.Vector3(0,0,0));
+    sphereGroup.add(halo);
+  });
+
+  // Draw rings
+  rings.forEach(ring => {
+    const isBridge = ring.center.includes('+');
+    const isSub    = ring.layer === 2;
+    const isSel    = ring.id === state.selectedRingId;
+
+    if (isSub && !state.showSubs) return;
+
+    const hexCol = blendedColor(ring.center, centers);
+    const intCol = hexToInt(hexCol);
+
+    // Scale sub-rings inward slightly
+    const radiusMult = isSub ? 0.72 : 1.0;
+    const geo = new THREE.TorusGeometry(ring.size * radiusMult, ring.thick * 0.013, 12, 130);
+    const mat = new THREE.MeshPhongMaterial({
+      color: intCol, emissive: intCol,
+      emissiveIntensity: isSel ? 0.85 : isBridge ? 0.4 : isSub ? 0.12 : 0.2,
+      shininess: 90, transparent: true, depthWrite: false,
+      opacity: isSel ? 0.98 : isBridge ? 0.82 : isSub ? 0.5 : 0.68,
+    });
+    const mesh = new THREE.Mesh(geo, mat);
+
+    const pos = getCenterPos(ring.center, posMap);
+    mesh.position.copy(pos);
+    mesh.rotation.x = THREE.MathUtils.degToRad(ring.tilt);
+    mesh.rotation.z = THREE.MathUtils.degToRad(ring.tilt * 0.4);
+    mesh.lookAt(pos.clone().multiplyScalar(2));
+
+    // Gold outline for bridge rings
+    if (isBridge) {
+      const out = new THREE.Mesh(
+        new THREE.TorusGeometry(ring.size * radiusMult + 0.04, 0.012, 8, 130),
+        new THREE.MeshBasicMaterial({ color: 0xf5c842, transparent:true, depthWrite:false, opacity: isSel?0.9:0.35 })
+      );
+      out.position.copy(mesh.position);
+      out.quaternion.copy(mesh.quaternion);
+      sphereGroup.add(out);
+    }
+
+    mesh.userData = { ringId:ring.id, name:ring.name, desc:ring.desc||'', center:ring.center, layer:ring.layer };
+    sphereGroup.add(mesh);
+    ringObjects.push({ mesh, ring });
+  });
+}
+
+// ─────────────────────── RESIZE / ANIMATE ───────────────────────
+function resize() {
+  const w = wrap.clientWidth, h = wrap.clientHeight;
+  renderer.setSize(w,h,false);
+  camera.aspect = w/h;
+  camera.updateProjectionMatrix();
+}
+window.addEventListener('resize', resize); resize();
+
+let autoRot = true;
+function animate() {
+  requestAnimationFrame(animate);
+  if (autoRot) sphereGroup.rotation.y += rotateSpeed * 0.004;
+  renderer.render(scene, camera);
+}
+
+// ─────────────────────── ORBIT ───────────────────────
+let isDragging=false, prevMX=0, prevMY=0;
+wrap.addEventListener('mousedown', e=>{ isDragging=true; prevMX=e.clientX; prevMY=e.clientY; autoRot=false; });
+window.addEventListener('mouseup', ()=>{ isDragging=false; setTimeout(()=>autoRot=true, 2200); });
+window.addEventListener('mousemove', e=>{
+  if(!isDragging) return;
+  sphereGroup.rotation.y += (e.clientX-prevMX)*0.007;
+  sphereGroup.rotation.x += (e.clientY-prevMY)*0.007;
+  prevMX=e.clientX; prevMY=e.clientY;
+});
+wrap.addEventListener('wheel', e=>{ camera.position.z=Math.max(2,Math.min(16,camera.position.z+e.deltaY*0.01)); },{passive:true});
+let prevTouch=null;
+wrap.addEventListener('touchstart',e=>{ prevTouch=e.touches[0]; autoRot=false; },{passive:true});
+wrap.addEventListener('touchmove',e=>{ if(!prevTouch)return; const t=e.touches[0]; sphereGroup.rotation.y+=(t.clientX-prevTouch.clientX)*0.007; sphereGroup.rotation.x+=(t.clientY-prevTouch.clientY)*0.007; prevTouch=t; },{passive:true});
+wrap.addEventListener('touchend',()=>{ prevTouch=null; setTimeout(()=>autoRot=true,2200); });
+
+// ─────────────────────── RAYCASTING ───────────────────────
+const raycaster = new THREE.Raycaster();
+const mouse     = new THREE.Vector2();
+const tooltip   = document.getElementById('tooltip');
+
+wrap.addEventListener('mousemove', e=>{
+  const rect=wrap.getBoundingClientRect();
+  mouse.x=((e.clientX-rect.left)/rect.width)*2-1;
+  mouse.y=-((e.clientY-rect.top)/rect.height)*2+1;
+  raycaster.setFromCamera(mouse,camera);
+  const hits=raycaster.intersectObjects(ringObjects.map(r=>r.mesh));
+  if(hits.length){
+    const d=hits[0].object.userData;
+    const layerLabel = d.layer===0?'brugring':d.layer===2?'sub-ring':'domeinring';
+    tooltip.style.display='block';
+    tooltip.style.left=(e.clientX+14)+'px';
+    tooltip.style.top=(e.clientY-10)+'px';
+    tooltip.innerHTML=`<strong>${d.name}</strong><em>${layerLabel} · ${d.center}</em>${d.desc?'<br>'+d.desc:''}`;
+    wrap.style.cursor=isDragging?'grabbing':'pointer';
+  } else {
+    tooltip.style.display='none';
+    wrap.style.cursor=isDragging?'grabbing':'grab';
+  }
+});
+
+wrap.addEventListener('click', e=>{
+  if(Math.abs(e.movementX)+Math.abs(e.movementY)>4) return;
+  const rect=wrap.getBoundingClientRect();
+  mouse.x=((e.clientX-rect.left)/rect.width)*2-1;
+  mouse.y=-((e.clientY-rect.top)/rect.height)*2+1;
+  raycaster.setFromCamera(mouse,camera);
+  const hits=raycaster.intersectObjects(ringObjects.map(r=>r.mesh));
+  selectRing(hits.length?hits[0].object.userData.ringId:null);
+});
+
+// ─────────────────────── UI ───────────────────────
+function renderCentersList() {
+  const el=document.getElementById('centersList');
+  el.innerHTML='';
+  state.centers.forEach(c=>{
+    const div=document.createElement('div');
+    div.className='center-chip';
+    div.innerHTML=`<span class="dot" style="background:${c.color};box-shadow:0 0 6px ${c.color}88"></span>
+      <span style="flex:1;font-size:0.7rem">${c.label}</span>
+      <span style="font-size:0.58rem;color:var(--dim)">${c.id}</span>`;
+    el.appendChild(div);
+  });
+}
+
+function renderRingList() {
+  const el=document.getElementById('ringsList');
+  const cnt=document.getElementById('ring-count');
+  el.innerHTML='';
+  cnt.textContent='('+state.rings.length+')';
+  state.rings.forEach(ring=>{
+    const isBridge=ring.center.includes('+');
+    const isSub=ring.layer===2;
+    const div=document.createElement('div');
+    div.className='ring-item'+(ring.id===state.selectedRingId?' selected':'');
+    const hexCol=blendedColor(ring.center,state.centers);
+    const badgeClass=isBridge?'bridge':isSub?'sub':'';
+    const badgeText=isBridge?'brug':isSub?'sub':'dom';
+    div.innerHTML=`
+      <span class="dot" style="background:${hexCol};box-shadow:0 0 4px ${hexCol}88"></span>
+      <span class="ring-name">${ring.name}</span>
+      <span class="layer-badge ${badgeClass}">${badgeText}</span>`;
+    div.addEventListener('click',()=>selectRing(ring.id));
+    el.appendChild(div);
+  });
+}
+
+function selectRing(id) {
+  state.selectedRingId=id;
+  renderRingList();
+  buildScene();
+}
+
+function toggleConns() {
+  state.showConns=!state.showConns;
+  document.getElementById('connBtn').textContent=state.showConns?'aan':'uit';
+  buildScene();
+}
+function toggleDoubling() {
+  state.showDoubling=!state.showDoubling;
+  document.getElementById('dblBtn').textContent=state.showDoubling?'aan':'uit';
+  buildScene();
+}
+function toggleSubs() {
+  state.showSubs=!state.showSubs;
+  document.getElementById('subBtn').textContent=state.showSubs?'aan':'uit';
+  buildScene();
+}
+
+// ─────────────────────── SIDEBAR TOGGLE ───────────────────────
+let sidebarOpen=window.innerWidth>=640;
+function toggleSidebar(){
+  sidebarOpen=!sidebarOpen;
+  const sb=document.getElementById('sidebar');
+  const tg=document.getElementById('sidebar-toggle');
+  const ar=document.getElementById('toggle-arrow');
+  if(sidebarOpen){ sb.classList.remove('collapsed'); tg.classList.remove('collapsed'); ar.textContent='›'; }
+  else           { sb.classList.add('collapsed');    tg.classList.add('collapsed');    ar.textContent='‹'; }
+  setTimeout(resize,340);
+}
+// Init
+if(!sidebarOpen){ document.getElementById('sidebar').classList.add('collapsed'); document.getElementById('sidebar-toggle').classList.add('collapsed'); document.getElementById('toggle-arrow').textContent='‹'; }
+
+// ─────────────────────── JSON LOADING ───────────────────────
+function loadData(data) {
+  // Validate minimum structure
+  if (!data.centers || !data.rings) { alert('Ongeldig JSON-formaat: centra en ringen zijn vereist.'); return; }
+
+  state.centers   = data.centers;
+  state.rings     = data.rings;
+  state.doublings = data.doublings || [];
+  state.meta      = data.meta || { title:'Diagram', subtitle:'', description:'' };
+  state.selectedRingId = null;
+
+  // Update header
+  document.getElementById('diagram-title').textContent = state.meta.title || 'Diagram';
+  document.getElementById('diagram-sub').textContent   = state.meta.subtitle || '';
+
+  renderCentersList();
+  renderRingList();
+  buildScene();
+}
+
+function loadDefault() {
+  loadData(DEFAULT_DATA);
+  document.getElementById('loaded-name').textContent='voorbeeld';
+}
+
+// File input
+document.getElementById('file-input').addEventListener('change', e=>{
+  const file=e.target.files[0];
+  if(!file) return;
+  const reader=new FileReader();
+  reader.onload=ev=>{ try{ loadData(JSON.parse(ev.target.result)); document.getElementById('loaded-name').textContent=file.name; } catch(err){ alert('JSON-fout: '+err.message); } };
+  reader.readAsText(file);
+  e.target.value='';
+});
+
+// Drag & drop on canvas
+const dropOverlay=document.getElementById('drop-overlay');
+wrap.addEventListener('dragover',e=>{ e.preventDefault(); dropOverlay.classList.add('active'); });
+wrap.addEventListener('dragleave',()=>dropOverlay.classList.remove('active'));
+wrap.addEventListener('drop',e=>{
+  e.preventDefault(); dropOverlay.classList.remove('active');
+  const file=e.dataTransfer.files[0];
+  if(!file||!file.name.endsWith('.json')){ alert('Alleen .json bestanden.'); return; }
+  const reader=new FileReader();
+  reader.onload=ev=>{ try{ loadData(JSON.parse(ev.target.result)); document.getElementById('loaded-name').textContent=file.name; } catch(err){ alert('JSON-fout: '+err.message); } };
+  reader.readAsText(file);
+});
+
+// ─────────────────────── BOOT ───────────────────────
+loadData(DEFAULT_DATA);
+animate();
+</script>
+</body>
+</html>
