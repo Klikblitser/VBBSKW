@@ -1,0 +1,23 @@
+{
+  "centers": {
+    "A": { "label": "Technologie",  "hexStr": "#4fc8ff" },
+    "B": { "label": "Maatschappij", "hexStr": "#ff6eb4" },
+    "C": { "label": "Wetenschap",   "hexStr": "#7dffb3" }
+  },
+  "rings": [
+    { "id": 1,  "name": "Data",      "center": "A",   "size": 1.0,  "thick": 2, "tilt": 0,   "subRings": [] },
+    { "id": 2,  "name": "Ethiek",    "center": "B",   "size": 0.9,  "thick": 2, "tilt": 30,  "subRings": [] },
+    { "id": 3,  "name": "Biologie",  "center": "C",   "size": 1.1,  "thick": 2, "tilt": 60,  "subRings": [] },
+    { "id": 4,  "name": "AI",        "center": "AB",  "size": 1.2,  "thick": 2, "tilt": 45,  "subRings": [] },
+    { "id": 5,  "name": "Klimaat",   "center": "BC",  "size": 0.85, "thick": 2, "tilt": 90,  "subRings": [] },
+    { "id": 6,  "name": "Kwantum",   "center": "AC",  "size": 1.0,  "thick": 2, "tilt": 20,  "subRings": [] },
+    { "id": 7,  "name": "Systemen",  "center": "ABC", "size": 1.4,  "thick": 3, "tilt": 10,  "subRings": [] },
+    { "id": 8,  "name": "Netwerken", "center": "A",   "size": 0.75, "thick": 2, "tilt": 75,  "subRings": [] },
+    { "id": 9,  "name": "Gedrag",    "center": "B",   "size": 1.0,  "thick": 2, "tilt": 120, "subRings": [] },
+    { "id": 10, "name": "Energie",   "center": "C",   "size": 0.9,  "thick": 2, "tilt": 150, "subRings": [] }
+  ],
+  "nextId": 11,
+  "nextSubId": 1,
+  "showConnections": true,
+  "showLabels": true
+}

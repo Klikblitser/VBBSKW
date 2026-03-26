@@ -1140,10 +1140,44 @@ document.getElementById('newSubRingName').addEventListener('keydown', e => { if 
 
 // ───────────────────────── BOOT ─────────────────────────
 applyPanelState();
-loadState();
-buildScene();
-renderRingList();
-animate();
+
+function applyJSONDefaults(data) {
+  if (data.centers) {
+    ['A','B','C'].forEach(k => {
+      if (data.centers[k]) {
+        const hex = data.centers[k].hexStr;
+        state.centers[k] = { label: data.centers[k].label, hexStr: hex, color: parseInt(hex.replace('#',''), 16) };
+      }
+    });
+  }
+  if (Array.isArray(data.rings))          state.rings          = data.rings;
+  if (data.nextId    != null)             state.nextId         = data.nextId;
+  if (data.nextSubId != null)             state.nextSubId      = data.nextSubId;
+  if (data.showConnections !== undefined) state.showConnections = data.showConnections;
+  if (data.showLabels      !== undefined) state.showLabels      = data.showLabels;
+}
+
+function syncUI() {
+  ['A','B','C'].forEach(k => {
+    document.getElementById('label'+k).value = state.centers[k].label;
+    document.getElementById('color'+k).value = state.centers[k].hexStr;
+  });
+  document.getElementById('connBtn').textContent = state.showConnections ? 'aan' : 'uit';
+  document.getElementById('lblBtn').textContent  = state.showLabels      ? 'aan' : 'uit';
+}
+
+function boot() {
+  loadState();   // past localStorage-overrides toe (indien aanwezig)
+  syncUI();      // synchroniseer altijd de UI met de huidige state
+  buildScene();
+  renderRingList();
+  animate();
+}
+
+fetch('3d-diagram-basic.json')
+  .then(r => r.json())
+  .then(data => { applyJSONDefaults(data); boot(); })
+  .catch(() => boot()); // val terug op hardgecodeerde state bij fout
 </script>
 </body>
 </html>
