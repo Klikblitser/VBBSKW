@@ -379,77 +379,69 @@
       </div>
     </div>
 
-    <!-- Geselecteerde ring -->
-    <div id="ringEditor" style="display:none;">
-      <div class="section-title">Ring bewerken</div>
+    <!-- Unified knooppunt-editor (hoofd- én sub-ringen op elk niveau) -->
+    <div id="nodeEditor" style="display:none;">
+      <div class="section-title" id="nodeEditorTitle">Ring bewerken</div>
+
+      <!-- Breadcrumb: zichtbaar bij diepte > 0 -->
+      <div id="nodeBreadcrumb" style="display:none;font-size:0.6rem;color:var(--dim);margin-bottom:8px;line-height:1.9;word-break:break-word;"></div>
+
       <div class="control-row">
         <label>Naam</label>
-        <input type="text" id="editRingName"
+        <input type="text" id="editNodeName"
           style="width:140px;border:1px solid var(--border);padding:3px 6px;border-radius:4px;background:var(--bg);color:var(--text);font-family:'DM Mono',monospace;font-size:0.68rem;outline:none;"
-          oninput="updateSelectedRing()">
+          oninput="updateSelectedNode()">
       </div>
-      <div class="control-row">
-        <label>Centrum</label>
-        <select id="editCenter" onchange="updateSelectedRing()" style="background:var(--bg);border:1px solid var(--border);color:var(--text);font-family:'DM Mono',monospace;font-size:0.72rem;padding:4px 8px;border-radius:4px;cursor:pointer;">
-          <option value="A">A</option>
-          <option value="B">B</option>
-          <option value="C">C</option>
-          <option value="AB">A+B</option>
-          <option value="BC">B+C</option>
-          <option value="AC">A+C</option>
-          <option value="ABC">A+B+C</option>
-        </select>
+
+      <!-- Alleen hoofdringen (diepte 0) -->
+      <div id="rootOnlyFields">
+        <div class="control-row">
+          <label>Centrum</label>
+          <select id="editCenter" onchange="updateSelectedNode()" style="background:var(--bg);border:1px solid var(--border);color:var(--text);font-family:'DM Mono',monospace;font-size:0.72rem;padding:4px 8px;border-radius:4px;cursor:pointer;">
+            <option value="A">A</option>
+            <option value="B">B</option>
+            <option value="C">C</option>
+            <option value="AB">A+B</option>
+            <option value="BC">B+C</option>
+            <option value="AC">A+C</option>
+            <option value="ABC">A+B+C</option>
+          </select>
+        </div>
+        <div class="control-row">
+          <label>Kanteling °</label>
+          <input type="range" id="editTilt" min="0" max="360" step="1" value="0" oninput="updateSelectedNode()">
+          <span class="val-badge" id="editTiltVal">0°</span>
+        </div>
       </div>
+
+      <!-- Sub-ringen op diepte ≥ 1 -->
+      <div id="subOnlyFields" style="display:none;">
+        <div class="control-row">
+          <label>Klokpositie °</label>
+          <input type="range" id="editOffsetAngle" min="0" max="360" step="5" value="0" oninput="updateSelectedNode()">
+          <span class="val-badge" id="editOffsetAngleVal">0°</span>
+        </div>
+      </div>
+
       <div class="control-row">
         <label>Grootte</label>
-        <input type="range" id="editSize" min="0.3" max="2.5" step="0.05" value="1" oninput="updateSelectedRing()">
+        <input type="range" id="editSize" min="0.05" max="2.5" step="0.05" value="1" oninput="updateSelectedNode()">
         <span class="val-badge" id="editSizeVal">1.0</span>
       </div>
       <div class="control-row">
         <label>Dikte</label>
-        <input type="range" id="editThick" min="1" max="8" step="0.5" value="2" oninput="updateSelectedRing()">
+        <input type="range" id="editThick" min="1" max="8" step="0.5" value="2" oninput="updateSelectedNode()">
         <span class="val-badge" id="editThickVal">2</span>
       </div>
-      <div class="control-row">
-        <label>Kanteling °</label>
-        <input type="range" id="editTilt" min="0" max="360" step="1" value="0" oninput="updateSelectedRing()">
-        <span class="val-badge" id="editTiltVal">0°</span>
-      </div>
 
-      <!-- Sub-ringen van geselecteerde ring -->
+      <!-- Sub-ringen van dit knooppunt (elke diepte) -->
       <div style="margin-top:14px;border-top:1px solid var(--border);padding-top:10px;">
         <div class="section-title">Sub-ringen</div>
-        <div class="rings-list" id="subRingsList" style="max-height:110px;"></div>
+        <div class="rings-list" id="childList" style="max-height:110px;"></div>
         <div style="margin-top:8px;display:flex;gap:6px;">
-          <input type="text" id="newSubRingName" placeholder="Naam sub-ring…"
+          <input type="text" id="newChildName" placeholder="Naam sub-ring…"
             style="flex:1;border:1px solid var(--border);padding:5px 8px;border-radius:4px;background:transparent;color:var(--text);font-family:'DM Mono',monospace;font-size:0.68rem;outline:none;">
-          <button class="btn" onclick="addSubRing()">+ Add</button>
-        </div>
-      </div>
-
-      <!-- Sub-ring bewerken -->
-      <div id="subRingEditor" style="display:none;margin-top:10px;border-top:1px solid var(--border);padding-top:10px;">
-        <div class="section-title">Sub-ring bewerken</div>
-        <div class="control-row">
-          <label>Naam</label>
-          <input type="text" id="editSubName"
-            style="width:130px;border:1px solid var(--border);padding:3px 6px;border-radius:4px;background:var(--bg);color:var(--text);font-family:'DM Mono',monospace;font-size:0.68rem;outline:none;"
-            oninput="updateSelectedSubRing()">
-        </div>
-        <div class="control-row">
-          <label>Grootte</label>
-          <input type="range" id="editSubSize" min="0.1" max="1.2" step="0.05" value="0.4" oninput="updateSelectedSubRing()">
-          <span class="val-badge" id="editSubSizeVal">0.40</span>
-        </div>
-        <div class="control-row">
-          <label>Dikte</label>
-          <input type="range" id="editSubThick" min="1" max="6" step="0.5" value="1.5" oninput="updateSelectedSubRing()">
-          <span class="val-badge" id="editSubThickVal">1.5</span>
-        </div>
-        <div class="control-row">
-          <label>Klokpositie °</label>
-          <input type="range" id="editSubAngle" min="0" max="360" step="5" value="0" oninput="updateSelectedSubRing()">
-          <span class="val-badge" id="editSubAngleVal">0°</span>
+          <button class="btn" onclick="addChildRing()">+ Add</button>
         </div>
       </div>
     </div>
@@ -528,8 +520,7 @@ const state = {
   ],
   nextId: 11,
   nextSubId: 1,
-  selectedRingId: null,
-  selectedSubRingId: null,
+  selectedPath: [],   // pad van ID's van root naar geselecteerd knooppunt
   showConnections: true,
   showLabels: true,
 };
@@ -554,11 +545,10 @@ scene.add(pt);
 // Groups
 const sphereGroup = new THREE.Group();
 scene.add(sphereGroup);
-let ringObjects   = [];  // { mesh, ringData }
+let ringObjects   = [];  // { mesh, path }
 let connObjects   = [];  // lines
 let centerSpheres = {};
 let labelSprites  = {};
-let subRingMeshes = [];  // { mesh, parentPos, xAxis, yAxis, ringSize, parentQuat, subRing }
 
 let rotateSpeed = 0.3;
 
@@ -611,8 +601,6 @@ function buildScene() {
   connObjects   = [];
   centerSpheres = {};
   labelSprites  = {};
-  subRingMeshes = [];
-
   // Draw centers
   ['A','B','C'].forEach(key => {
     const pos   = getCenterPos(key);
@@ -648,78 +636,64 @@ function buildScene() {
     });
   }
 
-  // Draw rings
-  state.rings.forEach(ring => {
-    const col    = blendColors(ring.center);
-    const geo    = new THREE.TorusGeometry(ring.size, ring.thick * 0.012, 12, 120);
-    const mat    = new THREE.MeshPhongMaterial({
-      color:           col,
-      emissive:        col,
-      emissiveIntensity: ring.id === state.selectedRingId ? 0.7 : 0.25,
-      shininess:       80,
-      transparent:     true,
-      opacity:         ring.id === state.selectedRingId ? 0.95 : 0.7,
+  // Recursieve helperfunctie: tekent een knooppunt en al zijn kinderen
+  function buildRingNode(node, worldPos, isRoot, parentQuat, rootColor, path) {
+    const pathStr  = JSON.stringify(path);
+    const selStr   = JSON.stringify(state.selectedPath);
+    const isSel    = pathStr === selStr;
+    const depth    = path.length - 1;
+
+    // Mesh-detail daalt per diepteniveau
+    const tubeSegs = Math.max(6, 12 - depth * 2);
+    const ringSegs = Math.max(48, 120 - depth * 20);
+    const thickMul = isRoot ? 0.012 : 0.011;
+
+    const geo = new THREE.TorusGeometry(node.size, node.thick * thickMul, tubeSegs, ringSegs);
+    const mat = new THREE.MeshPhongMaterial({
+      color:             rootColor,
+      emissive:          rootColor,
+      emissiveIntensity: isSel ? 0.7 : (isRoot ? 0.25 : Math.max(0.1, 0.2 - depth * 0.03)),
+      shininess:         isRoot ? 80 : 60,
+      transparent:       true,
+      opacity:           isSel ? 0.95 : (isRoot ? 0.7 : Math.max(0.35, 0.58 - depth * 0.06)),
     });
-    const mesh   = new THREE.Mesh(geo, mat);
+    const mesh = new THREE.Mesh(geo, mat);
+    mesh.position.copy(worldPos);
 
-    // Position at blended center
-    const pos    = getCenterPos(ring.center);
-    mesh.position.copy(pos);
+    if (isRoot) {
+      mesh.lookAt(worldPos.clone().multiplyScalar(2));
+      mesh.rotateOnAxis(new THREE.Vector3(1, 0, 0), THREE.MathUtils.degToRad(node.tilt || 0));
+    } else {
+      mesh.quaternion.copy(parentQuat);
+    }
 
-    // Orient to face outward from center
-    mesh.lookAt(pos.clone().multiplyScalar(2));
-
-    // Apply tilt as visible in-plane rotation after lookAt
-    mesh.rotateOnAxis(new THREE.Vector3(1, 0, 0), THREE.MathUtils.degToRad(ring.tilt));
-
-    mesh.userData = { ringId: ring.id, name: ring.name, isSubRing: false };
+    const thisQuat = mesh.quaternion.clone();
+    mesh.userData  = { path: [...path], name: node.name };
     sphereGroup.add(mesh);
-    ringObjects.push({ mesh, ring });
+    ringObjects.push({ mesh, path: [...path] });
 
-    // Lokale assen van de ouderring: parentNormal + rechts/omhoog in het ringvlak
-    const parentNormal = pos.clone().normalize();
+    // Lokale assen van dit knooppunt voor het plaatsen van kinderen
+    const parentNormal = worldPos.clone().normalize();
     let rightVec = new THREE.Vector3(0, 1, 0);
     if (Math.abs(rightVec.dot(parentNormal)) > 0.999) rightVec.set(1, 0, 0);
     rightVec = new THREE.Vector3().crossVectors(rightVec, parentNormal).normalize();
     const localUp = new THREE.Vector3().crossVectors(parentNormal, rightVec).normalize();
-    const parentQuat = mesh.quaternion.clone();
 
-    // Sub-ringen — kloksgewijze klokpositie op de ouderring
-    (ring.subRings || []).forEach(sub => {
-      const subCol = blendColors(ring.center);
-
-      // clockAngle negatief → kloksgewijs: 0°=3u, 90°=6u, 180°=9u, 270°=12u
-      const clockAngle = -THREE.MathUtils.degToRad(sub.offsetAngle || 0);
-      const initPos = pos.clone()
-        .add(rightVec.clone().multiplyScalar(Math.cos(clockAngle) * ring.size))
-        .add(localUp.clone().multiplyScalar(Math.sin(clockAngle) * ring.size));
-
-      const isSelSub = sub.id === state.selectedSubRingId && ring.id === state.selectedRingId;
-      const subGeo = new THREE.TorusGeometry(sub.size, sub.thick * 0.011, 8, 64);
-      const subMat = new THREE.MeshPhongMaterial({
-        color: subCol, emissive: subCol,
-        emissiveIntensity: isSelSub ? 0.65 : 0.2,
-        shininess: 60, transparent: true,
-        opacity: isSelSub ? 0.92 : 0.58,
-      });
-      const subMesh = new THREE.Mesh(subGeo, subMat);
-      subMesh.position.copy(initPos);
-      subMesh.quaternion.copy(parentQuat); // zelfde hoek als ouderring
-      subMesh.userData = { ringId: ring.id, subRingId: sub.id, name: sub.name, isSubRing: true };
-      sphereGroup.add(subMesh);
-      ringObjects.push({ mesh: subMesh, ring, subRing: sub });
-
-      // Sla orbitgegevens op voor de animatielus
-      subRingMeshes.push({
-        mesh: subMesh,
-        parentPos: pos.clone(),
-        xAxis: xAxis.clone(),
-        yAxis: yAxis.clone(),
-        ringSize: ring.size,
-        parentQuat: parentQuat.clone(),
-        subRing: sub,
-      });
+    // Recursief kinderen tekenen
+    (node.subRings || []).forEach(child => {
+      const clockAngle = -THREE.MathUtils.degToRad(child.offsetAngle || 0);
+      const childPos   = worldPos.clone()
+        .add(rightVec.clone().multiplyScalar(Math.cos(clockAngle) * node.size))
+        .add(localUp.clone().multiplyScalar(Math.sin(clockAngle) * node.size));
+      buildRingNode(child, childPos, false, thisQuat, rootColor, [...path, child.id]);
     });
+  }
+
+  // Teken alle hoofdringen
+  state.rings.forEach(ring => {
+    const worldPos   = getCenterPos(ring.center);
+    const rootColor  = blendColors(ring.center);
+    buildRingNode(ring, worldPos, true, null, rootColor, [ring.id]);
   });
 }
 
@@ -787,13 +761,14 @@ wrap.addEventListener('mousemove', e => {
     tooltip.style.display = 'block';
     tooltip.style.left    = (e.clientX + 14) + 'px';
     tooltip.style.top     = (e.clientY - 10) + 'px';
-    if (ud.isSubRing) {
-      const parent = state.rings.find(r => r.id === ud.ringId);
-      tooltip.innerHTML = `<strong>${ud.name}</strong><span class="tt-sub">Sub-ring van: ${parent ? parent.name : ''}</span>`;
-    } else {
-      const ring = state.rings.find(r => r.id === ud.ringId);
+    const nodePath = ud.path || [];
+    if (nodePath.length <= 1) {
+      const ring = state.rings.find(r => r.id === nodePath[0]);
       const centerStr = ring ? resolveCenterLabel(ring.center) : '';
       tooltip.innerHTML = `<strong>${ud.name}</strong><span class="tt-sub">${centerStr}</span>`;
+    } else {
+      const parent = findNodeByPath(nodePath.slice(0, -1));
+      tooltip.innerHTML = `<strong>${ud.name}</strong><span class="tt-sub">Sub-ring van: ${parent ? parent.name : ''}</span>`;
     }
     wrap.style.cursor = isDragging ? 'grabbing' : 'pointer';
   } else {
@@ -811,36 +786,51 @@ wrap.addEventListener('click', e => {
   const hits = raycaster.intersectObjects(ringObjects.map(r => r.mesh));
   if (hits.length) {
     const ud = hits[0].object.userData;
-    if (ud.isSubRing) {
-      selectSubRing(ud.ringId, ud.subRingId);
-    } else {
-      selectRing(ud.ringId);
-    }
+    selectNode(ud.path || []);
   } else {
-    selectRing(null);
+    selectNode([]);
   }
 });
+
+// ───────────────────────── BOOM-HELPER ─────────────────────────
+function findNodeByPath(path) {
+  if (!path || path.length === 0) return null;
+  let node = state.rings.find(r => r.id === path[0]);
+  if (!node) return null;
+  for (let i = 1; i < path.length; i++) {
+    node = (node.subRings || []).find(s => s.id === path[i]);
+    if (!node) return null;
+  }
+  return node;
+}
+
+function countAllChildren(node) {
+  let count = (node.subRings || []).length;
+  (node.subRings || []).forEach(s => { count += countAllChildren(s); });
+  return count;
+}
 
 // ───────────────────────── UI HELPERS ─────────────────────────
 function renderRingList() {
   const list = document.getElementById('ringsList');
   list.innerHTML = '';
+  const selRootId = state.selectedPath.length > 0 ? state.selectedPath[0] : null;
   state.rings.forEach(ring => {
     const div = document.createElement('div');
-    div.className = 'ring-item' + (ring.id === state.selectedRingId ? ' selected' : '');
-    const col = hexFromInt(blendColors(ring.center));
-    const subCount = (ring.subRings || []).length;
-    const subBadge = subCount > 0
-      ? `<span style="font-size:0.58rem;color:var(--dim);background:rgba(255,255,255,0.07);padding:1px 5px;border-radius:10px;flex-shrink:0;">${subCount}</span>`
+    div.className = 'ring-item' + (ring.id === selRootId ? ' selected' : '');
+    const col   = hexFromInt(blendColors(ring.center));
+    const total = countAllChildren(ring);
+    const badge = total > 0
+      ? `<span style="font-size:0.58rem;color:var(--dim);background:rgba(255,255,255,0.07);padding:1px 5px;border-radius:10px;flex-shrink:0;">${total}</span>`
       : '';
     div.innerHTML = `
       <span class="dot" style="background:${col};box-shadow:0 0 5px ${col}"></span>
       <span class="ring-name">${ring.name}</span>
-      ${subBadge}
+      ${badge}
       <span style="font-size:0.6rem;color:var(--dim)">${ring.center}</span>
       <span class="ring-del" onclick="deleteRing(${ring.id},event)">✕</span>
     `;
-    div.addEventListener('click', () => selectRing(ring.id));
+    div.addEventListener('click', () => selectNode([ring.id]));
     list.appendChild(div);
   });
 }
@@ -849,45 +839,169 @@ function hexFromInt(n) {
   return '#' + n.toString(16).padStart(6,'0');
 }
 
-function selectRing(id) {
-  state.selectedRingId = id;
-  state.selectedSubRingId = null;
-  document.getElementById('subRingEditor').style.display = 'none';
-  const editor = document.getElementById('ringEditor');
-  if (id === null) { editor.style.display = 'none'; renderRingList(); buildScene(); return; }
-  const ring = state.rings.find(r => r.id === id);
-  if (!ring) return;
-  editor.style.display = 'block';
-  document.getElementById('editRingName').value = ring.name;
-  document.getElementById('editCenter').value   = ring.center;
-  document.getElementById('editSize').value     = ring.size;
-  document.getElementById('editThick').value    = ring.thick;
-  document.getElementById('editTilt').value     = ring.tilt;
-  document.getElementById('editSizeVal').textContent  = ring.size.toFixed(2);
-  document.getElementById('editThickVal').textContent = ring.thick;
-  document.getElementById('editTiltVal').textContent  = ring.tilt + '°';
+// ───────────────────────── UNIFIED NODE SELECTIE ─────────────────────────
+function selectNode(path) {
+  state.selectedPath = path ? [...path] : [];
+  renderNodeEditor();
   renderRingList();
-  renderSubRingList();
   buildScene();
 }
 
-function updateSelectedRing() {
-  const ring = state.rings.find(r => r.id === state.selectedRingId);
-  if (!ring) return;
-  const newName = document.getElementById('editRingName').value.trim();
-  if (newName) ring.name = newName;
-  ring.center = document.getElementById('editCenter').value;
-  ring.size   = parseFloat(document.getElementById('editSize').value);
-  ring.thick  = parseFloat(document.getElementById('editThick').value);
-  ring.tilt   = parseInt(document.getElementById('editTilt').value);
-  document.getElementById('editSizeVal').textContent  = ring.size.toFixed(2);
-  document.getElementById('editThickVal').textContent = ring.thick;
-  document.getElementById('editTiltVal').textContent  = ring.tilt + '°';
+function renderNodeEditor() {
+  const editor = document.getElementById('nodeEditor');
+  const path   = state.selectedPath;
+  if (!path || path.length === 0) { editor.style.display = 'none'; return; }
+  const node = findNodeByPath(path);
+  if (!node) { editor.style.display = 'none'; return; }
+
+  editor.style.display = 'block';
+  const depth = path.length - 1;
+
+  // Titel
+  document.getElementById('nodeEditorTitle').textContent =
+    depth === 0 ? 'Ring bewerken' : 'Sub-ring bewerken';
+
+  // Breadcrumb (alleen bij diepte > 0)
+  const bc = document.getElementById('nodeBreadcrumb');
+  if (depth > 0) {
+    bc.style.display = 'block';
+    const parts = [];
+    for (let i = 0; i < path.length; i++) {
+      const n      = findNodeByPath(path.slice(0, i + 1));
+      const isLast = i === path.length - 1;
+      if (isLast) {
+        parts.push(`<span style="color:var(--text)">${n ? n.name : '?'}</span>`);
+      } else {
+        const p = JSON.stringify(path.slice(0, i + 1));
+        parts.push(`<span style="cursor:pointer;color:var(--gold);text-decoration:underline" onclick='selectNode(${p})'>${n ? n.name : '?'}</span>`);
+      }
+    }
+    bc.innerHTML = parts.join(' › ');
+  } else {
+    bc.style.display = 'none';
+  }
+
+  // Velden vullen
+  document.getElementById('editNodeName').value            = node.name;
+  document.getElementById('editSize').value                = node.size;
+  document.getElementById('editSizeVal').textContent       = node.size.toFixed(2);
+  document.getElementById('editThick').value               = node.thick;
+  document.getElementById('editThickVal').textContent      = node.thick;
+
+  const rootFields = document.getElementById('rootOnlyFields');
+  const subFields  = document.getElementById('subOnlyFields');
+  if (depth === 0) {
+    rootFields.style.display = 'block';
+    subFields.style.display  = 'none';
+    document.getElementById('editCenter').value            = node.center;
+    document.getElementById('editTilt').value              = node.tilt || 0;
+    document.getElementById('editTiltVal').textContent     = (node.tilt || 0) + '°';
+  } else {
+    rootFields.style.display = 'none';
+    subFields.style.display  = 'block';
+    document.getElementById('editOffsetAngle').value       = node.offsetAngle || 0;
+    document.getElementById('editOffsetAngleVal').textContent = (node.offsetAngle || 0) + '°';
+  }
+
+  renderChildList();
+}
+
+function updateSelectedNode() {
+  const path = state.selectedPath;
+  if (!path || path.length === 0) return;
+  const node = findNodeByPath(path);
+  if (!node) return;
+
+  const newName = document.getElementById('editNodeName').value.trim();
+  if (newName) node.name = newName;
+  node.size  = parseFloat(document.getElementById('editSize').value);
+  node.thick = parseFloat(document.getElementById('editThick').value);
+  document.getElementById('editSizeVal').textContent  = node.size.toFixed(2);
+  document.getElementById('editThickVal').textContent = node.thick;
+
+  const depth = path.length - 1;
+  if (depth === 0) {
+    node.center = document.getElementById('editCenter').value;
+    node.tilt   = parseInt(document.getElementById('editTilt').value);
+    document.getElementById('editTiltVal').textContent = node.tilt + '°';
+  } else {
+    node.offsetAngle = parseInt(document.getElementById('editOffsetAngle').value);
+    document.getElementById('editOffsetAngleVal').textContent = node.offsetAngle + '°';
+  }
+
   saveState();
   renderRingList();
+  renderChildList();
   buildScene();
 }
 
+// ───────────────────────── KIND-LIJST ─────────────────────────
+function renderChildList() {
+  const list = document.getElementById('childList');
+  list.innerHTML = '';
+  const path = state.selectedPath;
+  if (!path || path.length === 0) return;
+  const node = findNodeByPath(path);
+  if (!node) return;
+  const rootRing = state.rings.find(r => r.id === path[0]);
+  const col      = hexFromInt(blendColors(rootRing ? rootRing.center : 'A'));
+
+  (node.subRings || []).forEach(child => {
+    const childPath = [...path, child.id];
+    const isSel     = JSON.stringify(state.selectedPath) === JSON.stringify(childPath);
+    const subCount  = countAllChildren(child);
+    const badge     = subCount > 0
+      ? `<span style="font-size:0.58rem;color:var(--dim);background:rgba(255,255,255,0.07);padding:1px 5px;border-radius:10px;flex-shrink:0;">${subCount}</span>`
+      : '';
+    const div = document.createElement('div');
+    div.className = 'ring-item' + (isSel ? ' selected' : '');
+    div.innerHTML = `
+      <span class="dot" style="background:${col};box-shadow:0 0 4px ${col};width:6px;height:6px;flex-shrink:0;"></span>
+      <span class="ring-name">${child.name}</span>
+      ${badge}
+      <span style="font-size:0.6rem;color:var(--dim);flex-shrink:0;">${(child.offsetAngle||0)}°</span>
+      <span class="ring-del" data-path='${JSON.stringify(childPath)}' onclick="deleteChildRing(JSON.parse(this.dataset.path),event)">✕</span>
+    `;
+    div.addEventListener('click', () => selectNode(childPath));
+    list.appendChild(div);
+  });
+}
+
+function addChildRing() {
+  const path = state.selectedPath;
+  if (!path || path.length === 0) return;
+  const node = findNodeByPath(path);
+  if (!node) return;
+  if (!node.subRings) node.subRings = [];
+  const inp          = document.getElementById('newChildName');
+  const name         = inp.value.trim() || 'Sub-ring ' + state.nextSubId;
+  const offsetAngle  = (node.subRings.length * 60) % 360;
+  const parentSize   = node.size;
+  node.subRings.push({ id: state.nextSubId++, name, size: Math.max(0.1, parentSize * 0.4), thick: 1.5, offsetAngle, subRings: [] });
+  inp.value = '';
+  saveState();
+  renderRingList();
+  renderChildList();
+  buildScene();
+}
+
+function deleteChildRing(path, e) {
+  e.stopPropagation();
+  if (!path || path.length < 2) return;
+  const parentPath = path.slice(0, -1);
+  const childId    = path[path.length - 1];
+  const parent     = findNodeByPath(parentPath);
+  if (!parent) return;
+  parent.subRings  = (parent.subRings || []).filter(s => s.id !== childId);
+  // Herselecteer ouder als het verwijderde pad geselecteerd was
+  const sel = state.selectedPath;
+  const wasSelected = sel.length >= path.length && path.every((id, i) => sel[i] === id);
+  saveState();
+  if (wasSelected) { selectNode(parentPath); }
+  else { renderRingList(); renderChildList(); buildScene(); }
+}
+
+// ───────────────────────── HOOFDRING FUNCTIES ─────────────────────────
 function addRing() {
   const inp  = document.getElementById('newRingName');
   const name = inp.value.trim() || 'Ring ' + state.nextId;
@@ -902,7 +1016,7 @@ function deleteRing(id, e) {
   e.stopPropagation();
   state.rings = state.rings.filter(r => r.id !== id);
   saveState();
-  if (state.selectedRingId === id) selectRing(null);
+  if (state.selectedPath.length > 0 && state.selectedPath[0] === id) selectNode([]);
   else { renderRingList(); buildScene(); }
 }
 
@@ -936,106 +1050,6 @@ function updateSphereScale(s) {
   sphereGroup.scale.setScalar(s);
 }
 
-// ───────────────────────── SUB-RING FUNCTIES ─────────────────────────
-function renderSubRingList() {
-  const list = document.getElementById('subRingsList');
-  list.innerHTML = '';
-  const ring = state.rings.find(r => r.id === state.selectedRingId);
-  if (!ring) return;
-  (ring.subRings || []).forEach(sub => {
-    const col = hexFromInt(blendColors(ring.center));
-    const div = document.createElement('div');
-    div.className = 'ring-item' + (sub.id === state.selectedSubRingId ? ' selected' : '');
-    div.innerHTML = `
-      <span class="dot" style="background:${col};box-shadow:0 0 4px ${col};width:6px;height:6px;"></span>
-      <span class="ring-name">${sub.name}</span>
-      <span style="font-size:0.6rem;color:var(--dim)">${(sub.offsetAngle||0)}°</span>
-      <span class="ring-del" onclick="deleteSubRing(${ring.id},${sub.id},event)">✕</span>
-    `;
-    div.addEventListener('click', () => selectSubRing(ring.id, sub.id));
-    list.appendChild(div);
-  });
-}
-
-function addSubRing() {
-  const ring = state.rings.find(r => r.id === state.selectedRingId);
-  if (!ring) return;
-  if (!ring.subRings) ring.subRings = [];
-  const inp = document.getElementById('newSubRingName');
-  const name = inp.value.trim() || 'Sub-ring ' + state.nextSubId;
-  const offsetAngle = (ring.subRings.length * 60) % 360;
-  ring.subRings.push({ id: state.nextSubId++, name, size: 0.4, thick: 1.5, offsetAngle });
-  inp.value = '';
-  saveState();
-  renderRingList();
-  renderSubRingList();
-  buildScene();
-}
-
-function deleteSubRing(parentId, subId, e) {
-  e.stopPropagation();
-  const ring = state.rings.find(r => r.id === parentId);
-  if (!ring) return;
-  ring.subRings = (ring.subRings || []).filter(s => s.id !== subId);
-  if (state.selectedSubRingId === subId) {
-    state.selectedSubRingId = null;
-    document.getElementById('subRingEditor').style.display = 'none';
-  }
-  saveState();
-  renderRingList();
-  renderSubRingList();
-  buildScene();
-}
-
-function selectSubRing(parentId, subId) {
-  // Zorg dat de ouderring ook geselecteerd is in de editor
-  if (state.selectedRingId !== parentId) {
-    state.selectedRingId = parentId;
-    const ring = state.rings.find(r => r.id === parentId);
-    const editor = document.getElementById('ringEditor');
-    editor.style.display = 'block';
-    document.getElementById('editCenter').value = ring.center;
-    document.getElementById('editSize').value   = ring.size;
-    document.getElementById('editThick').value  = ring.thick;
-    document.getElementById('editTilt').value   = ring.tilt;
-    document.getElementById('editSizeVal').textContent  = ring.size.toFixed(2);
-    document.getElementById('editThickVal').textContent = ring.thick;
-    document.getElementById('editTiltVal').textContent  = ring.tilt + '°';
-  }
-  state.selectedSubRingId = subId;
-  const ring = state.rings.find(r => r.id === parentId);
-  const sub  = (ring.subRings || []).find(s => s.id === subId);
-  if (!sub) return;
-  const ed = document.getElementById('subRingEditor');
-  ed.style.display = 'block';
-  document.getElementById('editSubName').value   = sub.name;
-  document.getElementById('editSubSize').value   = sub.size;
-  document.getElementById('editSubThick').value  = sub.thick;
-  document.getElementById('editSubAngle').value  = sub.offsetAngle || 0;
-  document.getElementById('editSubSizeVal').textContent  = sub.size.toFixed(2);
-  document.getElementById('editSubThickVal').textContent = sub.thick;
-  document.getElementById('editSubAngleVal').textContent = (sub.offsetAngle || 0) + '°';
-  renderRingList();
-  renderSubRingList();
-  buildScene();
-}
-
-function updateSelectedSubRing() {
-  const ring = state.rings.find(r => r.id === state.selectedRingId);
-  if (!ring || !state.selectedSubRingId) return;
-  const sub = (ring.subRings || []).find(s => s.id === state.selectedSubRingId);
-  if (!sub) return;
-  sub.name        = document.getElementById('editSubName').value;
-  sub.size        = parseFloat(document.getElementById('editSubSize').value);
-  sub.thick       = parseFloat(document.getElementById('editSubThick').value);
-  sub.offsetAngle = parseInt(document.getElementById('editSubAngle').value);
-  document.getElementById('editSubSizeVal').textContent  = sub.size.toFixed(2);
-  document.getElementById('editSubThickVal').textContent = sub.thick;
-  document.getElementById('editSubAngleVal').textContent = sub.offsetAngle + '°';
-  saveState();
-  renderSubRingList();
-  buildScene();
-}
 
 // ───────────────────────── LOCALSTORAGE ─────────────────────────
 const LS_KEY = 'vbbskw-3d-diagram';
@@ -1057,6 +1071,12 @@ function saveState() {
   ind._t = setTimeout(() => { ind.style.opacity = '0'; }, 1500);
 }
 
+// Migreer node-boom: zorg dat elk knooppunt subRings:[] heeft
+function migrateNode(node) {
+  if (!node.subRings) node.subRings = [];
+  node.subRings.forEach(migrateNode);
+}
+
 function loadState() {
   const raw = localStorage.getItem(LS_KEY);
   if (!raw) return;
@@ -1068,6 +1088,9 @@ function loadState() {
     if (data.nextSubId)         state.nextSubId      = data.nextSubId;
     if (data.showConnections !== undefined) state.showConnections = data.showConnections;
     if (data.showLabels      !== undefined) state.showLabels      = data.showLabels;
+
+    // Migreer: voeg subRings toe op elk knooppunt dat het mist
+    state.rings.forEach(migrateNode);
 
     // Sync UI
     ['A','B','C'].forEach(k => {
@@ -1143,7 +1166,7 @@ function resolveCenterLabel(center) {
 
 // Enter key on new ring input
 document.getElementById('newRingName').addEventListener('keydown', e => { if (e.key==='Enter') addRing(); });
-document.getElementById('newSubRingName').addEventListener('keydown', e => { if (e.key==='Enter') addSubRing(); });
+document.getElementById('newChildName').addEventListener('keydown', e => { if (e.key==='Enter') addChildRing(); });
 
 // ───────────────────────── BOOT ─────────────────────────
 applyPanelState();
