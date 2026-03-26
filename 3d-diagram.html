@@ -637,7 +637,7 @@ function buildScene() {
   }
 
   // Recursieve helperfunctie: tekent een knooppunt en al zijn kinderen
-  function buildRingNode(node, worldPos, isRoot, parentQuat, rootColor, path) {
+  function buildRingNode(node, worldPos, isRoot, parentQuat, rootColor, path, parentWorldPos) {
     const pathStr  = JSON.stringify(path);
     const selStr   = JSON.stringify(state.selectedPath);
     const isSel    = pathStr === selStr;
@@ -669,15 +669,24 @@ function buildScene() {
 
     const thisQuat = mesh.quaternion.clone();
     mesh.userData  = { path: [...path], name: node.name };
+
+    // Dunne verbindingslijn van oudercentrum naar kindcentrum
+    if (!isRoot && parentWorldPos) {
+      const lineGeo = new THREE.BufferGeometry().setFromPoints([parentWorldPos, worldPos]);
+      const lineMat = new THREE.LineBasicMaterial({
+        color: rootColor, transparent: true, depthWrite: false, opacity: 0.20,
+      });
+      sphereGroup.add(new THREE.Line(lineGeo, lineMat));
+    }
+
     sphereGroup.add(mesh);
     ringObjects.push({ mesh, path: [...path] });
 
-    // Lokale assen van dit knooppunt voor het plaatsen van kinderen
-    const parentNormal = worldPos.clone().normalize();
-    let rightVec = new THREE.Vector3(0, 1, 0);
-    if (Math.abs(rightVec.dot(parentNormal)) > 0.999) rightVec.set(1, 0, 0);
-    rightVec = new THREE.Vector3().crossVectors(rightVec, parentNormal).normalize();
-    const localUp = new THREE.Vector3().crossVectors(parentNormal, rightVec).normalize();
+    // Lokale assen afgeleid van de WERKELIJKE ring-oriëntatie (inclusief tilt).
+    // new Vector3(1,0,0).applyQuaternion(q) geeft de lokale X-as in world-space,
+    // en (0,1,0) de lokale Y-as — dit zijn de twee assen in het vlak van de ring.
+    const rightVec = new THREE.Vector3(1, 0, 0).applyQuaternion(thisQuat);
+    const localUp  = new THREE.Vector3(0, 1, 0).applyQuaternion(thisQuat);
 
     // Recursief kinderen tekenen
     (node.subRings || []).forEach(child => {
@@ -685,7 +694,7 @@ function buildScene() {
       const childPos   = worldPos.clone()
         .add(rightVec.clone().multiplyScalar(Math.cos(clockAngle) * node.size))
         .add(localUp.clone().multiplyScalar(Math.sin(clockAngle) * node.size));
-      buildRingNode(child, childPos, false, thisQuat, rootColor, [...path, child.id]);
+      buildRingNode(child, childPos, false, thisQuat, rootColor, [...path, child.id], worldPos);
     });
   }
 
@@ -693,7 +702,7 @@ function buildScene() {
   state.rings.forEach(ring => {
     const worldPos   = getCenterPos(ring.center);
     const rootColor  = blendColors(ring.center);
-    buildRingNode(ring, worldPos, true, null, rootColor, [ring.id]);
+    buildRingNode(ring, worldPos, true, null, rootColor, [ring.id], null);
   });
 }
 
