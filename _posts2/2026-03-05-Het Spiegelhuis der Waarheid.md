@@ -12,7 +12,7 @@ date: 2026-03-05
 
 
 
-thumbnail: /assets/images/shield%20of%20bionic%20lady%20justitia.jpg
+thumbnail: /assets/images/ssm.jpg
 
 ---
 
