@@ -15,7 +15,7 @@ thumbnail: /assets/images/ssm.jpg
 
 
 
-!\[Alt-tekst](https://github.com/Klikblitser/VBBSKW/blob/main/assets/images/ssm2.jpg?raw=true)
+![Alt-tekst](https://github.com/Klikblitser/VBBSKW/blob/main/assets/images/ssm2.jpg?raw=true)
 
 
 
