@@ -1,14 +1,9 @@
-\---
-
+---
 layout: default
-
 title: "Een spook waart door Nederland"
-
 date: 2026-05-05
-
 thumbnail: /assets/images/ssm.jpg
-
-\---
+---
 
 
 
