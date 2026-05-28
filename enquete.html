@@ -87,19 +87,12 @@ De antwoorden worden uitsluitend gebruikt voor een geanonimiseerde inventarisati
 <fieldset>
     <legend>Gegevens</legend>
     <label>
-     <legend>Naam</legend>   <input type="text" name="Naam" placeholder="Vul hier uw naam in...">   
+     <strong>Naam, telefoon en e-mailadres</strong><br>
+     <input type="text" name="Naam" placeholder="Vul hier uw naam in..."><br>
+     <input type="tel" name="Telefoon" placeholder="Vul hier uw telefoonnummer in..."><br>
+     <input type="email" name="_replyto" placeholder="uwadres@voorbeeld.nl" autocomplete="email">
+        <p style="font-size:0.88em; color:#444; margin:4px 0 10px;">Vul uw e-mailadres in als u een bevestigingskopie van uw inzending wilt ontvangen.</p>
     </label>
-    <label>
-     <legend>Telefoon</legend>   <input type="tel" name="Telefoon" placeholder="Vul hier uw telefoonnummer in...">
-    </label>
-
-
-    <!-- E-mailkopie -->
-    <div class="email-kopie">
-     <label for="emailKopie">e-mailadres *</label>
-        <p>Vul uw e-mailadres in als u een bevestigingskopie van uw inzending wilt ontvangen.</p>
-        <input type="email" id="emailKopie" name="_replyto" placeholder="uwadres@voorbeeld.nl" autocomplete="email">
-    </div>
 
     <!-- Verborgen Formspree-velden -->
     <input type="hidden" name="_subject" value="Nieuwe enquête-inzending – Ligplaatskwesties VBBSKW">
