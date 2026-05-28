@@ -38,15 +38,8 @@
         cursor: pointer;
     }
     .privacy {
-        font-size: 1em;
-        border: 1px solid #c90000;
-        padding: 10px 15px;
-        margin-bottom: 20px;
-    }
-    .toelichting {
-        font-size: 1em;
-        border: 1px solid #0073e6;
-        padding: 15px 20px;
+        font-size: 0.9em;
+        color: #010661;
         margin-bottom: 20px;
     }
     .email-kopie {
@@ -83,18 +76,64 @@ Er worden geen IP-adressen opgeslagen.
 De antwoorden worden uitsluitend gebruikt voor een geanonimiseerde inventarisatie, tenzij ingestemd wordt met benadering door opgave van gegevens.
 </p>
 
+<p class="toelichting">
+Om een zo representatief mogelijk panel samen te stellen, via loting, hopen we natuurlijk dat iedere inwoner van onze gemeente zich wil opgeven. Niet iedereen weet van deze vorm van deliberatieve democratie, laat staan dat ze er deel van willen uitmaken.
+In tegenstelling tot de representatieve democratie die altijd verzand in polarisatie, is de deliberatieve democratie een alternatief dat juist verbinding zoekt. Bovendien blijkt uit verschillende casea dat hiermee de meest verdelende problemen werden opgelost.
+Om dit wereldkundig te maken is een hele grote opgave die wij als kleine verening niet alleen kunnen realiseren. Daarom nodigen wij u ook uit zich op te geven voor de workshop 'organiseren' en mee te denken.
+</p>
+
+<form id="enqueteForm" action="https://formspree.io/f/xbdlnwpw" method="POST">
+   
+<!-- A. Algemene situatie -->
 <fieldset>
-    <legend>Gegevens</legend>
+    <legend>A. Algemene situatie</legend>
+
     <label>
-        <input type="text" name="Naam" placeholder="Vul hier uw naam in...">    <label>
-        <input type="tel" name="Telefoon" placeholder="Vul hier uw telefoonnummer in...">
+        1. Wilt u deel uitmaken van de loting?<br>
+        <input type="checkbox" name="Lotingopgave" value="LWO"> Ik wil deel uitmaken van de loting<br>
+        <input type="checkbox" name="Lotingopgave" value="ExLWO"> Ik wil niet deel uitmaken van de loting<br>
     </label>
 
+    <label>
+        2. Bent u geïnteresseerd in de workshop 'organiseren'?<br>
+        <input type="radio" name="Workshop" value="Ja"> Ja<br>
+        <input type="radio" name="Workshop" value="Nee"> Nee<br>
+    </label>
+
+    <label>
+        3. Type schip:<br>
+        <input type="radio" name="Type schip" value="Historisch varend"> Historisch varend<br>
+        <input type="radio" name="Type schip" value="Historisch stilligend"> Historisch stilligend<br>
+        <input type="radio" name="Type schip" value="Varend"> Varend<br>
+        <input type="radio" name="Type schip" value="Stilligend"> Stilligend<br>
+        <input type="radio" name="Type schip" value="Moderne waterwoning"> Moderne waterwoning<br>
+        <input type="radio" name="Type schip" value="Ark"> Ark<br>
+        <input type="radio" name="Type schip" value="Schark"> Schark<br>
+        <input type="radio" name="Type schip" value="Andere"> Andere type schip namelijk; <input type="text" name="Andere type schip" value=""> <br>
+    </label>
+
+    <label>
+        4. Zijn er onderwerpen waar u over mee wil denken en bepalen?<br>
+        <input type="checkbox" name="Onderwerpen_meedenken" value="Woonkwaliteit"> Woonkwaliteit<br>
+        <input type="checkbox" name="Onderwerpen_meedenken" value="Afval"> Afval<br>
+        <input type="checkbox" name="Onderwerpen_meedenken" value="Veiligheid"> Veiligheid<br>
+        <input type="checkbox" name="Onderwerpen_meedenken" value="Infrastructuur"> Infrastructuur<br>
+        <input type="checkbox" name="Onderwerpen_meedenken" value="Vergunningen"> Vergunningen<br>
+        <input type="checkbox" name="Onderwerpen_meedenken" value="Handhaving"> Handhaving<br>
+        <input type="checkbox" name="Onderwerpen_meedenken" value="Politiek"> Politiek<br>
+        <input type="checkbox" name="Onderwerpen_meedenken" value="Anders"> Anders, namelijk: <input type="text" name="Onderwerpen_anders" value=""> <br>
+    </label>
+
+    <label>
+        5. Toelichting (optioneel):
+        <textarea name="Toelichting"></textarea>
+    </label>
+</fieldset>
 
 <!-- E-mailkopie -->
 <div class="email-kopie">
-    <label for="emailKopie">e-mailadres *</label>
-    <p>Vul uw e-mailadres in als u een bevestigingskopie van uw inzending wilt ontvangen.</p>
+    <label for="emailKopie">Kopie naar uzelf ontvangen? (optioneel)</label>
+    <p>Vul uw e-mailadres in als u een bevestigingskopie van uw inzending wilt ontvangen. Het adres wordt niet opgeslagen of gedeeld.</p>
     <input type="email" id="emailKopie" name="_replyto" placeholder="uwadres@voorbeeld.nl" autocomplete="email">
 </div>
 
@@ -165,69 +204,6 @@ De antwoorden worden uitsluitend gebruikt voor een geanonimiseerde inventarisati
     });
 })();
 </script>
-
-<p class="toelichting">
-Om een zo representatief mogelijk panel samen te stellen, via loting, hopen we natuurlijk dat iedere inwoner van onze gemeente zich wil opgeven. Niet iedereen weet van deze vorm van deliberatieve democratie, laat staan dat ze er deel van willen uitmaken.
-In tegenstelling tot de representatieve democratie die altijd verzand in polarisatie, is de deliberatieve democratie een alternatief dat juist verbinding zoekt. Bovendien blijkt uit verschillende casea dat hiermee de hardnekkigste maatschappelijke onenigheid kan worden beslecht.
-Dit wereldkundig maken is een hele grote opgave die wij als kleine vereniging niet alleen kunnen realiseren. Daarom nodigen wij u ook uit om u op te geven voor de workshop 'organiseren' en mee te denken.
-Voor het mogelijk maken en nuttig zijn van de loting moet er een mandaat zijn dat de gelote leden dragen, en moeten er onderwerpen zijn waarover ze mee kunnen denken en bepalen. We horen graag uw mening hierover in de enquête hieronder.
-</p>
-
-<form id="enqueteForm" action="https://formspree.io/f/xbdlnwpw" method="POST">
-   
-<!-- A. Algemene situatie -->
-<fieldset>
-    <legend>A. Algemene situatie</legend>
-
-    <label>
-    ❤️
-    </label>
-    <label>
-        Wilt u deelnemen aan een (nader te bepalen) loting?<br>
-        <input type="checkbox" name="Lotingopgave" value="deelnemen aan loting"> Ik wil deelnemen aan een (nader te bepalen) loting<br>
-        <input type="checkbox" name="Lotingopgave" value="niet deelnemen aan loting"> Ik wil niet deelnemen aan een (nader te bepalen) loting<br>
-    </label>
-    <label>
-    ♠️
-    </label>
-    <label>
-        Bent u geïnteresseerd in de workshop 'organiseren'?<br>
-        <input type="radio" name="Workshop" value="Ja"> Ja<br>
-        <input type="radio" name="Workshop" value="Nee"> Nee<br>
-    </label>
-    <label>
-    ♦️
-    </label>
-    <label>
-        Wat moet het mandaat inhouden dat een burgerraad draagt?:<br>
-        <input type="radio" name="Mandaat" value="Vrijblijvend advies"> Vrijblijvend advies<br>
-        <input type="radio" name="Mandaat" value="Bindend advies"> Bindend advies<br>
-        <input type="radio" name="Mandaat" value="Vertegenwoordigen van de gemeente"> Vertegenwoordigen van de gemeente<br>
-        <input type="radio" name="Mandaat" value="Deelnemen in bepaling van agenda"> Deelnemen in bepaling van agenda<br>
-        <input type="radio" name="Mandaat" value="Bevorderen van de samenwerking tussen verschillende partijen"> Bevorderen van de samenwerking tussen verschillende partijen<br>
-        <input type="radio" name="Mandaat" value="Integriteitsbewaking van de gemeenteraad"> Integriteitsbewaking van de gemeenteraad<br>
-        <input type="radio" name="Mandaat" value="Anders"> Anders, namelijk: <input type="text" name="Mandaat_anders" value=""> <br>
-    </label>
-    <label>
-    ♣️
-    </label>
-    <label>
-        Zijn er onderwerpen waar u over mee wil denken en bepalen?<br>
-        <input type="checkbox" name="Onderwerpen_meedenken" value="Woonkwaliteit"> Woonkwaliteit<br>
-        <input type="checkbox" name="Onderwerpen_meedenken" value="Afval"> Afval<br>
-        <input type="checkbox" name="Onderwerpen_meedenken" value="Veiligheid"> Veiligheid<br>
-        <input type="checkbox" name="Onderwerpen_meedenken" value="Infrastructuur"> Infrastructuur<br>
-        <input type="checkbox" name="Onderwerpen_meedenken" value="Vergunningen"> Vergunningen<br>
-        <input type="checkbox" name="Onderwerpen_meedenken" value="Handhaving"> Handhaving<br>
-        <input type="checkbox" name="Onderwerpen_meedenken" value="Politiek"> Politiek<br>
-        <input type="checkbox" name="Onderwerpen_meedenken" value="Anders"> Anders, namelijk: <input type="text" name="Onderwerpen_anders" value=""> <br>
-    </label>
-
-    <label>
-        5. Toelichting (optioneel):
-        <textarea name="Toelichting"></textarea>
-    </label>
-</fieldset>
 
 <p><a href="index.html">&#8592; Terug naar de hoofdpagina</a></p>
 
