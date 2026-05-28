@@ -83,13 +83,14 @@ Er worden geen IP-adressen opgeslagen.
 De antwoorden worden uitsluitend gebruikt voor een geanonimiseerde inventarisatie, tenzij ingestemd wordt met benadering door opgave van gegevens.
 </p>
 
+<form id="enqueteForm" action="https://formspree.io/f/xbdlnwpw" method="POST">
 <fieldset>
     <legend>Gegevens</legend>
     <label>
-        <input type="text" name="Naam" placeholder="Vul hier uw naam in...">   
+     <legend>Naam</legend>   <input type="text" name="Naam" placeholder="Vul hier uw naam in...">   
     </label>
     <label>
-        <input type="tel" name="Telefoon" placeholder="Vul hier uw telefoonnummer in...">
+     <legend>Telefoon</legend>   <input type="tel" name="Telefoon" placeholder="Vul hier uw telefoonnummer in...">
     </label>
 
 
@@ -105,8 +106,6 @@ De antwoorden worden uitsluitend gebruikt voor een geanonimiseerde inventarisati
 
     <button type="submit" class="submit" id="submitBtn">Verstuur enquête</button>
     <div id="statusMessage" style="margin-top: 15px; padding: 10px; display: none;"></div>
-
-    </form>
 
     <script>
     (function() {
@@ -129,7 +128,6 @@ De antwoorden worden uitsluitend gebruikt voor een geanonimiseerde inventarisati
             const email = formData.get('_replyto');
             if (!email || !email.trim()) {
                 formData.delete('_replyto');
-            }
             }
         
             try {
@@ -163,10 +161,10 @@ De antwoorden worden uitsluitend gebruikt voor een geanonimiseerde inventarisati
                 statusMessage.innerHTML = '&#10007; <strong>Fout:</strong> ' + error.message + '<br>Probeer het later opnieuw of neem contact op via penningmeester@vbbskw.com';
             }
         
-         submitBtn.disabled = false;
-         submitBtn.textContent = 'Verstuur enquête';
+            submitBtn.disabled = false;
+            submitBtn.textContent = 'Verstuur enquête';
         });
-    })();
+    }());
     </script>
 </fieldset>
 <p class="toelichting">
@@ -176,8 +174,6 @@ Dit wereldkundig maken is een hele grote opgave die wij als kleine vereniging ni
 Voor het mogelijk maken en nuttig zijn van de loting moet er een mandaat zijn dat de gelote leden dragen, en moeten er onderwerpen zijn waarover ze mee kunnen denken en bepalen. We horen graag uw mening hierover in de enquête hieronder.
 </p>
 
-<form id="enqueteForm" action="https://formspree.io/f/xbdlnwpw" method="POST">
-   
 <!-- A. Algemene situatie -->
 <fieldset>
     <legend>A. Algemene situatie</legend>
@@ -231,6 +227,7 @@ Voor het mogelijk maken en nuttig zijn van de loting moet er een mandaat zijn da
         <textarea name="Toelichting"></textarea>
     </label>
 </fieldset>
+</form>
 
 <p><a href="index.html">&#8592; Terug naar de hoofdpagina</a></p>
 
