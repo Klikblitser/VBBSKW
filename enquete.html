@@ -83,81 +83,89 @@ Er worden geen IP-adressen opgeslagen.
 De antwoorden worden uitsluitend gebruikt voor een geanonimiseerde inventarisatie, tenzij ingestemd wordt met benadering door opgave van gegevens.
 </p>
 
-<form id="enqueteForm" action="https://formspree.io/f/xbdlnwpw" method="POST">
 <fieldset>
     <legend>Gegevens</legend>
     <label>
-     <strong>Naam, gemeente, telefoon en e-mailadres</strong><br>
-     <input type="text" name="Naam" placeholder="Vul hier uw naam in..."><br>
-     <input type="tel" name="Telefoon" placeholder="Vul hier uw telefoonnummer in..."><br>
-     <input type="text" name="Gemeente" placeholder="Vul hier uw gemeente in..."><br>
-     <input type="email" name="_replyto" placeholder="uwadres@voorbeeld.nl" autocomplete="email">
-        <p style="font-size:0.88em; color:#444; margin:4px 0 10px;">Vul uw e-mailadres in als u een bevestigingskopie van uw inzending wilt ontvangen.</p>
+        <input type="text" name="Naam" placeholder="Vul hier uw naam in...">    <label>
+        <input type="tel" name="Telefoon" placeholder="Vul hier uw telefoonnummer in...">
     </label>
 
-    <!-- Verborgen Formspree-velden -->
-    <input type="hidden" name="_subject" value="Nieuwe enquête-inzending – Ligplaatskwesties VBBSKW">
 
-    <script>
-    (function() {
-        'use strict';
-    
-        const form = document.getElementById('enqueteForm');
-        const submitBtn = document.getElementById('submitBtn');
-        const statusMessage = document.getElementById('statusMessage');
-    
-        form.addEventListener('submit', async function(e) {
-            e.preventDefault();
-        
-            submitBtn.disabled = true;
-            submitBtn.textContent = 'Bezig met verzenden...';
-            statusMessage.style.display = 'none';
-        
-            const formData = new FormData(form);
+<!-- E-mailkopie -->
+<div class="email-kopie">
+    <label for="emailKopie">e-mailadres *</label>
+    <p>Vul uw e-mailadres in als u een bevestigingskopie van uw inzending wilt ontvangen.</p>
+    <input type="email" id="emailKopie" name="_replyto" placeholder="uwadres@voorbeeld.nl" autocomplete="email">
+</div>
 
-            // Verwijder leeg e-mailadres zodat Formspree geen lege reply-to verwerkt
-            const email = formData.get('_replyto');
-            if (!email || !email.trim()) {
-                formData.delete('_replyto');
-            }
+<!-- Verborgen Formspree-velden -->
+<input type="hidden" name="_subject" value="Nieuwe enquête-inzending – Ligplaatskwesties VBBSKW">
+
+<button type="submit" class="submit" id="submitBtn">Verstuur enquête</button>
+<div id="statusMessage" style="margin-top: 15px; padding: 10px; display: none;"></div>
+
+</form>
+
+<script>
+(function() {
+    'use strict';
+    
+    const form = document.getElementById('enqueteForm');
+    const submitBtn = document.getElementById('submitBtn');
+    const statusMessage = document.getElementById('statusMessage');
+    
+    form.addEventListener('submit', async function(e) {
+        e.preventDefault();
         
-            try {
-                const response = await fetch(form.action, {
-                    method: 'POST',
-                    body: formData,
-                    headers: {
-                        'Accept': 'application/json'
-                    }
-                });
-            
-             if (response.ok) {
-                  statusMessage.style.display = 'block';
-                    statusMessage.style.backgroundColor = '#d4edda';
-                    statusMessage.style.color = '#155724';
-                    statusMessage.style.border = '1px solid #c3e6cb';
-                    statusMessage.innerHTML = '&#10003; <strong>Bedankt!</strong> Uw enquête is succesvol verzonden.'
-                       + (email && email.trim()
-                            ? ' Een kopie is verstuurd naar <em>' + email.trim() + '</em>.'
-                          : '');
-                    form.reset();
-                } else {
-                    throw new Error('Verzending mislukt');
+        submitBtn.disabled = true;
+        submitBtn.textContent = 'Bezig met verzenden...';
+        statusMessage.style.display = 'none';
+        
+        const formData = new FormData(form);
+
+        // Verwijder leeg e-mailadres zodat Formspree geen lege reply-to verwerkt
+        const email = formData.get('_replyto');
+        if (!email || !email.trim()) {
+            formData.delete('_replyto');
+        }
+        
+        try {
+            const response = await fetch(form.action, {
+                method: 'POST',
+                body: formData,
+                headers: {
+                    'Accept': 'application/json'
                 }
+            });
             
-            } catch (error) {
+            if (response.ok) {
                 statusMessage.style.display = 'block';
-                statusMessage.style.backgroundColor = '#f8d7da';
-                statusMessage.style.color = '#721c24';
-                statusMessage.style.border = '1px solid #f5c6cb';
-                statusMessage.innerHTML = '&#10007; <strong>Fout:</strong> ' + error.message + '<br>Probeer het later opnieuw of neem contact op via penningmeester@vbbskw.com';
+                statusMessage.style.backgroundColor = '#d4edda';
+                statusMessage.style.color = '#155724';
+                statusMessage.style.border = '1px solid #c3e6cb';
+                statusMessage.innerHTML = '&#10003; <strong>Bedankt!</strong> Uw enquête is succesvol verzonden.'
+                    + (email && email.trim()
+                        ? ' Een kopie is verstuurd naar <em>' + email.trim() + '</em>.'
+                        : '');
+                form.reset();
+            } else {
+                throw new Error('Verzending mislukt');
             }
+            
+        } catch (error) {
+            statusMessage.style.display = 'block';
+            statusMessage.style.backgroundColor = '#f8d7da';
+            statusMessage.style.color = '#721c24';
+            statusMessage.style.border = '1px solid #f5c6cb';
+            statusMessage.innerHTML = '&#10007; <strong>Fout:</strong> ' + error.message + '<br>Probeer het later opnieuw of neem contact op via penningmeester@vbbskw.com';
+        }
         
-            submitBtn.disabled = false;
-            submitBtn.textContent = 'Verstuur enquête';
-        });
-    }());
-    </script>
-</fieldset>
+        submitBtn.disabled = false;
+        submitBtn.textContent = 'Verstuur enquête';
+    });
+})();
+</script>
+
 <p class="toelichting">
 Om een zo representatief mogelijk panel samen te stellen, via loting, hopen we natuurlijk dat iedere inwoner van onze gemeente zich wil opgeven. Niet iedereen weet van deze vorm van deliberatieve democratie, laat staan dat ze er deel van willen uitmaken.
 In tegenstelling tot de representatieve democratie die altijd verzand in polarisatie, is de deliberatieve democratie een alternatief dat juist verbinding zoekt. Bovendien blijkt uit verschillende casea dat hiermee de hardnekkigste maatschappelijke onenigheid kan worden beslecht.
@@ -165,6 +173,8 @@ Dit wereldkundig maken is een hele grote opgave die wij als kleine vereniging ni
 Voor het mogelijk maken en nuttig zijn van de loting moet er een mandaat zijn dat de gelote leden dragen, en moeten er onderwerpen zijn waarover ze mee kunnen denken en bepalen. We horen graag uw mening hierover in de enquête hieronder.
 </p>
 
+<form id="enqueteForm" action="https://formspree.io/f/xbdlnwpw" method="POST">
+   
 <!-- A. Algemene situatie -->
 <fieldset>
     <legend>A. Algemene situatie</legend>
@@ -174,8 +184,8 @@ Voor het mogelijk maken en nuttig zijn van de loting moet er een mandaat zijn da
     </label>
     <label>
         Wilt u deelnemen aan een (nader te bepalen) loting?<br>
-        <input type="radio" name="Lotingopgave" value="deelnemen aan loting"> Ik wil deelnemen aan een (nader te bepalen) loting<br>
-        <input type="radio" name="Lotingopgave" value="niet deelnemen aan loting"> Ik wil niet deelnemen aan een (nader te bepalen) loting<br>
+        <input type="checkbox" name="Lotingopgave" value="deelnemen aan loting"> Ik wil deelnemen aan een (nader te bepalen) loting<br>
+        <input type="checkbox" name="Lotingopgave" value="niet deelnemen aan loting"> Ik wil niet deelnemen aan een (nader te bepalen) loting<br>
     </label>
     <label>
     ♠️
@@ -190,13 +200,13 @@ Voor het mogelijk maken en nuttig zijn van de loting moet er een mandaat zijn da
     </label>
     <label>
         Wat moet het mandaat inhouden dat een burgerraad draagt?:<br>
-        <input type="checkbox" name="Mandaat" value="Vrijblijvend advies"> Vrijblijvend advies<br>
-        <input type="checkbox" name="Mandaat" value="Bindend advies"> Bindend advies<br>
-        <input type="checkbox" name="Mandaat" value="Vertegenwoordigen van de gemeente"> Vertegenwoordigen van de gemeente<br>
-        <input type="checkbox" name="Mandaat" value="Deelnemen in bepaling van agenda"> Deelnemen in bepaling van agenda<br>
-        <input type="checkbox" name="Mandaat" value="Bevorderen van de samenwerking tussen verschillende partijen"> Bevorderen van de samenwerking tussen verschillende partijen<br>
-        <input type="checkbox" name="Mandaat" value="Integriteitsbewaking van de gemeenteraad"> Integriteitsbewaking van de gemeenteraad<br>
-        <input type="checkbox" name="Mandaat" value="Anders"> Anders, namelijk: <input type="text" name="Mandaat_anders" value=""> <br>
+        <input type="radio" name="Mandaat" value="Vrijblijvend advies"> Vrijblijvend advies<br>
+        <input type="radio" name="Mandaat" value="Bindend advies"> Bindend advies<br>
+        <input type="radio" name="Mandaat" value="Vertegenwoordigen van de gemeente"> Vertegenwoordigen van de gemeente<br>
+        <input type="radio" name="Mandaat" value="Deelnemen in bepaling van agenda"> Deelnemen in bepaling van agenda<br>
+        <input type="radio" name="Mandaat" value="Bevorderen van de samenwerking tussen verschillende partijen"> Bevorderen van de samenwerking tussen verschillende partijen<br>
+        <input type="radio" name="Mandaat" value="Integriteitsbewaking van de gemeenteraad"> Integriteitsbewaking van de gemeenteraad<br>
+        <input type="radio" name="Mandaat" value="Anders"> Anders, namelijk: <input type="text" name="Mandaat_anders" value=""> <br>
     </label>
     <label>
     ♣️
@@ -217,10 +227,7 @@ Voor het mogelijk maken en nuttig zijn van de loting moet er een mandaat zijn da
         5. Toelichting (optioneel):
         <textarea name="Toelichting"></textarea>
     </label>
-    <button type="submit" class="submit" id="submitBtn">Verstuur enquête</button>
-    <div id="statusMessage" style="margin-top: 15px; padding: 10px; display: none;"></div>
 </fieldset>
-</form>
 
 <p><a href="index.html">&#8592; Terug naar de hoofdpagina</a></p>
 
