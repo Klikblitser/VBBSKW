@@ -1,622 +1,578 @@
-<!DOCTYPE html>
-<html lang="nl">
-<head>
-    <meta charset="UTF-8">
-    <title>Burgerberaad in Velsen – de noodzakelijke update van onze lokale democratie. Een initiatief van het VBBSKW</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <style>
-    body {
-      font-family: Arial, sans-serif;
-      max-width: 800px;
-      margin: 40px auto;
-      padding: 0 20px;
-      background-color: #F0F8FF;
-      color: #000000;
-    }
+---
+layout: default
+title: Burgerberaad in Velsen
+lang: nl
+description: De noodzakelijke update van onze lokale democratie — een initiatief van het VBBSKW
+---
 
-    * { box-sizing: border-box; margin: 0; padding: 0; }
+<style>
+  /* Component-styling voor de burgerberaadgids.
+     Kleuren volgen het sitepalet, lettertypen blijven gelijk aan de rest van de site. */
+  :root {
+    --ink: #004080;      /* donkerblauw — kaders en accenten */
+    --paper: #ffffff;    /* lichte tekst op donkere vlakken */
+    --accent: #0066cc;   /* linkblauw — knoppen en labels */
+    --accent2: #004080;  /* donkerblauw — koppen en links */
+    --pale: #cce0f5;     /* lichtblauw — subtiele randen */
+  }
 
-    
-    /* ── TOPBALK ── */
-    .topbar {
-      font-size: 0.75rem;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      padding: 0.5rem 2rem;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      flex-wrap: wrap;
-      gap: 0.5rem;
-    }
-    .topbar a { color: var(--paper); text-decoration: none; }
-    .topbar a:hover { text-decoration: underline; }
+  .bb * { box-sizing: border-box; }
 
-    /* ── HEADER ── */
-    header {
-      border-bottom: 4px solid var(--ink);
-      padding: 2.5rem 2rem 2rem;
-      max-width: 900px;
-      margin: 0 auto;
-    }
-    .site-name {
-      font-size: 0.85rem;
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
-      color: var(--accent2);
-      margin-bottom: 0.5rem;
-    }
+  /* ── HEADER ── */
+  .bb-header {
+    border-bottom: 4px solid var(--ink);
+    padding: 0 0 2rem;
+    margin-bottom: 1rem;
+  }
+  .bb-header .site-name {
+    font-size: 0.85rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--accent2);
+    margin-bottom: 0.5rem;
+  }
+  .bb-header .subtitle {
+    font-style: italic;
+    font-size: 1.15rem;
+    color: #555;
+    margin-top: 0.6rem;
+  }
 
-    header .subtitle {
-      font-style: italic;
-      font-size: 1.15rem;
-      color: #555;
-      margin-top: 0.6rem;
-    }
+  /* ── INHOUDSOPGAVE ── */
+  .toc {
+    border: 2px solid var(--ink);
+    background: white;
+    padding: 1.5rem 2rem;
+    margin: 2.5rem 0;
+  }
+  .toc h2 {
+    font-size: 0.8rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    margin-bottom: 1rem;
+    border-bottom: 1px solid var(--ink);
+    padding-bottom: 0.5rem;
+  }
+  .toc ol {
+    padding-left: 1.2em;
+    column-count: 2;
+    column-gap: 2rem;
+  }
+  .toc li {
+    font-size: 0.9rem;
+    margin-bottom: 0.3rem;
+  }
+  .toc a {
+    color: var(--accent2);
+    text-decoration: none;
+  }
+  .toc a:hover { text-decoration: underline; }
 
-    /* ── LAYOUT ── */
-    main {
-      max-width: 900px;
-      margin: 0 auto;
-      padding: 0 2rem 4rem;
-    }
+  /* ── SECTIES ── */
+  .bb section {
+    margin: 3.5rem 0;
+    border-top: 2px solid var(--ink);
+    padding-top: 2rem;
+  }
 
-    /* ── INHOUDSOPGAVE ── */
-    .toc {
-      border: 2px solid var(--ink);
-      background: white;
-      padding: 1.5rem 2rem;
-      margin: 2.5rem 0;
-    }
-    .toc h2 {
-      font-size: 0.8rem;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      margin-bottom: 1rem;
-      border-bottom: 1px solid var(--ink);
-      padding-bottom: 0.5rem;
-    }
-    .toc ol {
-      padding-left: 1.2em;
-      column-count: 2;
-      column-gap: 2rem;
-    }
-    .toc li {
-      font-size: 0.9rem;
-      margin-bottom: 0.3rem;
-    }
-    .toc a {
-      color: var(--accent2);
-      text-decoration: none;
-    }
-    .toc a:hover { text-decoration: underline; }
+  /* ── STAPPENLIJST ── */
+  .stappen {
+    counter-reset: stap;
+    list-style: none;
+    padding: 0;
+  }
+  .stappen li {
+    counter-increment: stap;
+    position: relative;
+    padding: 1.2rem 1.2rem 1.2rem 4rem;
+    border: 1px solid var(--pale);
+    margin-bottom: 0.8rem;
+    background: white;
+  }
+  .stappen li::before {
+    content: counter(stap);
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 3rem;
+    background: var(--ink);
+    color: var(--paper);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: Arial, sans-serif;
+    font-size: 1.1rem;
+    font-weight: bold;
+  }
+  .stappen li strong {
+    display: block;
+    margin-bottom: 0.3rem;
+  }
 
-    /* ── SECTIES ── */
-    section {
-      margin: 3.5rem 0;
-      border-top: 2px solid var(--ink);
-      padding-top: 2rem;
-    }
+  /* ── ELEMENTEN GRID ── */
+  .elementen-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 1rem;
+    margin-top: 1.5rem;
+  }
+  .element-card {
+    border: 1px solid var(--ink);
+    padding: 1.2rem;
+    background: white;
+  }
+  .element-card h4 {
+    font-family: Arial, sans-serif;
+    font-size: 0.8rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 0.5rem;
+  }
+  .element-card p {
+    font-size: 0.9rem;
+    margin: 0;
+    line-height: 1.6;
+  }
 
-    p { margin-bottom: 1.1rem; }
+  /* ── VOORBEELDEN ── */
+  .voorbeeld {
+    background: #e6f0fb;
+    border-left: 4px solid var(--accent2);
+    padding: 1.2rem 1.5rem;
+    margin-bottom: 1.2rem;
+  }
+  .voorbeeld h4 {
+    font-family: Arial, sans-serif;
+    font-size: 0.8rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--accent2);
+    margin-bottom: 0.5rem;
+  }
+  .voorbeeld p { font-size: 0.95rem; margin: 0; }
 
-    /* ── STAPPENLIJST ── */
-    .stappen {
-      counter-reset: stap;
-      list-style: none;
-      padding: 0;
-    }
-    .stappen li {
-      counter-increment: stap;
-      position: relative;
-      padding: 1.2rem 1.2rem 1.2rem 4rem;
-      border: 1px solid var(--pale);
-      margin-bottom: 0.8rem;
-      background: white;
-    }
-    .stappen li::before {
-      content: counter(stap);
-      position: absolute;
-      left: 0;
-      top: 0;
-      bottom: 0;
-      width: 3rem;
-      background: var(--ink);
-      color: var(--paper);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-family: 'Broadway', monospace;
-      font-size: 1.1rem;
-      font-weight: bold;
-    }
-    .stappen li strong {
-      display: block;
-      margin-bottom: 0.3rem;
-    }
+  /* ── CTA ── */
+  .cta-box {
+    background: var(--ink);
+    color: var(--paper);
+    padding: 2.5rem;
+    margin: 3rem 0;
+    text-align: center;
+  }
+  .cta-box h2 {
+    color: var(--paper);
+    margin-bottom: 1rem;
+  }
+  .cta-box p {
+    font-size: 1.05rem;
+    margin-bottom: 1.5rem;
+    opacity: 0.9;
+  }
+  .btn {
+    display: inline-block;
+    background: var(--accent);
+    color: white;
+    text-decoration: none;
+    padding: 0.8rem 2rem;
+    font-family: Arial, sans-serif;
+    font-size: 0.85rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    margin: 0.3rem;
+    transition: background 0.2s;
+  }
+  .btn:hover { background: #003366; }
+  .btn-secondary {
+    background: transparent;
+    border: 2px solid var(--paper);
+    color: var(--paper);
+  }
+  .btn-secondary:hover { background: rgba(255,255,255,0.1); }
 
-    /* ── ELEMENTEN GRID ── */
-    .elementen-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-      gap: 1rem;
-      margin-top: 1.5rem;
-    }
-    .element-card {
-      border: 1px solid var(--ink);
-      padding: 1.2rem;
-      background: white;
-    }
-    .element-card h4 {
-      font-family: 'Broadway', monospace;
-      font-size: 0.8rem;
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
-      color: var(--accent);
-      margin-bottom: 0.5rem;
-    }
-    .element-card p {
-      font-size: 0.9rem;
-      margin: 0;
-      line-height: 1.6;
-    }
+  /* ── FASE-BLOKKEN ── */
+  .fasen {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0;
+    border: 2px solid var(--ink);
+    margin: 1.5rem 0;
+  }
+  .fase {
+    padding: 1.5rem;
+    border-right: 1px solid var(--ink);
+  }
+  .fase:last-child { border-right: none; }
+  .fase-nr {
+    font-family: Arial, sans-serif;
+    font-size: 2rem;
+    color: var(--pale);
+    font-weight: bold;
+    line-height: 1;
+    margin-bottom: 0.4rem;
+  }
+  .fase h4 {
+    font-size: 1rem;
+    margin-bottom: 0.6rem;
+    color: var(--accent);
+  }
+  .fase p { font-size: 0.88rem; margin: 0; line-height: 1.5; }
 
-    /* ── VOORBEELDEN ── */
-    .voorbeeld {
-      background: rgb(210, 203, 250);
-      border-left: 4px solid var(--accent2);
-      padding: 1.2rem 1.5rem;
-      margin-bottom: 1.2rem;
-    }
-    .voorbeeld h4 {
-      font-family: 'Broadway', monospace;
-      font-size: 0.8rem;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: var(--accent2);
-      margin-bottom: 0.5rem;
-    }
-    .voorbeeld p { font-size: 0.95rem; margin: 0; }
+  /* ── DIVIDER ── */
+  .rule {
+    border: none;
+    border-top: 1px solid var(--ink);
+    margin: 1.5rem 0;
+  }
 
-    /* ── CTA ── */
-    .cta-box {
-      background: var(--ink);
-      color: var(--paper);
-      padding: 2.5rem;
-      margin: 3rem 0;
-      text-align: center;
-    }
-    .cta-box h2 {
-      color: var(--paper);
-      margin-bottom: 1rem;
-    }
-    .cta-box p {
-      font-size: 1.05rem;
-      margin-bottom: 1.5rem;
-      opacity: 0.9;
-    }
-    .btn {
-      display: inline-block;
-      background: var(--accent);
-      color: white;
-      text-decoration: none;
-      padding: 0.8rem 2rem;
-      font-family: 'Broadway', monospace;
-      font-size: 0.85rem;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      margin: 0.3rem;
-      transition: background 0.2s;
-    }
-    .btn:hover { background: #a32820; }
-    .btn-secondary {
-      background: transparent;
-      border: 2px solid var(--paper);
-      color: var(--paper);
-    }
-    .btn-secondary:hover { background: rgba(255,255,255,0.1); }
+  /* ── HIGHLIGHT BOX ── */
+  .highlight {
+    background: #e6ecff;
+    border: 2px solid var(--ink);
+    padding: 1.2rem 1.5rem;
+    margin: 1.5rem 0;
+    font-size: 0.95rem;
+  }
+  .highlight strong { color: var(--accent2); }
 
-    /* ── FASE-BLOKKEN ── */
-    .fasen {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 0;
-      border: 2px solid var(--ink);
-      margin: 1.5rem 0;
-    }
-    .fase {
-      padding: 1.5rem;
-      border-right: 1px solid var(--ink);
-    }
-    .fase:last-child { border-right: none; }
-    .fase-nr {
-      font-family: 'Broadway', monospace;
-      font-size: 2rem;
-      color: var(--pale);
-      font-weight: bold;
-      line-height: 1;
-      margin-bottom: 0.4rem;
-    }
-    .fase h4 {
-      font-size: 1rem;
-      margin-bottom: 0.6rem;
-      color: var(--accent);
-    }
-    .fase p { font-size: 0.88rem; margin: 0; line-height: 1.5; }
+  @media (max-width: 640px) {
+    .toc ol { column-count: 1; }
+    .fasen { grid-template-columns: 1fr; }
+    .fase { border-right: none; border-bottom: 1px solid var(--ink); }
+    .fase:last-child { border-bottom: none; }
+  }
+</style>
 
-    /* ── DIVIDER ── */
-    .rule {
-      border: none;
-      border-top: 1px solid var(--ink);
-      margin: 1.5rem 0;
-    }
+<div class="bb">
 
-    /* ── HIGHLIGHT BOX ── */
-    .highlight {
-      background: #e6ecff;
-      border: 2px solid #1740d4;
-      padding: 1.2rem 1.5rem;
-      margin: 1.5rem 0;
-      font-size: 0.95rem;
-    }
-    .highlight strong { color: var(--accent2); }
-
-    @media (max-width: 640px) {
-      .toc ol { column-count: 1; }
-      .fasen { grid-template-columns: 1fr; }
-      .fase { border-right: none; border-bottom: 1px solid var(--ink); }
-      .fase:last-child { border-bottom: none; }
-      header { padding: 1.5rem 1rem 1rem; }
-      main { padding: 0 1rem 3rem; }
-    }
-  </style>
-</head>
-<body>
-
-<header>
+<header class="bb-header">
   <div class="site-name">VBBSKW &mdash; Gemeente Velsen</div>
   <h1>Burgerberaad door inwoners, voor inwoners van Velsen</h1>
   <p class="subtitle">De noodzakelijke update van onze lokale democratie</p>
 </header>
 
-<main>
-
-  <!-- INHOUDSOPGAVE -->
-  <nav class="toc">
-    <h2>Inhoud</h2>
-    <ol>
-      <li><a href="#inleiding">Inleiding</a></li>
-      <li><a href="#wat-is">Wat is een burgerberaad?</a></li>
-      <li><a href="#waarom">Waarom noodzakelijk in Velsen</a></li>
-      <li><a href="#hoe">Hoe werkt het?</a></li>
-      <li><a href="#loting">Gestratificeerde loting</a></li>
-      <li><a href="#elementen">Elementen van een burgerberaad</a></li>
-      <li><a href="#stappen">Stappen voor gemeente Velsen</a></li>
-      <li><a href="#voorbeelden">Voorbeelden wereldwijd</a></li>
-      <li><a href="#meer">Meer weten</a></li>
-    </ol>
-  </nav>
+<!-- INHOUDSOPGAVE -->
+<nav class="toc">
+  <h2>Inhoud</h2>
+  <ol>
+    <li><a href="#inleiding">Inleiding</a></li>
+    <li><a href="#wat-is">Wat is een burgerberaad?</a></li>
+    <li><a href="#waarom">Waarom noodzakelijk in Velsen</a></li>
+    <li><a href="#hoe">Hoe werkt het?</a></li>
+    <li><a href="#loting">Gestratificeerde loting</a></li>
+    <li><a href="#elementen">Elementen van een burgerberaad</a></li>
+    <li><a href="#stappen">Stappen voor gemeente Velsen</a></li>
+    <li><a href="#voorbeelden">Voorbeelden wereldwijd</a></li>
+    <li><a href="#meer">Meer weten</a></li>
+  </ol>
+</nav>
 
 
-  <!-- INLEIDING -->
-  <section id="inleiding">
-    <h2>Inleiding</h2>
+<!-- INLEIDING -->
+<section id="inleiding">
+  <h2>Inleiding</h2>
 
-    <p>Of het nu gaat om ligplaatsenbeleid en de toekomst van woonboten, om geluidsoverlast van een windpark op 180 meter afstand, om het bestemmingsplan voor het Binnenspuikanaal of om de invloed van Rijkswaterstaat op het dagelijks leven van honderden bewoners: het zijn onderwerpen die de gemoederen in Velsen bezighouden. Niet vreemd, want deze kwesties raken concrete mensen in hun woon- en leefomgeving, nu en in de toekomst.</p>
+  <p>Of het nu gaat om ligplaatsenbeleid en de toekomst van woonboten, om geluidsoverlast van een windpark op 180 meter afstand, om het bestemmingsplan voor het Binnenspuikanaal of om de invloed van Rijkswaterstaat op het dagelijks leven van honderden bewoners: het zijn onderwerpen die de gemoederen in Velsen bezighouden. Niet vreemd, want deze kwesties raken concrete mensen in hun woon- en leefomgeving, nu en in de toekomst.</p>
 
-    <p>Vaak leiden deze onderwerpen tot polarisatie en onvrede, omdat bewoners zich niet gehoord en niet betrokken voelen bij de besluitvorming. Dat gevoel wordt versterkt doordat overheden zoals Rijkswaterstaat, de provincie Noord-Holland en de gemeente Velsen besluiten nemen in bestuurlijke circuits waar de doorsnee burger nauwelijks toegang toe heeft. Bezwaar maken is een individueel gevecht; inspraakprocedures zijn soms niet meer dan een formaliteit.</p>
+  <p>Vaak leiden deze onderwerpen tot polarisatie en onvrede, omdat bewoners zich niet gehoord en niet betrokken voelen bij de besluitvorming. Dat gevoel wordt versterkt doordat overheden zoals Rijkswaterstaat, de provincie Noord-Holland en de gemeente Velsen besluiten nemen in bestuurlijke circuits waar de doorsnee burger nauwelijks toegang toe heeft. Bezwaar maken is een individueel gevecht; inspraakprocedures zijn soms niet meer dan een formaliteit.</p>
 
-    <blockquote>
-      "De mensen die wél gehoord worden door de politiek, zijn vaak degenen die het hardste schreeuwen op sociale media of beschikken over dure rechtshulp. Dat geeft een vertekend beeld van wat er echt speelt in de samenleving."
-    </blockquote>
+  <blockquote>
+    "De mensen die wél gehoord worden door de politiek, zijn vaak degenen die het hardste schreeuwen op sociale media of beschikken over dure rechtshulp. Dat geeft een vertekend beeld van wat er echt speelt in de samenleving."
+  </blockquote>
 
-    <p>Het gevolg is méér polarisatie: tussen bewoners onderling, tussen bestuurders en burgers, en tussen georganiseerde belangen en gewone mensen. Terwijl draagvlak voor beleid en vertrouwen in bestuur juist essentieel zijn &mdash; zeker bij grote opgaven als de energietransitie, ruimtelijke ordening en woonrecht.</p>
+  <p>Het gevolg is méér polarisatie: tussen bewoners onderling, tussen bestuurders en burgers, en tussen georganiseerde belangen en gewone mensen. Terwijl draagvlak voor beleid en vertrouwen in bestuur juist essentieel zijn &mdash; zeker bij grote opgaven als de energietransitie, ruimtelijke ordening en woonrecht.</p>
 
-    <p>Het VBBSKW pleit daarom voor een <strong>burgerberaad met mandaat in de gemeente Velsen</strong>: een gestructureerd, deliberatief proces waarin een representatieve groep gelote inwoners weloverwogen aanbevelingen doet over thema's die de gemeente verdelen of vastlopen. Niet als vervanging van de gemeenteraad, maar als versterking ervan.</p>
+  <p>Het VBBSKW pleit daarom voor een <strong>burgerberaad met mandaat in de gemeente Velsen</strong>: een gestructureerd, deliberatief proces waarin een representatieve groep gelote inwoners weloverwogen aanbevelingen doet over thema's die de gemeente verdelen of vastlopen. Niet als vervanging van de gemeenteraad, maar als versterking ervan.</p>
 
-    <div class="highlight">
-      <strong>Deze gids</strong> is een kennismaking, geen handleiding voor organisatoren &mdash; daarvoor verwijzen wij naar de bronvermelding onderop deze gids.
+  <div class="highlight">
+    <strong>Deze gids</strong> is een kennismaking, geen handleiding voor organisatoren &mdash; daarvoor verwijzen wij naar de bronvermelding onderop deze gids.
+  </div>
+</section>
+
+
+<!-- WAT IS EEN BURGERBERAAD -->
+<section id="wat-is">
+  <h2>Wat is een burgerberaad?</h2>
+
+  <p>Een burgerberaad bestaat uit een groep inwoners &mdash; bij een gemeentelijk beraad doorgaans 50 tot 150 personen &mdash; die samen een dwarsdoorsnede vormen van de lokale bevolking. Om die dwarsdoorsnede te verkrijgen worden deelnemers <strong>geloot</strong>: mensen kunnen zichzelf niet opgeven. Het beraad krijgt de opdracht een open vraag te beantwoorden, zoals:</p>
+
+  <blockquote>
+    <em>"Welke maatregelen kan de gemeente Velsen nemen om ligplaatshouders en woonbootbewoners een rechtszekere en leefbare toekomst te bieden, in balans met andere belangen in de gemeente?"</em>
+  </blockquote>
+
+  <p>Om deze vraag te beantwoorden komen deelnemers een aantal weekenden bijeen. Tijdens die bijeenkomsten doorlopen zij drie fasen:</p>
+
+  <div class="fasen">
+    <div class="fase">
+      <div class="fase-nr">01</div>
+      <h4>Leren</h4>
+      <p>Experts, ervaringsdeskundigen en belanghebbenden informeren de deelnemers vanuit verschillende perspectieven. Deelnemers kunnen zelf aanvullende experts uitnodigen.</p>
     </div>
-  </section>
-
-
-  <!-- WAT IS EEN BURGERBERAAD -->
-  <section id="wat-is">
-    <h2>Wat is een burgerberaad?</h2>
-
-    <p>Een burgerberaad bestaat uit een groep inwoners &mdash; bij een gemeentelijk beraad doorgaans 50 tot 150 personen &mdash; die samen een dwarsdoorsnede vormen van de lokale bevolking. Om die dwarsdoorsnede te verkrijgen worden deelnemers <strong>geloot</strong>: mensen kunnen zichzelf niet opgeven. Het beraad krijgt de opdracht een open vraag te beantwoorden, zoals:</p>
-
-    <blockquote>
-      <em>"Welke maatregelen kan de gemeente Velsen nemen om ligplaatshouders en woonbootbewoners een rechtszekere en leefbare toekomst te bieden, in balans met andere belangen in de gemeente?"</em>
-    </blockquote>
-
-    <p>Om deze vraag te beantwoorden komen deelnemers een aantal weekenden bijeen. Tijdens die bijeenkomsten doorlopen zij drie fasen:</p>
-
-    <div class="fasen">
-      <div class="fase">
-        <div class="fase-nr">01</div>
-        <h4>Leren</h4>
-        <p>Experts, ervaringsdeskundigen en belanghebbenden informeren de deelnemers vanuit verschillende perspectieven. Deelnemers kunnen zelf aanvullende experts uitnodigen.</p>
-      </div>
-      <div class="fase">
-        <div class="fase-nr">02</div>
-        <h4>Beraadslagen</h4>
-        <p>In kleine groepen van 6–8 personen wordt de informatie besproken. Een onafhankelijk gespreksbegeleider zorgt dat iedere stem gehoord wordt.</p>
-      </div>
-      <div class="fase">
-        <div class="fase-nr">03</div>
-        <h4>Beslissen</h4>
-        <p>Deelnemers stellen gezamenlijk onderbouwde aanbevelingen op. Het eindrapport geeft aan hoeveel steun elke aanbeveling draagt.</p>
-      </div>
+    <div class="fase">
+      <div class="fase-nr">02</div>
+      <h4>Beraadslagen</h4>
+      <p>In kleine groepen van 6–8 personen wordt de informatie besproken. Een onafhankelijk gespreksbegeleider zorgt dat iedere stem gehoord wordt.</p>
     </div>
-
-    <p>Een onafhankelijke organisatie faciliteert het hele proces. De gemeente Velsen stelt <em>vooraf</em> vast hoe zij de uitkomst zal gebruiken: bij welk steunpercentage worden aanbevelingen als bindend of verplicht te behandelen beschouwd? Zonder die garantie verliest een burgerberaad zijn kracht, zoals de Nederlandse ervaring met het Burgerforum Kiesstelsel (2006) pijnlijk aantoonde.</p>
-  </section>
-
-
-  <!-- WAAROM NOODZAKELIJK IN VELSEN -->
-  <section id="waarom">
-    <h2>Waarom een burgerberaad noodzakelijk is in Velsen</h2><br>
-
-    <p>In het huidige bestuurlijke stelsel bepalen kortetermijnpolitiek en verkiezingscycli welke besluiten genomen worden.</p>
-
-    <p>In Velsen kennen wij specifiek een aantal hardnekkige impasses:</p>
-
-    <ul style="margin: 1rem 0 1rem 1.5rem; line-height: 1.8;">
-      <li>De <em>wooncrisis</em> wordt maar niet opgelost. Projectontwikkelaars hebben o.a. een monopolie op grondspeculatie dat de onderhandelingspositie van woningbouwcorporaties en gemeenten ondermijnd. Deze monopolie wordt in stand gehouden door wetgeving zoals de DEAB, Waarborgfonds en Autoriteit woningcorporaties terwijl het omgevingswet-instrumentarium door gemeenten vaak onbenut blijft vanwege ontwetendheid of onkunde.</li>
-      <li>Bewoners van woonboten en recreatievaartuigen staan tegenover drie overheden tegelijk (gemeente, provincie, Rijkswaterstaat) zonder dat deze overheden eenduidig beleid voeren.</li>
-      <li>Windparken worden op korte afstand van woningen geplaatst terwijl geluids- en slagschaduwnormen gemeentelijk noch provinciaal consequent worden gehandhaafd.</li>
-      <li>Bezwaarprocedures zijn kostbaar, tijdrovend en individueel, ze produceren juridische dossiers maar geen draagvlak.</li>
-    </ul>
-
-    <p>Een burgerberaad helpt bij deze impasses omdat het <strong>partijpolitiek overstijgt</strong>. Gelote deelnemers vertegenwoordigen geen partij en hoeven geen rekening te houden met verkiezingen of lobbykrachten. Het initiatief komt van het gemeentebestuur, maar de uitvoering is in handen van een onafhankelijke organisatie, zodat noch de gemeente, noch Rijkswaterstaat, noch georganiseerde belangen de uitkomst kunnen voorschrijven.</p>
-
-    <blockquote>
-      "Burgerberaden zijn geen vervanging van de parlementaire democratie, maar de noodzakelijke update daarvan: ze versterken onze huidige democratie, zodat deze klaar is voor de 21e eeuw."
-    </blockquote>
-
-    <p>Bovendien transformeert een burgerberaad polarisatie tot een constructief debat. Anders dan bij een referendum (voor/tegen) of een inspraakavond (informeren, weinig doorwerking) gaat het om een open vraag waarbij standpunten mogen veranderen. Deelnemers leren voorbij hun eigen belang te kijken en ontdekken gemeenschappelijke grond, ook met mensen die ze aanvankelijk als tegenstander beschouwden.</p>
-
-    <h3>De zwakte van bestaande participatievormen</h3>
-
-    <p>Enquêtes en online peilingen bieden slechts een ongeïnformeerde momentopname. Inspraakavonden geven de schijn van invloed maar leiden zelden tot meetbare beleidswijziging. Bezwaarprocedures zijn onmisbaar als rechtsmiddel maar produceren geen gedeeld perspectief. Een goed uitgevoerd burgerberaad heeft het tegengestelde effect: burgers krijgen reële invloed, zijn daardoor gemotiveerd om tot een oplossing te komen, en blijven ook na afloop politiek betrokken.</p>
-
-    <div class="highlight">
-      <strong>Let op:</strong> Het opgebouwde vertrouwen loopt schade op als de gemeente vervolgens te weinig met de uitkomst doet. Juist daarom is een voorafgaand, expliciet commitment van de gemeenteraad onmisbaar.
+    <div class="fase">
+      <div class="fase-nr">03</div>
+      <h4>Beslissen</h4>
+      <p>Deelnemers stellen gezamenlijk onderbouwde aanbevelingen op. Het eindrapport geeft aan hoeveel steun elke aanbeveling draagt.</p>
     </div>
-  </section>
-
-
-  <!-- HOE WERKT HET -->
-  <section id="hoe">
-    <h2>Hoe werkt een burgerberaad in de gemeente Velsen?</h2><br>
-
-    <p>Geen twee burgerberaden zijn identiek, maar impactvolle beraaden delen een reeks vaste kenmerken. Voor gemeente Velsen zou dat er als volgt uitzien:</p>
-
-    <ol class="stappen">
-      <li>
-        <strong>De gemeenteraad neemt het initiatief</strong>
-        De gemeenteraad van Velsen besluit tot het instellen van een burgerberaad over een specifiek thema &mdash; bijvoorbeeld: woonrecht en ligplaatsenbeleid, of: geluidsoverlast en leefomgevingskwaliteit in IJmuiden. Het college legt de opdrachtvraag vast.
-      </li>
-      <li>
-        <strong>De uitkomst wordt vooraf gegarandeerd</strong>
-        De raad maakt expliciet hoe zij de aanbevelingen zal gebruiken. Bijvoorbeeld: aanbevelingen die door minimaal 70% van de deelnemers worden gedragen, worden als bindend beschouwd en binnen drie maanden op de raadsagenda gezet.
-      </li>
-      <li>
-        <strong>Deelnemers worden geloot en gestratificeerd</strong>
-        Uit het bevolkingsregister worden meer mensen geloot dan uiteindelijk nodig zijn. Via stratificatie &mdash; op geslacht, leeftijd, wijk, opleidingsniveau &mdash; wordt een groep samengesteld die een eerlijke afspiegeling vormt van de Velsense bevolking. Woonbootbewoners, havenbuurtbewoners, Santpoort-Noord en IJmuiden aan Zee zijn evenredig vertegenwoordigd.
-      </li>
-      <li>
-        <strong>Een onafhankelijke organisatie faciliteert</strong>
-        Niet de gemeente, niet het VBBSKW, maar een professionele, onpartijdige organisatie (zoals Democracy R&amp;D of G1000 Nederland) begeleidt het hele proces.
-      </li>
-      <li>
-        <strong>Experts en belanghebbenden informeren</strong>
-        Juristen bestuursrecht, waterrecht, Rijkswaterstaat-woordvoerders, provinciale ambtenaren, woonbootbewoners, havenbedrijf, milieuorganisaties &mdash; allen krijgen spreektijd. Deelnemers bepalen zelf welke aanvullende experts zij willen horen.
-      </li>
-      <li>
-        <strong>Drie fasen: leren, beraadslagen, beslissen</strong>
-        Zie het schema hierboven. Het proces beslaat bij voorkeur vijf weekenden verspreid over vier maanden. Bijeenkomsten worden gestreamd voor publieke transparantie.
-      </li>
-      <li>
-        <strong>Het eindrapport gaat naar de gemeenteraad</strong>
-        De aanbevelingen worden formeel aangeboden aan de raad, die verplicht is ze te behandelen en binnen een termijn te reageren op elke aanbeveling &mdash; aanvaard, gewijzigd of gemotiveerd verworpen.
-      </li>
-    </ol>
-
-  <!-- LOTING -->
-  <section id="loting">
-    <h2>Gestratificeerde loting: eerlijk en representatief</h2><br>
-
-    <p>Iedereen kan zich opgeven voor de pool waaruit wordt geloot. De loting zorgt voor een representatievere afspiegeling van de inwoners.</p>
-
-    <p>Loting <em>alleen</em> is echter onvoldoende. Daarom wordt een veel grotere groep geloot dan uiteindelijk zal deelnemen. Die gelote pool wordt vervolgens onderverdeeld op basis van:</p>
-
-    <ul style="margin: 0.8rem 0 0.8rem 1.5rem; line-height: 1.9;">
-      <li>Geslacht</li>
-      <li>Leeftijd (jongeren zijn structureel ondervertegenwoordigd in inspraak)</li>
-      <li>Wijk of kern (IJmuiden, Velsen-Noord, Santpoort, Driehuis, Beverwijk-grens)</li>
-      <li>Opleidingsniveau</li>
-      <li>Woonvorm (inclusief precaire woonvormen en dak- of thuislozen als significante groep in Velsen)</li>
-    </ul>
-
-    <p>Dit heet <strong>stratificatie</strong>. Het zorgt ervoor dat het burgerberaad in Velsen ook groepen vertegenwoordigt die bij inspraakavonden chronisch afwezig zijn: jongeren, mensen met mbo-opleiding, niet-Nederlandstaligen, mensen die het druk hebben met twee banen. Het idee is dat burgers zich moeten kunnen identificeren met minstens één deelnemer zodat het resultaat ook hun resultaat is.</p>
-
-    <blockquote>
-      "Gestratificeerde loting is in de eerste plaats bedoeld om een meer diverse stem te laten klinken in het besluitvormingsproces dan het geval is in het parlement."
-    </blockquote>
-
-    <p>Het VBBSKW beheert via <a href="http://www.vbbskw.com/velsen.html">vbbskw.com/velsen.html</a> een register van inwoners van Velsen die zich beschikbaar stellen voor loting. Dit register is geen vervanging van formele loting, maar een aanmelding voor vrijwillige beschikbaarstelling die de gemeente kan gebruiken als startpunt.</p>
-  </section>
-
-
-  <!-- ELEMENTEN -->
-  <section id="elementen">
-    <h2>Elementen van een burgerberaad in Velsen</h2>
-
-    <div class="elementen-grid">
-      <div class="element-card">
-        <h4>Gelote burgers</h4>
-        <p>Representatieve dwarsdoorsnede van de Velsense bevolking. Inclusief woonbootbewoners en bewoners van havengebieden. Deelname is vrijwillig maar met een dagvergoeding van €50–100.</p>
-      </div>
-      <div class="element-card">
-        <h4>Onafhankelijk voorzitter</h4>
-        <p>Aangesteld door de adviesraad, niet door de gemeente. Bewaakt de integriteit van het proces en stelt het eindrapport samen.</p>
-      </div>
-      <div class="element-card">
-        <h4>Faciliterende organisatie</h4>
-        <p>Professionele, onpartijdige organisatie (bijv. Democracy R&amp;D of G1000 NL). Verantwoordelijk voor loting, stratificatie en procesbegeleiding.</p>
-      </div>
-      <div class="element-card">
-        <h4>Gespreksbegeleiders</h4>
-        <p>Één per groep van maximaal 10 personen. Onpartijdig, nooit inhoudelijk sturend. Zorgen dat ook minder luide stemmen gehoord worden.</p>
-      </div>
-      <div class="element-card">
-        <h4>Adviesraad</h4>
-        <p>Mix van academici, ervaringsdeskundigen en gelote burgers. Stelt criteria op voor de selectie van experts en toetst informatiebalans.</p>
-      </div>
-      <div class="element-card">
-        <h4>Experts &amp; belanghebbenden</h4>
-        <p>Bestuursrecht, waterrecht, RWS, provincie, woonbootverenigingen, windpark-operators, milieuorganisaties, omgevingsdienst. Deelnemers kunnen zelf aanvullen.</p>
-      </div>
-      <div class="element-card">
-        <h4>Toezichthoudende commissie</h4>
-        <p>Houdt toezicht op kwaliteit, transparantie en onafhankelijkheid. Kan bestaan uit burgers, raadsleden van de oppositie, en een externe ombudspersoon.</p>
-      </div>
-      <div class="element-card">
-        <h4>Gemeente Velsen</h4>
-        <p>Initieert en committeert zich vooraf aan doorwerking. De raad is verplicht op elke aanbeveling te reageren binnen een afgesproken termijn.</p>
-      </div>
-    </div>
-  </section>
-
-
-  <!-- STAPPEN -->
-  <section id="stappen">
-    <h2>Stappen voor het opzetten van een burgerberaad in Velsen</h2>
-
-    <ol class="stappen">
-      <li>
-        <strong>Raadsbesluit en opdrachtvraag</strong>
-        De gemeenteraad van Velsen besluit formeel tot een burgerberaad en formuleert de open opdrachtvraag. De raad legt vast hoe zij de uitkomst zal gebruiken (drempelpercentage voor bindende aanbevelingen).
-      </li>
-      <li>
-        <strong>Samenstellen expertteam deliberatieve democratie</strong>
-        Een gemengd team van academici en practitioners adviseert over de beste opzet: aantal bijeenkomsten, deelvragen, tijdpad.
-      </li>
-      <li>
-        <strong>Benoemen toezichtcommissie</strong>
-        Onafhankelijke commissie die het hele proces bewaakt op kwaliteit, eerlijkheid en transparantie.
-      </li>
-      <li>
-        <strong>Selectie faciliterende organisatie</strong>
-        Via open aanbesteding. Professionele organisaties met deliberatieve expertise. De gemeente mag het selectieproces niet eenzijdig controleren.
-      </li>
-      <li>
-        <strong>Ontwikkeling beleidskader &amp; informatiedossier</strong>
-        De adviesraad en faciliterende organisatie stellen een toegankelijk, gebalanceerd informatiedossier samen. Alle stukken worden openbaar gepubliceerd.
-      </li>
-      <li>
-        <strong>Loting en stratificatie</strong>
-        Uit het bevolkingsregister worden meer mensen geloot dan nodig. Via stratificatie (geslacht, leeftijd, wijk, opleiding, woonvorm) wordt een representatieve groep van ca. 80–120 deelnemers samengesteld. Uitnodigingsbrief met uitleg, data, locatie en vergoeding.
-      </li>
-      <li>
-        <strong>Uitvoering: leren, beraadslagen, beslissen</strong>
-        Vijf weekenden over vier maanden. Plenaire leersessies worden gestreamd. Deliberaties in kleine groepen. Eindrapport met aanbevelingen en steunpercentages.
-      </li>
-      <li>
-        <strong>Aanbieding aan de gemeenteraad</strong>
-        Formele aanbieding van het eindrapport. De raad debatteert en reageert binnen afgesproken termijn op elke aanbeveling, motiverend als zij een aanbeveling niet overneemt.
-      </li>
-    </ol>
-
-    <div class="highlight">
-      <strong>Tijdsinschatting:</strong> Van raadsbesluit tot eindrapport rekent men gemiddeld 8–12 maanden. Het lotingsproces alleen al kost circa zes weken. Betrek communicatiemiddelen voor brede bekendmaking onder alle Velsense inwoners, inclusief die niet actief online zijn.
-    </div>
-  </section>
-
-
-  <!-- VOORBEELDEN -->
-  <section id="voorbeelden">
-    <h2>Voorbeelden van elders</h2>
-
-    <div class="voorbeeld">
-      <h4>Ierland &mdash; Abortuswetgeving en homohuwelijk</h4>
-      <p>Na decennia van politieke impasse brak een Citizens' Assembly (2016–2018) van 99 gelote burgers de patstelling. Binnen enkele maanden formuleerden de deelnemers aanbevelingen die leidden tot succesvolle referenda. De kern: mensen die goed geïnformeerd worden en de tijd krijgen om met elkaar te spreken, komen verder dan politici die gebonden zijn aan partijlijnen.</p>
-    </div>
-
-    <div class="voorbeeld">
-      <h4>Polen &mdash; Gdansk na de overstromingen</h4>
-      <p>Na verwoestende overstromingen in 2016 organiseerde de burgemeester van Gdansk een burgerberaad van 60 inwoners. Besluiten met 80% steun werden bij wet vastgelegd. Bewoners van de getroffen wijken spraken mee over waterbeleid dat hen direct raakte &mdash; met aantoonbaar betere uitkomsten dan een klassiek bestuurlijk traject zou opleveren. Inmiddels kunnen 350.000 Gdansk-bewoners een nieuw beraad afdwingen via 1.000 handtekeningen; bij 5.000 handtekeningen is de burgemeester <em>verplicht</em> het te organiseren.</p>
-    </div>
-
-    <div class="voorbeeld">
-      <h4>België &mdash; Ostbelgien permanent model</h4>
-      <p>Het Duitstalige gebied van Oost-België heeft een permanente Bürgerrat ingesteld: 24 willekeurig gekozen burgers met een mandaat van anderhalf jaar die maximaal drie ad-hocburgerpanels initiëren. Het regionale parlement is verplicht op de aanbevelingen te reageren. Dit model combineert continuïteit met responsiviteit &mdash; een interessant model ook voor een gemeente als Velsen.</p>
-    </div>
-
-    <div class="voorbeeld">
-      <h4>Nederland &mdash; Burgerforum Kiesstelsel (2006)</h4>
-      <p>Het Burgerforum Kiesstelsel (140 gelote burgers, initiatief minister Pechtold) leverde een breed gedragen voorstel op voor een nieuw kiesstelsel. De aanbeveling werd door het kabinet genegeerd. Dat is de centrale les voor Velsen: een burgerberaad zonder voorafgaand, expliciet commitment van het gemeentebestuur is een instrument dat zijn belofte niet kan inlossen &mdash; en daarmee het vertrouwen verder schaadt in plaats van herstelt.</p>
-    </div>
-  </section>
-
-
-  <!-- CTA -->
-  <div class="cta-box">
-    <h2>Doe mee &mdash; stel je beschikbaar voor loting</h2>
-    <p>Het VBBSKW bouwt een register op van inwoners van Velsen en omgeving die bereid zijn deel te nemen aan een burgerberaad als zij worden uitgeloot. Aanmelding kost niets en verplicht tot niets &mdash; maar maakt het verschil zichtbaar.</p>
-    <a href="http://www.vbbskw.com/enquete.html" class="btn">Aanmelden voor loting Velsen</a>
-    <a href="http://www.vbbskw.com/kleroterion.html" class="btn btn-secondary">Meer over loting &amp; kleroterion</a>
   </div>
 
+  <p>Een onafhankelijke organisatie faciliteert het hele proces. De gemeente Velsen stelt <em>vooraf</em> vast hoe zij de uitkomst zal gebruiken: bij welk steunpercentage worden aanbevelingen als bindend of verplicht te behandelen beschouwd? Zonder die garantie verliest een burgerberaad zijn kracht, zoals de Nederlandse ervaring met het Burgerforum Kiesstelsel (2006) pijnlijk aantoonde.</p>
+</section>
 
-  <!-- MEER WETEN -->
-  <section id="meer">
-    <h2>Meer weten?</h2>
 
-    <h3>Boeken</h3>
-    <ul style="margin: 0.5rem 0 1.5rem 1.5rem; line-height: 2;">
-      <li>David Van Reybrouck, <em>Tegen verkiezingen</em> (2013)</li>
-      <li>Brett Hennig, <em>The End of Politicians: Time for a Real Democracy</em> (2017)</li>
-      <li>Hélène Landemore, <em>Open Democracy</em> (2020)</li>
-      <li>Bernard Manin, <em>The Principles of Representative Government</em> (1997)</li>
-      <li>Graham Smith, <em>Democratic Innovations</em> (2010)</li>
-    </ul>
+<!-- WAAROM NOODZAKELIJK IN VELSEN -->
+<section id="waarom">
+  <h2>Waarom een burgerberaad noodzakelijk is in Velsen</h2><br>
 
-    <h3>Online &amp; Rapporten</h3>
-    <ul style="margin: 0.5rem 0 1.5rem 1.5rem; line-height: 2;">
-      <li>OESO, <em>Innovative Citizen Participation and New Democratic Institutions</em> (2020)</li>
-      <li>Marcin Gerwin, <em>Citizens' Assemblies: Guide to Democracy that Works</em> (2018)</li>
-      <li>The Sortition Foundation, <em>What is Sortition?</em></li>
-      <li>Democracy R&amp;D &mdash; <a href="https://www.democracyrd.org" target="_blank">democracyrd.org</a></li>
-      <li>G1000 Nederland &mdash; <a href="https://www.g1000.nu" target="_blank">g1000.nu</a></li>
-    </ul>
+  <p>In het huidige bestuurlijke stelsel bepalen kortetermijnpolitiek en verkiezingscycli welke besluiten genomen worden.</p>
 
-    <h3>VBBSKW</h3>
-    <ul style="margin: 0.5rem 0 1.5rem 1.5rem; line-height: 2;">
-      <li><a href="http://www.vbbskw.com/kleroterion.html">Kleroterion &mdash; loting per gemeente</a></li>
-      <li><a href="http://www.vbbskw.com/velsen.html">Velsen &mdash; aanmelding en informatie</a></li>
-      <li><a href="http://www.vbbskw.com/participatie.html">Participatiepagina</a></li>
-      <li><a href="mailto:voorzitter@vbbskw.com">voorzitter@vbbskw.com</a></li>
-    </ul>
-  </section>
+  <p>In Velsen kennen wij specifiek een aantal hardnekkige impasses:</p>
 
-</main>
+  <ul style="margin: 1rem 0 1rem 1.5rem; line-height: 1.8;">
+    <li>De <em>wooncrisis</em> wordt maar niet opgelost. Projectontwikkelaars hebben o.a. een monopolie op grondspeculatie dat de onderhandelingspositie van woningbouwcorporaties en gemeenten ondermijnd. Deze monopolie wordt in stand gehouden door wetgeving zoals de DEAB, Waarborgfonds en Autoriteit woningcorporaties terwijl het omgevingswet-instrumentarium door gemeenten vaak onbenut blijft vanwege ontwetendheid of onkunde.</li>
+    <li>Bewoners van woonboten en recreatievaartuigen staan tegenover drie overheden tegelijk (gemeente, provincie, Rijkswaterstaat) zonder dat deze overheden eenduidig beleid voeren.</li>
+    <li>Windparken worden op korte afstand van woningen geplaatst terwijl geluids- en slagschaduwnormen gemeentelijk noch provinciaal consequent worden gehandhaafd.</li>
+    <li>Bezwaarprocedures zijn kostbaar, tijdrovend en individueel, ze produceren juridische dossiers maar geen draagvlak.</li>
+  </ul>
 
-<!-- FOOTER -->
-<footer>
-  <div class="footer-links">
-    <a href="http://www.vbbskw.com/">Home</a>
-    <a href="http://www.vbbskw.com/blog2.html">Blog</a>
-    <a href="http://www.vbbskw.com/participatie.html">Participatie</a>
-    <a href="http://www.vbbskw.com/kleroterion.html">Kleroterion</a>
-    <a href="http://www.vbbskw.com/privacy.html">Privacybeleid</a>
-    <a href="http://www.vbbskw.com/contact.html">Contact</a>
-    <a href="http://www.vbbskw.com/3d-diagram">Informatiekringen 3D</a>
+  <p>Een burgerberaad helpt bij deze impasses omdat het <strong>partijpolitiek overstijgt</strong>. Gelote deelnemers vertegenwoordigen geen partij en hoeven geen rekening te houden met verkiezingen of lobbykrachten. Het initiatief komt van het gemeentebestuur, maar de uitvoering is in handen van een onafhankelijke organisatie, zodat noch de gemeente, noch Rijkswaterstaat, noch georganiseerde belangen de uitkomst kunnen voorschrijven.</p>
+
+  <blockquote>
+    "Burgerberaden zijn geen vervanging van de parlementaire democratie, maar de noodzakelijke update daarvan: ze versterken onze huidige democratie, zodat deze klaar is voor de 21e eeuw."
+  </blockquote>
+
+  <p>Bovendien transformeert een burgerberaad polarisatie tot een constructief debat. Anders dan bij een referendum (voor/tegen) of een inspraakavond (informeren, weinig doorwerking) gaat het om een open vraag waarbij standpunten mogen veranderen. Deelnemers leren voorbij hun eigen belang te kijken en ontdekken gemeenschappelijke grond, ook met mensen die ze aanvankelijk als tegenstander beschouwden.</p>
+
+  <h3>De zwakte van bestaande participatievormen</h3>
+
+  <p>Enquêtes en online peilingen bieden slechts een ongeïnformeerde momentopname. Inspraakavonden geven de schijn van invloed maar leiden zelden tot meetbare beleidswijziging. Bezwaarprocedures zijn onmisbaar als rechtsmiddel maar produceren geen gedeeld perspectief. Een goed uitgevoerd burgerberaad heeft het tegengestelde effect: burgers krijgen reële invloed, zijn daardoor gemotiveerd om tot een oplossing te komen, en blijven ook na afloop politiek betrokken.</p>
+
+  <div class="highlight">
+    <strong>Let op:</strong> Het opgebouwde vertrouwen loopt schade op als de gemeente vervolgens te weinig met de uitkomst doet. Juist daarom is een voorafgaand, expliciet commitment van de gemeenteraad onmisbaar.
   </div>
-  <div>&copy; 2026 VBBSKW &mdash; Verbond ter Bevordering van Burgerlijke Soevereiniteit, Kennis en Weerbaarheid. Alle rechten voorbehouden.</div>
-</footer>
+</section>
 
-</body>
-</html>
+
+<!-- HOE WERKT HET -->
+<section id="hoe">
+  <h2>Hoe werkt een burgerberaad in de gemeente Velsen?</h2><br>
+
+  <p>Geen twee burgerberaden zijn identiek, maar impactvolle beraaden delen een reeks vaste kenmerken. Voor gemeente Velsen zou dat er als volgt uitzien:</p>
+
+  <ol class="stappen">
+    <li>
+      <strong>De gemeenteraad neemt het initiatief</strong>
+      De gemeenteraad van Velsen besluit tot het instellen van een burgerberaad over een specifiek thema &mdash; bijvoorbeeld: woonrecht en ligplaatsenbeleid, of: geluidsoverlast en leefomgevingskwaliteit in IJmuiden. Het college legt de opdrachtvraag vast.
+    </li>
+    <li>
+      <strong>De uitkomst wordt vooraf gegarandeerd</strong>
+      De raad maakt expliciet hoe zij de aanbevelingen zal gebruiken. Bijvoorbeeld: aanbevelingen die door minimaal 70% van de deelnemers worden gedragen, worden als bindend beschouwd en binnen drie maanden op de raadsagenda gezet.
+    </li>
+    <li>
+      <strong>Deelnemers worden geloot en gestratificeerd</strong>
+      Uit het bevolkingsregister worden meer mensen geloot dan uiteindelijk nodig zijn. Via stratificatie &mdash; op geslacht, leeftijd, wijk, opleidingsniveau &mdash; wordt een groep samengesteld die een eerlijke afspiegeling vormt van de Velsense bevolking. Woonbootbewoners, havenbuurtbewoners, Santpoort-Noord en IJmuiden aan Zee zijn evenredig vertegenwoordigd.
+    </li>
+    <li>
+      <strong>Een onafhankelijke organisatie faciliteert</strong>
+      Niet de gemeente, niet het VBBSKW, maar een professionele, onpartijdige organisatie (zoals Democracy R&amp;D of G1000 Nederland) begeleidt het hele proces.
+    </li>
+    <li>
+      <strong>Experts en belanghebbenden informeren</strong>
+      Juristen bestuursrecht, waterrecht, Rijkswaterstaat-woordvoerders, provinciale ambtenaren, woonbootbewoners, havenbedrijf, milieuorganisaties &mdash; allen krijgen spreektijd. Deelnemers bepalen zelf welke aanvullende experts zij willen horen.
+    </li>
+    <li>
+      <strong>Drie fasen: leren, beraadslagen, beslissen</strong>
+      Zie het schema hierboven. Het proces beslaat bij voorkeur vijf weekenden verspreid over vier maanden. Bijeenkomsten worden gestreamd voor publieke transparantie.
+    </li>
+    <li>
+      <strong>Het eindrapport gaat naar de gemeenteraad</strong>
+      De aanbevelingen worden formeel aangeboden aan de raad, die verplicht is ze te behandelen en binnen een termijn te reageren op elke aanbeveling &mdash; aanvaard, gewijzigd of gemotiveerd verworpen.
+    </li>
+  </ol>
+</section>
+
+
+<!-- LOTING -->
+<section id="loting">
+  <h2>Gestratificeerde loting: eerlijk en representatief</h2><br>
+
+  <p>Iedereen kan zich opgeven voor de pool waaruit wordt geloot. De loting zorgt voor een representatievere afspiegeling van de inwoners.</p>
+
+  <p>Loting <em>alleen</em> is echter onvoldoende. Daarom wordt een veel grotere groep geloot dan uiteindelijk zal deelnemen. Die gelote pool wordt vervolgens onderverdeeld op basis van:</p>
+
+  <ul style="margin: 0.8rem 0 0.8rem 1.5rem; line-height: 1.9;">
+    <li>Geslacht</li>
+    <li>Leeftijd (jongeren zijn structureel ondervertegenwoordigd in inspraak)</li>
+    <li>Wijk of kern (IJmuiden, Velsen-Noord, Santpoort, Driehuis, Beverwijk-grens)</li>
+    <li>Opleidingsniveau</li>
+    <li>Woonvorm (inclusief precaire woonvormen en dak- of thuislozen als significante groep in Velsen)</li>
+  </ul>
+
+  <p>Dit heet <strong>stratificatie</strong>. Het zorgt ervoor dat het burgerberaad in Velsen ook groepen vertegenwoordigt die bij inspraakavonden chronisch afwezig zijn: jongeren, mensen met mbo-opleiding, niet-Nederlandstaligen, mensen die het druk hebben met twee banen. Het idee is dat burgers zich moeten kunnen identificeren met minstens één deelnemer zodat het resultaat ook hun resultaat is.</p>
+
+  <blockquote>
+    "Gestratificeerde loting is in de eerste plaats bedoeld om een meer diverse stem te laten klinken in het besluitvormingsproces dan het geval is in het parlement."
+  </blockquote>
+
+  <p>Het VBBSKW beheert via <a href="http://www.vbbskw.com/velsen.html">vbbskw.com/velsen.html</a> een register van inwoners van Velsen die zich beschikbaar stellen voor loting. Dit register is geen vervanging van formele loting, maar een aanmelding voor vrijwillige beschikbaarstelling die de gemeente kan gebruiken als startpunt.</p>
+</section>
+
+
+<!-- ELEMENTEN -->
+<section id="elementen">
+  <h2>Elementen van een burgerberaad in Velsen</h2>
+
+  <div class="elementen-grid">
+    <div class="element-card">
+      <h4>Gelote burgers</h4>
+      <p>Representatieve dwarsdoorsnede van de Velsense bevolking. Inclusief woonbootbewoners en bewoners van havengebieden. Deelname is vrijwillig maar met een dagvergoeding van €50–100.</p>
+    </div>
+    <div class="element-card">
+      <h4>Onafhankelijk voorzitter</h4>
+      <p>Aangesteld door de adviesraad, niet door de gemeente. Bewaakt de integriteit van het proces en stelt het eindrapport samen.</p>
+    </div>
+    <div class="element-card">
+      <h4>Faciliterende organisatie</h4>
+      <p>Professionele, onpartijdige organisatie (bijv. Democracy R&amp;D of G1000 NL). Verantwoordelijk voor loting, stratificatie en procesbegeleiding.</p>
+    </div>
+    <div class="element-card">
+      <h4>Gespreksbegeleiders</h4>
+      <p>Één per groep van maximaal 10 personen. Onpartijdig, nooit inhoudelijk sturend. Zorgen dat ook minder luide stemmen gehoord worden.</p>
+    </div>
+    <div class="element-card">
+      <h4>Adviesraad</h4>
+      <p>Mix van academici, ervaringsdeskundigen en gelote burgers. Stelt criteria op voor de selectie van experts en toetst informatiebalans.</p>
+    </div>
+    <div class="element-card">
+      <h4>Experts &amp; belanghebbenden</h4>
+      <p>Bestuursrecht, waterrecht, RWS, provincie, woonbootverenigingen, windpark-operators, milieuorganisaties, omgevingsdienst. Deelnemers kunnen zelf aanvullen.</p>
+    </div>
+    <div class="element-card">
+      <h4>Toezichthoudende commissie</h4>
+      <p>Houdt toezicht op kwaliteit, transparantie en onafhankelijkheid. Kan bestaan uit burgers, raadsleden van de oppositie, en een externe ombudspersoon.</p>
+    </div>
+    <div class="element-card">
+      <h4>Gemeente Velsen</h4>
+      <p>Initieert en committeert zich vooraf aan doorwerking. De raad is verplicht op elke aanbeveling te reageren binnen een afgesproken termijn.</p>
+    </div>
+  </div>
+</section>
+
+
+<!-- STAPPEN -->
+<section id="stappen">
+  <h2>Stappen voor het opzetten van een burgerberaad in Velsen</h2>
+
+  <ol class="stappen">
+    <li>
+      <strong>Raadsbesluit en opdrachtvraag</strong>
+      De gemeenteraad van Velsen besluit formeel tot een burgerberaad en formuleert de open opdrachtvraag. De raad legt vast hoe zij de uitkomst zal gebruiken (drempelpercentage voor bindende aanbevelingen).
+    </li>
+    <li>
+      <strong>Samenstellen expertteam deliberatieve democratie</strong>
+      Een gemengd team van academici en practitioners adviseert over de beste opzet: aantal bijeenkomsten, deelvragen, tijdpad.
+    </li>
+    <li>
+      <strong>Benoemen toezichtcommissie</strong>
+      Onafhankelijke commissie die het hele proces bewaakt op kwaliteit, eerlijkheid en transparantie.
+    </li>
+    <li>
+      <strong>Selectie faciliterende organisatie</strong>
+      Via open aanbesteding. Professionele organisaties met deliberatieve expertise. De gemeente mag het selectieproces niet eenzijdig controleren.
+    </li>
+    <li>
+      <strong>Ontwikkeling beleidskader &amp; informatiedossier</strong>
+      De adviesraad en faciliterende organisatie stellen een toegankelijk, gebalanceerd informatiedossier samen. Alle stukken worden openbaar gepubliceerd.
+    </li>
+    <li>
+      <strong>Loting en stratificatie</strong>
+      Uit het bevolkingsregister worden meer mensen geloot dan nodig. Via stratificatie (geslacht, leeftijd, wijk, opleiding, woonvorm) wordt een representatieve groep van ca. 80–120 deelnemers samengesteld. Uitnodigingsbrief met uitleg, data, locatie en vergoeding.
+    </li>
+    <li>
+      <strong>Uitvoering: leren, beraadslagen, beslissen</strong>
+      Vijf weekenden over vier maanden. Plenaire leersessies worden gestreamd. Deliberaties in kleine groepen. Eindrapport met aanbevelingen en steunpercentages.
+    </li>
+    <li>
+      <strong>Aanbieding aan de gemeenteraad</strong>
+      Formele aanbieding van het eindrapport. De raad debatteert en reageert binnen afgesproken termijn op elke aanbeveling, motiverend als zij een aanbeveling niet overneemt.
+    </li>
+  </ol>
+
+  <div class="highlight">
+    <strong>Tijdsinschatting:</strong> Van raadsbesluit tot eindrapport rekent men gemiddeld 8–12 maanden. Het lotingsproces alleen al kost circa zes weken. Betrek communicatiemiddelen voor brede bekendmaking onder alle Velsense inwoners, inclusief die niet actief online zijn.
+  </div>
+</section>
+
+
+<!-- VOORBEELDEN -->
+<section id="voorbeelden">
+  <h2>Voorbeelden van elders</h2>
+
+  <div class="voorbeeld">
+    <h4>Ierland &mdash; Abortuswetgeving en homohuwelijk</h4>
+    <p>Na decennia van politieke impasse brak een Citizens' Assembly (2016–2018) van 99 gelote burgers de patstelling. Binnen enkele maanden formuleerden de deelnemers aanbevelingen die leidden tot succesvolle referenda. De kern: mensen die goed geïnformeerd worden en de tijd krijgen om met elkaar te spreken, komen verder dan politici die gebonden zijn aan partijlijnen.</p>
+  </div>
+
+  <div class="voorbeeld">
+    <h4>Polen &mdash; Gdansk na de overstromingen</h4>
+    <p>Na verwoestende overstromingen in 2016 organiseerde de burgemeester van Gdansk een burgerberaad van 60 inwoners. Besluiten met 80% steun werden bij wet vastgelegd. Bewoners van de getroffen wijken spraken mee over waterbeleid dat hen direct raakte &mdash; met aantoonbaar betere uitkomsten dan een klassiek bestuurlijk traject zou opleveren. Inmiddels kunnen 350.000 Gdansk-bewoners een nieuw beraad afdwingen via 1.000 handtekeningen; bij 5.000 handtekeningen is de burgemeester <em>verplicht</em> het te organiseren.</p>
+  </div>
+
+  <div class="voorbeeld">
+    <h4>België &mdash; Ostbelgien permanent model</h4>
+    <p>Het Duitstalige gebied van Oost-België heeft een permanente Bürgerrat ingesteld: 24 willekeurig gekozen burgers met een mandaat van anderhalf jaar die maximaal drie ad-hocburgerpanels initiëren. Het regionale parlement is verplicht op de aanbevelingen te reageren. Dit model combineert continuïteit met responsiviteit &mdash; een interessant model ook voor een gemeente als Velsen.</p>
+  </div>
+
+  <div class="voorbeeld">
+    <h4>Nederland &mdash; Burgerforum Kiesstelsel (2006)</h4>
+    <p>Het Burgerforum Kiesstelsel (140 gelote burgers, initiatief minister Pechtold) leverde een breed gedragen voorstel op voor een nieuw kiesstelsel. De aanbeveling werd door het kabinet genegeerd. Dat is de centrale les voor Velsen: een burgerberaad zonder voorafgaand, expliciet commitment van het gemeentebestuur is een instrument dat zijn belofte niet kan inlossen &mdash; en daarmee het vertrouwen verder schaadt in plaats van herstelt.</p>
+  </div>
+</section>
+
+
+<!-- CTA -->
+<div class="cta-box">
+  <h2>Doe mee &mdash; stel je beschikbaar voor loting</h2>
+  <p>Het VBBSKW bouwt een register op van inwoners van Velsen en omgeving die bereid zijn deel te nemen aan een burgerberaad als zij worden uitgeloot. Aanmelding kost niets en verplicht tot niets &mdash; maar maakt het verschil zichtbaar.</p>
+  <a href="http://www.vbbskw.com/enquete.html" class="btn">Aanmelden voor loting Velsen</a>
+  <a href="http://www.vbbskw.com/kleroterion.html" class="btn btn-secondary">Meer over loting &amp; kleroterion</a>
+</div>
+
+
+<!-- MEER WETEN -->
+<section id="meer">
+  <h2>Meer weten?</h2>
+
+  <h3>Boeken</h3>
+  <ul style="margin: 0.5rem 0 1.5rem 1.5rem; line-height: 2;">
+    <li>David Van Reybrouck, <em>Tegen verkiezingen</em> (2013)</li>
+    <li>Brett Hennig, <em>The End of Politicians: Time for a Real Democracy</em> (2017)</li>
+    <li>Hélène Landemore, <em>Open Democracy</em> (2020)</li>
+    <li>Bernard Manin, <em>The Principles of Representative Government</em> (1997)</li>
+    <li>Graham Smith, <em>Democratic Innovations</em> (2010)</li>
+  </ul>
+
+  <h3>Online &amp; Rapporten</h3>
+  <ul style="margin: 0.5rem 0 1.5rem 1.5rem; line-height: 2;">
+    <li>OESO, <em>Innovative Citizen Participation and New Democratic Institutions</em> (2020)</li>
+    <li>Marcin Gerwin, <em>Citizens' Assemblies: Guide to Democracy that Works</em> (2018)</li>
+    <li>The Sortition Foundation, <em>What is Sortition?</em></li>
+    <li>Democracy R&amp;D &mdash; <a href="https://www.democracyrd.org" target="_blank">democracyrd.org</a></li>
+    <li>G1000 Nederland &mdash; <a href="https://www.g1000.nu" target="_blank">g1000.nu</a></li>
+  </ul>
+
+  <h3>VBBSKW</h3>
+  <ul style="margin: 0.5rem 0 1.5rem 1.5rem; line-height: 2;">
+    <li><a href="http://www.vbbskw.com/kleroterion.html">Kleroterion &mdash; loting per gemeente</a></li>
+    <li><a href="http://www.vbbskw.com/velsen.html">Velsen &mdash; aanmelding en informatie</a></li>
+    <li><a href="http://www.vbbskw.com/participatie.html">Participatiepagina</a></li>
+    <li><a href="mailto:voorzitter@vbbskw.com">voorzitter@vbbskw.com</a></li>
+  </ul>
+</section>
+
+</div>
