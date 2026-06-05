@@ -5,6 +5,30 @@
   <title>{{ page.title | default: site.title }}</title>
   <meta name="description" content="{{ page.excerpt | default: site.description }}">
 
+  {%- comment -%}
+    Afbeelding voor link-previews (WhatsApp, Facebook, LinkedIn, etc.).
+    Per pagina te overschrijven met `image: /pad/naar/plaatje.jpg` in de front matter.
+  {%- endcomment -%}
+  {%- assign page_image = page.image | default: "/hetding.jpg" -%}
+  {%- assign page_image_url = page_image | absolute_url -%}
+  {%- assign page_url = page.url | absolute_url -%}
+  {%- assign page_description = page.excerpt | default: site.description -%}
+
+  <!-- Open Graph (WhatsApp, Facebook, LinkedIn) -->
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="{{ site.title }}">
+  <meta property="og:title" content="{{ page.title | default: site.title }}">
+  <meta property="og:description" content="{{ page_description }}">
+  <meta property="og:url" content="{{ page_url }}">
+  <meta property="og:image" content="{{ page_image_url }}">
+  <meta property="og:image:alt" content="Beeltenis van 'het ding' op de zuil van Marcus Aurelius in Rome">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="{{ page.title | default: site.title }}">
+  <meta name="twitter:description" content="{{ page_description }}">
+  <meta name="twitter:image" content="{{ page_image_url }}">
+
   <!-- Link naar custom CSS -->
    <link rel="stylesheet" href="{{ '/assets/css/custom.css' | relative_url }}?v={{ site.version }}">
 </head>
