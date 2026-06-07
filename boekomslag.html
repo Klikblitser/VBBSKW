@@ -11,11 +11,13 @@
 
   .cover {
     position: relative;
-    width: 700px;
-    height: 1045px;
+    width: min(700px, 100%);
+    aspect-ratio: 700 / 1045;
     overflow: hidden;
     background: #000;
+    container-type: inline-size;
   }
+
 
   /* Foto: breedte exact 700px, hoogte proportioneel 883px.
      Top = -106px zodat Mars voor de helft boven de rand uitsteekt
