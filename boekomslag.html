@@ -144,6 +144,26 @@
     letter-spacing: 0.55em;
     color: #a89070;
     text-transform: uppercase;
+
+  }@media print {
+    html, body {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      background: #000;
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+    }
+    body {
+      display: block;
+    }
+    .cover {
+      width: 100%;
+      height: 100vh;
+      aspect-ratio: unset;
+      page-break-after: avoid;
+      break-after: avoid;
+    }
   }
 </style>
 </head>
@@ -162,7 +182,7 @@
     </div>
     <div class="bottom">
       <div class="bottom-rule"></div>
-      <div class="org">Beatrijs Bakker</div>
+      <div class="org">B.I.I. Bakker<br>R.G.C. Hoek</div>
     </div>
   </div>
 </div>
