@@ -36,7 +36,7 @@
     height: 84.5%;
     z-index: 0;
     object-fit: cover;
-    object-position: center center;
+    object-position: center bottom;
     opacity: 0.70;
     -webkit-print-color-adjust: exact;
     print-color-adjust: exact;
@@ -49,11 +49,11 @@
     pointer-events: none;
     background: linear-gradient(
       to bottom,
-      rgba(0,0,0,0.00) 0%,
-      rgba(0,0,0,0.20) 30%,
-      rgba(0,0,0,0.45) 55%,
-      rgba(0,0,0,0.75) 75%,
-      rgba(0,0,0,0.85) 100%
+      rgba(0,0,0,0.25) 0%,
+      rgba(0,0,0,0.45) 30%,
+      rgba(0,0,0,0.65) 55%,
+      rgba(0,0,0,0.85) 75%,
+      rgba(0,0,0,0.95) 100%
     );
   }
 
@@ -88,7 +88,7 @@
     font-family: 'Cinzel', serif;
     font-size: 3.4cqw;
     letter-spacing: 0.38em;
-    color: #d4b890;
+    color: #ddf0ff;
     text-transform: uppercase;
     margin-bottom: 0.3cqw;
   }
@@ -97,7 +97,7 @@
     font-family: 'Bebas Neue', sans-serif;
     font-size: 15.4cqw;
     letter-spacing: 0.08em;
-    color: #62729c;
+    color: #6c95b5;
     line-height: 0.88;
     text-shadow: 0 2px 40px rgba(0,0,0,0.9);
   }
@@ -123,7 +123,7 @@
     font-weight: 300;
     font-size: 2.1cqw;
     line-height: 1.75;
-    color: #d4cabb;
+    color: #ddf0ff;
     letter-spacing: 0.04em;
     max-width: 60cqw;
     text-shadow: 0 1px 10px rgba(0,0,0,0.95);
@@ -167,24 +167,6 @@
       aspect-ratio: unset;
       page-break-after: avoid;
       break-after: avoid;
-    }
-    .photo-bg {
-      opacity: 1;
-    }
-    /* Keep overlay light like on screen (no darkening effect) */
-    .overlay {
-      background: linear-gradient(
-        to bottom,
-        rgba(0,0,0,0.00) 0%,
-        rgba(0,0,0,0.20) 30%,
-        rgba(0,0,0,0.45) 55%,
-        rgba(0,0,0,0.75) 75%,
-        rgba(0,0,0,0.85) 100%
-      );
-    }
-    /* Hide text/frame overlay when printing */
-    .content {
-      display: none !important;
     }
   }
 </style>
