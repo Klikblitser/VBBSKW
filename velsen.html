@@ -237,11 +237,57 @@ description: Loting en burgerparticipatie — geschiedenis en aanmelding Velsen
   }
   .highlight strong { color: var(--accent2); }
 
+  /* ── DRIE ROLLEN ── */
+  .rollen-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0;
+    border: 2px solid var(--ink);
+    margin: 1.5rem 0;
+  }
+  .rol {
+    padding: 1.5rem;
+    border-right: 1px solid var(--ink);
+    background: white;
+  }
+  .rol:last-child { border-right: none; }
+  .rol-tag {
+    display: inline-block;
+    font-family: Arial, sans-serif;
+    font-size: 0.7rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    background: var(--ink);
+    color: var(--paper);
+    padding: 0.25rem 0.6rem;
+    margin-bottom: 0.6rem;
+  }
+  .rol-tag.opgeven { background: var(--accent); }
+  .rol-tag.loting { background: var(--ink); }
+  .rol-tag.mix { background: #555; }
+  .rol h4 {
+    font-size: 1rem;
+    margin-bottom: 0.5rem;
+    color: var(--accent2);
+  }
+  .rol p { font-size: 0.88rem; margin: 0 0 0.6rem; line-height: 1.55; }
+  .rol .rol-mandaat {
+    font-size: 0.82rem;
+    border-top: 1px solid var(--pale);
+    padding-top: 0.6rem;
+    margin-top: 0.4rem;
+    color: #444;
+  }
+  .rol .rol-mandaat strong { color: var(--accent2); }
+
   @media (max-width: 640px) {
     .toc ol { column-count: 1; }
     .fasen { grid-template-columns: 1fr; }
     .fase { border-right: none; border-bottom: 1px solid var(--ink); }
     .fase:last-child { border-bottom: none; }
+    .rollen-grid { grid-template-columns: 1fr; }
+    .rol { border-right: none; border-bottom: 1px solid var(--ink); }
+    .rol:last-child { border-bottom: none; }
   }
 </style>
 
@@ -276,6 +322,7 @@ description: Loting en burgerparticipatie — geschiedenis en aanmelding Velsen
   <ol>
     <li><a href="#inleiding">Inleiding</a></li>
     <li><a href="#wat-is">Wat is een burgerberaad?</a></li>
+    <li><a href="#drie-rollen">Drie rollen: commissie, beraad, toezicht</a></li>
     <li><a href="#waarom">Waarom noodzakelijk in Velsen</a></li>
     <li><a href="#hoe">Hoe werkt het?</a></li>
     <li><a href="#loting">Gestratificeerde loting</a></li>
@@ -315,7 +362,7 @@ description: Loting en burgerparticipatie — geschiedenis en aanmelding Velsen
 <section id="wat-is">
   <h2>Wat is een burgerberaad?</h2>
 
-  <p>Een burgerberaad bestaat uit een groep inwoners (bij een gemeentelijk beraad doorgaans 50 tot 150 personen) die samen een dwarsdoorsnede vormen van de lokale bevolking. Om die dwarsdoorsnede te verkrijgen worden deelnemers <strong>geloot</strong>: mensen kunnen zichzelf niet opgeven. Het beraad krijgt de opdracht een open vraag te beantwoorden, zoals:</p>
+  <p>Een burgerberaad bestaat uit een groep inwoners (bij een gemeentelijk beraad doorgaans 50 tot 150 personen) die samen een dwarsdoorsnede vormen van de lokale bevolking. Om die dwarsdoorsnede te verkrijgen worden deelnemers van het beraad <strong>geloot</strong>: u kunt zich niet opgeven om deelnemer te worden. Het beraad krijgt de opdracht een open vraag te beantwoorden, zoals:</p>
 
   <br><em>"Welke maatregelen kan de gemeente Velsen nemen om ligplaatshouders en woonbootbewoners een rechtszekere en leefbare toekomst te bieden, in balans met andere belangen in de gemeente?"</em>
 
@@ -340,6 +387,68 @@ description: Loting en burgerparticipatie — geschiedenis en aanmelding Velsen
   </div>
 
   <p>Een onafhankelijke organisatie faciliteert het hele proces. De gemeente Velsen stelt <em>vooraf</em> vast hoe zij de uitkomst zal gebruiken: bij welk steunpercentage worden aanbevelingen als bindend of verplicht te behandelen beschouwd? Zonder die garantie verliest een burgerberaad zijn kracht, zoals de Nederlandse ervaring met het Burgerforum Kiesstelsel (2006) pijnlijk aantoonde.</p>
+
+  <p>Dat is het beraad zelf. Om een beraad tot stand te brengen zijn ook andere rollen nodig &mdash; met een andere manier van selectie. Zie <a href="#drie-rollen">drie rollen: commissie, beraad en toezicht</a>.</p>
+</section>
+
+
+<!-- DRIE ROLLEN -->
+<section id="drie-rollen">
+  <h2>Drie rollen: commissie, beraad en toezicht</h2>
+
+  <p>Een burgerberaad ontstaat niet vanzelf. Iemand moet het proces ontwerpen, de opdrachtvraag formuleren, inwoners bereiken en toezicht houden op eerlijkheid en transparantie. Als u willekeurige inwoners loten en zegt: &ldquo;wij weten ook nog niet precies wat het wordt&rdquo;, lopen veel mensen weg &mdash; niet omdat loting faalt, maar omdat het mandaat onduidelijk is.</p>
+
+  <p>Daarom werken succesvolle burgerberaden met <strong>drie gescheiden rollen</strong>. Elke rol heeft een eigen mandaat en een eigen manier van selectie:</p>
+
+  <div class="rollen-grid">
+    <div class="rol">
+      <span class="rol-tag opgeven">Opgeven</span>
+      <h4>Opstartcommissie</h4>
+      <p>Inwoners die zich <em>willen</em> committeren aan het <strong>opzetten</strong> van een burgerberaad: communicatie, lotingsproces, planning, voorbereiding van de opdrachtvraag samen met deliberatieve experts.</p>
+      <p class="rol-mandaat"><strong>Mandaat:</strong> proces, niet inhoud. De commissie stelt geen beleid en neemt geen bindende besluiten. De gemeente heeft adviesrecht op de opdrachtvraag, geen beslissingsrecht.</p>
+    </div>
+    <div class="rol">
+      <span class="rol-tag loting">Loting</span>
+      <h4>Het burgerberaad</h4>
+      <p>Een representatieve groep van ca. 80&ndash;120 inwoners, samengesteld via gestratificeerde loting uit het bevolkingsregister of een lotingspool. Deelnemers kunnen zich niet opgeven; alleen accepteren of weigeren na uitloting.</p>
+      <p class="rol-mandaat"><strong>Mandaat:</strong> inhoud. Leren, beraadslagen en onderbouwde aanbevelingen doen over een open vraag. Aanbevelingen boven de drempel zijn bindend.</p>
+    </div>
+    <div class="rol">
+      <span class="rol-tag mix">Deels geloot</span>
+      <h4>Toezichtcommissie</h4>
+      <p>Een mix van gelote burgers uit de lotingspool, een externe jurist en een ombudspersoon. Geen politici, om belangenverstrengeling uit te sluiten.</p>
+      <p class="rol-mandaat"><strong>Mandaat:</strong> toezicht. Bewaken van kwaliteit, eerlijkheid, transparantie en uitvoering. Publiceert een uitvoeringsrapport binnen twaalf maanden.</p>
+    </div>
+  </div>
+
+  <h3>Waarom opgeven voor de commissie, maar loting voor het beraad?</h3>
+
+  <p>Het opzetten van een burgerberaad vraagt maanden van werk: vergaderen, lezen, organiseren, uitleggen aan inwoners die nog nooit van deliberatieve democratie gehoord hebben. Dat vereist <strong>commitment</strong>. Loten voor die rol zonder helder proces-mandaat leidt tot uitval.</p>
+
+  <p>Het beslissen over inhoudelijke kwesties vereist iets anders: een <strong>dwarsdoorsnede</strong> van de bevolking zonder partijbelang, lobbydruk of activisme-bias. Daarvoor is loting het juiste instrument. Zelfopgeven voor het beraad levert vooral mensen die al betrokken en vaak al onderlegd zijn &mdash; precies wat u met een burgerberaad wilt overstijgen.</p>
+
+  <p>De opstartcommissie formuleert samen met deliberatieve experts een voorstel voor de opdrachtvraag. Een kleine, deels gelote groep uit de lotingspool toetst of die vraag evenwichtig en open genoeg is, zodat niet alleen de commissie de agenda bepaalt.</p>
+
+  <h3>Hoe de opstartcommissie legitiem blijft</h3>
+
+  <ul style="margin: 0.8rem 0 0.8rem 1.5rem; line-height: 1.9;">
+    <li><strong>Beperkt mandaat</strong> &mdash; alleen proces en vraagformulering, geen inhoudelijke uitkomst</li>
+    <li><strong>Diversiteit-eisen</strong> &mdash; minimaal verspreiding over wijken, leeftijden en woonvormen; optioneel deels geloot aanvullen naast opgeven</li>
+    <li><strong>Transparantie</strong> &mdash; vergaderingen openbaar of gestreamd; geen permanente stuurgroep van dezelfde activisten</li>
+    <li><strong>Rotatie</strong> &mdash; commissieleden na één traject niet automatisch in de volgende</li>
+  </ul>
+
+  <div class="highlight">
+    <strong>Lotingspool:</strong> iedereen kan zich beschikbaar stellen voor de pool waaruit wordt geloot. Dat is géén opgeven voor het beraad &mdash; het is zeggen: &ldquo;als mijn naam wordt getrokken, neem ik het serieus.&rdquo; Zie <a href="#loting">gestratificeerde loting</a>.
+  </div>
+
+  <h3>Mandaat in één zin</h3>
+
+  <ul style="margin: 0.8rem 0 0.8rem 1.5rem; line-height: 1.9;">
+    <li><strong>Commissie:</strong> &ldquo;Wij zorgen dat een representatieve groep inwoners, onder onafhankelijke begeleiding, een bindende aanbeveling kan doen over [thema].&rdquo;</li>
+    <li><strong>Beraad:</strong> &ldquo;Wij beantwoorden: [open vraag]. Onze aanbevelingen met ≥70% steun worden uitgevoerd.&rdquo;</li>
+    <li><strong>Gemeente:</strong> &ldquo;Wij garanderen vooraf binding, financiering en uitvoering &mdash; wij sturen het proces niet.&rdquo;</li>
+  </ul>
 </section>
 
 
@@ -386,7 +495,7 @@ description: Loting en burgerparticipatie — geschiedenis en aanmelding Velsen
     De burgemeester is een belangrijke schakel in de gemeentelijke politiek en heeft een grote invloed op het beleid en de besluitvorming en wordt benoemd door de kroon. 
     Bepaalde functies die de burgemeester uitvoert zijn niet geschikt voor democratisering, zoals het handhaven van de openbare orde en het voorzitten van de gemeenteraad.
     Functies die moglijk wel geschikt zijn voor democratisering, zoals het vertegenwoordigen van de gemeente, het helpen vormen van de agenda en het bevorderen van de samenwerking tussen verschillende partijen, kunnen echter worden gedelegeerd aan gelote leden of worden ondersteund door een raad van gelote burgers.
-    Daarbij can een geloot burgerpanel, ondersteund door een externe jurist, de functie als integriteitsorgaan geloofwaardiger invullen.Het heeft geen partijpolitieke belangen, geen carrièreafhankelijkheid, en representeert het publiek dat uiteindelijk de gedupeerde is bij integriteitsfalen, zoals IJsland dat ook heeft ingevoerd na de bankencrisis.
+    Daarbij kan een geloot burgerpanel, ondersteund door een externe jurist, de functie als integriteitsorgaan geloofwaardiger invullen. Het heeft geen partijpolitieke belangen, geen carrièreafhankelijkheid, en representeert het publiek dat uiteindelijk de gedupeerde is bij integriteitsfalen, zoals IJsland dat ook heeft ingevoerd na de bankencrisis.
   </p>
 
   <h2>Partijpolitiek</h2>
@@ -423,7 +532,7 @@ description: Loting en burgerparticipatie — geschiedenis en aanmelding Velsen
     </li>
     <li>
       <strong>De opdrachtvraag wordt onafhankelijk geformuleerd</strong>
-      Een gelote agendacommissie, ondersteund door deliberatieve experts, formuleert de open opdrachtvraag op basis van de petitie of het besluit van de Burgerkamer &mdash; bijvoorbeeld over woonrecht en ligplaatsenbeleid, of geluidsoverlast en leefomgevingskwaliteit in IJmuiden. De gemeente heeft adviesrecht, geen beslissingsrecht.
+      De opstartcommissie formuleert samen met deliberatieve experts de open opdrachtvraag op basis van de petitie of het besluit van de Burgerkamer &mdash; bijvoorbeeld over woonrecht en ligplaatsenbeleid, of geluidsoverlast en leefomgevingskwaliteit in IJmuiden. Een kleine, deels gelote groep uit de lotingspool toetst de vraag. De gemeente heeft adviesrecht, geen beslissingsrecht. Zie <a href="#drie-rollen">drie rollen</a>.
     </li>
     <li>
       <strong>De uitkomst is bindend van rechtswege</strong>
@@ -511,7 +620,7 @@ description: Loting en burgerparticipatie — geschiedenis en aanmelding Velsen
     </div>
     <div class="element-card">
       <h4>Toezichthoudende commissie</h4>
-      <p>Houdt toezicht op kwaliteit, transparantie en onafhankelijkheid. Kan bestaan uit burgers, raadsleden van de oppositie, en een externe ombudspersoon.</p>
+      <p>Deels gelote burgers uit de lotingspool, plus een externe jurist en ombudspersoon. Geen politici. Bewaakt kwaliteit, transparantie en uitvoering. Zie <a href="#drie-rollen">drie rollen</a>.</p>
     </div>
     <div class="element-card">
       <h4>Gemeente Velsen</h4>
@@ -536,7 +645,7 @@ description: Loting en burgerparticipatie — geschiedenis en aanmelding Velsen
     </li>
     <li>
       <strong>Aanleiding: burgerinitiatief of besluit van de Burgerkamer</strong>
-      Een specifiek beraad wordt ingeroepen door de handtekeningendrempel of door de Burgerkamer zelf. De opdrachtvraag wordt door een gelote agendacommissie geformuleerd, niet door politici of het college van B&amp;W.
+      Een specifiek beraad wordt ingeroepen door de handtekeningendrempel of door de Burgerkamer zelf. De opdrachtvraag wordt door de opstartcommissie geformuleerd en getoetst door een deels gelote groep, niet door politici of het college van B&amp;W.
     </li>
     <li>
       <strong>Onafhankelijke toezichtcommissie</strong>
@@ -594,9 +703,11 @@ description: Loting en burgerparticipatie — geschiedenis en aanmelding Velsen
 
 <!-- CTA -->
 <div class="cta-box">
-  <h2>Doe mee &mdash; stel je beschikbaar voor loting</h2>
-  <p>Het VBBSKW bouwt een register op van inwoners van Velsen en omgeving die bereid zijn deel te nemen aan een burgerberaad als zij worden uitgeloot. Aanmelding kost niets en verplicht tot niets &mdash; maar maakt het verschil zichtbaar.</p>
-  <a href="http://www.vbbskw.com/enquete.html" class="btn">Aanmelden voor loting Velsen</a>
+  <h2>Doe mee</h2>
+  <p>Het VBBSKW bouwt aan een burgerberaad in Velsen. U kunt op twee manieren bijdragen &mdash; met verschillende rollen en verschillende manieren van selectie:</p>
+  <p><strong>Lotingspool:</strong> stel uzelf beschikbaar voor de pool waaruit deelnemers van het burgerberaad worden geloot. Aanmelding verplicht tot niets.<br>
+  <strong>Opstartcommissie:</strong> help het proces vormgeven &mdash; communicatie, planning, opdrachtvraag. Via de enquête: workshop &lsquo;organiseren&rsquo;.</p>
+  <a href="http://www.vbbskw.com/enquete.html" class="btn">Aanmelden (loting of commissie)</a>
   <a href="http://www.vbbskw.com/kleroterion.html" class="btn btn-secondary">Meer over loting</a>
 </div>
 
