@@ -1,0 +1,332 @@
+---
+layout: default
+title: Gedragscode burgerberaad
+lang: nl
+description: Gedragscode voor sociale veiligheid en respectvolle omgang in burgerberaden
+---
+
+<style>
+  :root {
+    --ink: #004080;
+    --paper: #ffffff;
+    --accent: #0066cc;
+    --accent2: #004080;
+    --pale: #cce0f5;
+  }
+
+  .code * { box-sizing: border-box; }
+
+  .code-header {
+    border-bottom: 4px solid var(--ink);
+    padding-bottom: 2rem;
+    margin-bottom: 1rem;
+    text-align: center;
+  }
+  .code-header .site-name {
+    font-size: 0.85rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--accent2);
+    margin-bottom: 0.3rem;
+  }
+  .code-header .subtitle {
+    font-style: italic;
+    font-size: 1.05rem;
+    color: #555;
+    margin-top: 0.6rem;
+  }
+
+  .code .toc {
+    border: 2px solid var(--ink);
+    background: white;
+    padding: 1.5rem 2rem;
+    margin: 2rem 0;
+  }
+  .code .toc h2 {
+    font-size: 0.8rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    margin-bottom: 1rem;
+    border-bottom: 1px solid var(--ink);
+    padding-bottom: 0.5rem;
+  }
+  .code .toc ol {
+    padding-left: 1.2em;
+    column-count: 2;
+    column-gap: 2rem;
+  }
+  .code .toc li { font-size: 0.9rem; margin-bottom: 0.3rem; }
+  .code .toc a { color: var(--accent2); text-decoration: none; }
+  .code .toc a:hover { text-decoration: underline; }
+
+  .artikel {
+    margin: 2rem 0;
+    padding: 1.2rem 1.5rem;
+    border: 1px solid var(--pale);
+    background: white;
+  }
+  .artikel h3 {
+    font-size: 1rem;
+    color: var(--accent2);
+    margin-bottom: 0.8rem;
+    border-bottom: 1px solid var(--pale);
+    padding-bottom: 0.4rem;
+  }
+  .artikel p, .artikel li {
+    font-size: 0.95rem;
+    line-height: 1.75;
+  }
+  .artikel ul { margin: 0.5rem 0 0 1.2rem; }
+
+  .highlight {
+    background: #e6ecff;
+    border: 2px solid var(--ink);
+    padding: 1.2rem 1.5rem;
+    margin: 1.5rem 0;
+    font-size: 0.95rem;
+  }
+  .highlight strong { color: var(--accent2); }
+
+  /* Secties die nog uitgewerkt worden — visueel herkenbaar voor redacteurs */
+  .uitbreiden {
+    margin: 2rem 0;
+    padding: 1.2rem 1.5rem;
+    border: 2px dashed var(--accent);
+    background: #f8fbff;
+  }
+  .uitbreiden h3 {
+    font-size: 0.95rem;
+    color: var(--accent);
+    margin-bottom: 0.6rem;
+  }
+  .uitbreiden .label {
+    font-size: 0.72rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: #666;
+    margin-bottom: 0.5rem;
+  }
+  .uitbreiden p.placeholder {
+    color: #888;
+    font-style: italic;
+    margin: 0;
+  }
+
+  .editor-note {
+    font-size: 0.82rem;
+    color: #666;
+    background: #fff8e6;
+    border-left: 4px solid #c9a000;
+    padding: 0.8rem 1rem;
+    margin: 1.5rem 0;
+  }
+
+  @media (max-width: 640px) {
+    .code .toc ol { column-count: 1; }
+  }
+</style>
+
+<div class="code">
+
+<header class="code-header">
+  <div class="site-name">VBBSKW</div>
+  <h1>Gedragscode voor burgerberaden</h1>
+  <p class="subtitle">Sociale veiligheid, respectvolle omgang en vrij delibereren</p>
+  <p style="font-size: 0.88rem; color: #666; margin-top: 0.8rem;">Versie 0.1 &mdash; juni 2026 &mdash; werkversie, uitbreidbaar</p>
+</header>
+
+<p class="editor-note">
+  <strong>Redactie:</strong> nieuwe artikelen toevoegen door een <code>&lt;div class="artikel" id="artX"&gt;</code>-blok te kopiëren uit het sjabloon onderaan deze pagina. Voeg het nummer toe aan de inhoudsopgave (<code>&lt;nav class="toc"&gt;</code>). Secties die nog open zijn staan in <code>class="uitbreiden"</code>-blokken.
+</p>
+
+<nav class="toc">
+  <h2>Inhoud</h2>
+  <ol>
+    <li><a href="#preambule">Preambule</a></li>
+    <li><a href="#art1">Art. 1 &mdash; Doel en reikwijdte</a></li>
+    <li><a href="#art2">Art. 2 &mdash; Uitgangspunten</a></li>
+    <li><a href="#art3">Art. 3 &mdash; Gedrag in beraadslagingen</a></li>
+    <li><a href="#art4">Art. 4 &mdash; Vrijheid van instemming</a></li>
+    <li><a href="#art5">Art. 5 &mdash; Diversiteit en gelijkwaardigheid</a></li>
+    <li><a href="#art6">Art. 6 &mdash; Online en offline omgang</a></li>
+    <li><a href="#art7">Art. 7 &mdash; Recht om te passen en grenzen</a></li>
+    <li><a href="#art8">Art. 8 &mdash; Melding en procedure</a></li>
+    <li><a href="#art9">Art. 9 &mdash; Rollen en verantwoordelijkheden</a></li>
+    <!-- UITBREIDEN: voeg hier nieuwe TOC-items toe, bijv.:
+    <li><a href="#art10">Art. 10 &mdash; Titel</a></li>
+    -->
+    <li><a href="#uitbreiden">Open punten (uit te werken)</a></li>
+  </ol>
+</nav>
+
+<section id="preambule">
+  <h2>Preambule</h2>
+  <p>Een burgerberaad vraagt dat mensen met verschillende achtergronden, standpunten en levenservaring samen moeilijke vragen bespreken. Dat kan alleen als iedereen zich veilig genoeg voelt om te spreken, te twijfelen en af te wijken &mdash; zonder angst voor uitsluiting, intimidatie of sociale druk.</p>
+  <p>Deze gedragscode is het praktische document waarmee die voorwaarden concreet worden. Zij vormt onderdeel van de <a href="/legitimiteitscode.html">Legitimiteitscode voor burgerberaden</a> (artikel 6) en wordt door de toezichtcommissie goedgekeurd vóór de eerste deliberatie.</p>
+</section>
+
+<div class="artikel" id="art1">
+  <h3>Artikel 1 &mdash; Doel en reikwijdte</h3>
+  <p><strong>1.</strong> Deze gedragscode regelt de omgang tussen deelnemers, commissieleden, gespreksbegeleiders, experts, vertrouwenspersonen en facilitators tijdens het burgerberaad en bij activiteiten die direct met het beraad verbonden zijn.</p>
+  <p><strong>2.</strong> De code dient:</p>
+  <ul>
+    <li>sociale veiligheid te waarborgen;</li>
+    <li>vrij en respectvol delibereren mogelijk te maken;</li>
+    <li>grensoverschrijdend gedrag te signaleren en te adresseren;</li>
+    <li>de vrijheid van instemming te beschermen (geen dwang, geen &ldquo;geen bezwaar&rdquo;).</li>
+  </ul>
+  <p><strong>3.</strong> Iedere deelnemer ontvangt deze code vóór de eerste beraadslag en bevestigt dat zij deze heeft gelezen. Onbekendheid met de code is geen verweer bij schending.</p>
+</div>
+
+<div class="artikel" id="art2">
+  <h3>Artikel 2 &mdash; Uitgangspunten</h3>
+  <p><strong>1.</strong> Wij delibereren over <em>voorstellen en argumenten</em>, niet over de waarde van personen.</p>
+  <p><strong>2.</strong> Iedere stem telt gelijkwaardig. Niemand heeft meer spreekrecht door status, opleiding, bekendheid of politieke affiliatie.</p>
+  <p><strong>3.</strong> Twijfel, veranderen van standpunt en &ldquo;ik weet het nog niet&rdquo; zijn legitiem en worden niet als falen geduid.</p>
+  <p><strong>4.</strong> Kritiek op inhoud is welkom; persoonlijke aanvallen, sarcasme bedoeld om iemand klein te maken, en groepsdruk zijn niet acceptabel.</p>
+  <p><strong>5.</strong> Sociale veiligheid is geen middel om inhoudelijke afwijking te onderdrukken. Het recht om een voorstel te verdedigen of te weigeren blijft intact binnen deze code.</p>
+</div>
+
+<div class="artikel" id="art3">
+  <h3>Artikel 3 &mdash; Gedrag in beraadslagingen</h3>
+  <p><strong>1.</strong> Wij luisteren actief: niet onderbreken, niet neerpraten, niet monopoliseren van de spreektijd.</p>
+  <p><strong>2.</strong> Gespreksbegeleiders waken over gelijke spreektijd en interveniëren bij dominante sprekers of systematische onderbreking.</p>
+  <p><strong>3.</strong> Wij spreken in de ik-vorm over eigen ervaring en standpunten; wij generaliseren niet over groepen (&ldquo;alle &hellip; denken&rdquo;).</p>
+  <p><strong>4.</strong> Experts en belanghebbenden worden respectvol bevraagd; zij worden niet beschimpt of als tegenstander geduid.</p>
+  <p><strong>5.</strong> Plenaire sessies en kleine groepen volgen dezelfde normen; besloten deliberatie is geen ruimte voor gedrag dat in plenaire sessie niet acceptabel zou zijn.</p>
+</div>
+
+<div class="artikel" id="art4">
+  <h3>Artikel 4 &mdash; Vrijheid van instemming; geen dwang</h3>
+  <p><strong>1.</strong> Instemming met voorstellen, conclusies, notulen, verslagen en het pleidooi is altijd vrij en expliciet. Zie ook artikel 3 van de <a href="/legitimiteitscode.html">legitimiteitscode</a>.</p>
+  <p><strong>2.</strong> Het is niet toegestaan om deelnemers te vragen of te accepteren:</p>
+  <ul>
+    <li>&ldquo;geen bezwaar&rdquo; als vervanging van instemming;</li>
+    <li>stilzwijgende consensus of groepsdruk om &ldquo;de groep niet te laten falen&rdquo;;</li>
+    <li>ondertekening of openbare steun onder dreiging van uitsluiting, reputatieschade of sociale afwijzing.</li>
+  </ul>
+  <p><strong>3.</strong> Gespreksbegeleiders en deelnemers wijzen groepsdruk actief van de hand en benoemen het wanneer het ontstaat.</p>
+  <p><strong>4.</strong> Minderheidsposities worden respectvol vastgelegd; afwijking is geen verstoring van het proces.</p>
+</div>
+
+<div class="artikel" id="art5">
+  <h3>Artikel 5 &mdash; Diversiteit en gelijkwaardigheid</h3>
+  <p><strong>1.</strong> Wij tolereren geen discriminatie, stereotypering of uitsluiting op grond van geslacht, gender, seksuele gerichtheid, handicap, chronische ziekte, leeftijd, afkomst, huidskleur, religie, opleiding, woonvorm, inkomen of andere persoonskenmerken.</p>
+  <p><strong>2.</strong> Wij gebruiken geen scheldwoorden, haatzaaiende uitingen of humor die mensen uitsluit of kleineert.</p>
+  <p><strong>3.</strong> Deelnemers met een beperking of behoefte aan aanpassing (toegankelijkheid, rust, vertolking) kunnen dit melden bij de faciliterende organisatie; passende maatregelen worden getroffen.</p>
+  <p><strong>4.</strong> Verschillen in spreekvaardigheid, dialect of Nederlands als tweede taal zijn geen reden om iemand minder serieus te nemen.</p>
+</div>
+
+<div class="artikel" id="art6">
+  <h3>Artikel 6 &mdash; Online en offline omgang</h3>
+  <p><strong>1.</strong> Contact tussen deelnemers buiten geplande sessies is vrij, maar dezelfde normen gelden: geen intimidatie, geen druk rond instemming, geen verspreiding van privé-informatie zonder toestemming.</p>
+  <p><strong>2.</strong> Geen foto&apos;s, audio of video van deelnemers in deliberaties zonder expliciete toestemming van betrokkenen en conform de privacyafspraken.</p>
+  <p><strong>3.</strong> Geen openbare social-media-discussie over lopende deliberaties waarin individuele deelnemers herkenbaar worden of onder druk gezet kunnen worden.</p>
+  <p><strong>4.</strong> Digitale communicatiekanalen van het beraad (e-mail, chat, platform) worden niet gebruikt voor campagne, reclame of politieke partijpropaganda.</p>
+</div>
+
+<div class="artikel" id="art7">
+  <h3>Artikel 7 &mdash; Recht om te passen en grenzen</h3>
+  <p><strong>1.</strong> Iedere deelnemer mag een sessie onderbreken, vertrekken of passen zonder motivering. Afwezigheid wordt niet als onwil of falen geduid.</p>
+  <p><strong>2.</strong> Deelnemers kunnen grenzen aangeven (bijvoorbeeld: geen fysiek contact, geen vragen over privéleven, behoefte aan pauze). Grenzen worden gerespecteerd.</p>
+  <p><strong>3.</strong> Alcohol en andere middelen die het deliberatieve proces beïnvloeden zijn niet toegestaan tijdens sessies.</p>
+  <p><strong>4.</strong> Intimidatie, seksueel grensoverschrijdend gedrag en geweld &mdash; ook verbale bedreiging &mdash; zijn onmiddellijk reden voor interventie en kunnen leiden tot verwijdering uit het beraad na toets door de toezichtcommissie.</p>
+</div>
+
+<div class="artikel" id="art8">
+  <h3>Artikel 8 &mdash; Melding en procedure bij grensoverschrijding</h3>
+  <p><strong>1.</strong> Bij onveilig of grensoverschrijdend gedrag kunt u terecht bij:</p>
+  <ul>
+    <li>de <strong>vertrouwenspersonen</strong> (vertrouwelijk);</li>
+    <li>de <strong>gespreksbegeleider</strong> (directe interventie in sessie);</li>
+    <li>de <strong>toezichtcommissie</strong> (bij ernstige of herhaalde schendingen).</li>
+  </ul>
+  <p><strong>2.</strong> Meldingen kunnen vertrouwelijk plaatsvinden. De melder bepaalt in principe wat wordt gedeeld en met wie.</p>
+  <p><strong>3.</strong> Stappen bij een melding (indicatief):</p>
+  <ul>
+    <li><strong>Stap 1</strong> &mdash; directe interventie of gesprek met betrokkene(n), indien veilig en passend;</li>
+    <li><strong>Stap 2</strong> &mdash; betrokkenheid vertrouwenspersoon en vastlegging van afspraken;</li>
+    <li><strong>Stap 3</strong> &mdash; bij herhaling of ernst: toezichtcommissie; maatregelen tot verwijdering of heropening van deliberatie;</li>
+    <li><strong>Stap 4</strong> &mdash; bij acuut gevaar: onmiddellijke verwijdering en externe doorverwijzing (hulpdiensten, slachtofferhulp).</li>
+  </ul>
+  <p><strong>4.</strong> Wraakacties tegen melders (represailles) zijn verboden en worden als ernstige schending behandeld.</p>
+</div>
+
+<div class="artikel" id="art9">
+  <h3>Artikel 9 &mdash; Rollen en verantwoordelijkheden</h3>
+  <p><strong>1. Deelnemers</strong> &mdash; houden zich aan deze code en spreken collega-deelnemers aan op grensoverschrijdend gedrag, respectvol en zonder escalatie waar mogelijk.</p>
+  <p><strong>2. Gespreksbegeleiders</strong> &mdash; bewaken procedure, spreektijd en veiligheid; escaleren naar vertrouwenspersonen of toezichtcommissie wanneer nodig; sturen nooit inhoudelijk.</p>
+  <p><strong>3. Vertrouwenspersonen</strong> &mdash; onafhankelijk aanspreekpunt; vertrouwelijke gesprekken; geaggregeerde rapportage aan toezichtcommissie.</p>
+  <p><strong>4. Toezichtcommissie</strong> &mdash; goedkeuring en wijziging van deze gedragscode; oordeel over maatregelen bij ernstige schending.</p>
+  <p><strong>5. Faciliterende organisatie</strong> &mdash; zorgt voor training, toegankelijkheid en technische omstandigheden die veilig delibereren mogelijk maken.</p>
+</div>
+
+<!-- ============================================================
+     UITBREIDEN: nieuwe artikelen hier invoegen (vóór sectie #uitbreiden)
+     Kopieer het sjabloon onderaan deze pagina.
+     ============================================================ -->
+
+<section id="uitbreiden">
+  <h2>Open punten (uit te werken)</h2>
+  <p>De volgende onderwerpen zijn voorzien maar nog niet uitgewerkt. Vul de blokken hieronder aan of promoot ze naar een volledig artikel.</p>
+
+  <div class="uitbreiden" id="uitbreiden-experts">
+    <p class="label">Uit te werken</p>
+    <h3>Experts en belanghebbenden</h3>
+    <p class="placeholder">Normen voor omgang met gastsprekers, spreektijd, confrontatie en het verschil tussen informatie en lobbying. <!-- UITBREIDEN: tekst hier --> </p>
+  </div>
+
+  <div class="uitbreiden" id="uitbreiden-media">
+    <p class="label">Uit te werken</p>
+    <h3>Media en openbaarheid</h3>
+    <p class="placeholder">Omgang met journalisten, streaming, fotografie en wat deelnemers mogen delen over eigen deelname. <!-- UITBREIDEN: tekst hier --> </p>
+  </div>
+
+  <div class="uitbreiden" id="uitbreiden-conflict">
+    <p class="label">Uit te werken</p>
+    <h3>Conflicten tussen deelnemers</h3>
+    <p class="placeholder">Mediation, herstelgesprekken en wanneer externe hulp nodig is. <!-- UITBREIDEN: tekst hier --> </p>
+  </div>
+
+  <div class="uitbreiden" id="uitbreiden-gemeente">
+    <p class="label">Uit te werken</p>
+    <h3>Omgang met gemeente en politiek</h3>
+    <p class="placeholder">Gedrag van raadsleden en ambtenaren tijdens leersessies; geen partijpolitieke campagne in het beraad. <!-- UITBREIDEN: tekst hier --> </p>
+  </div>
+
+  <!-- UITBREIDEN: kopieer dit blok voor een nieuw open punt:
+  <div class="uitbreiden" id="uitbreiden-[slug]">
+    <p class="label">Uit te werken</p>
+    <h3>Titel</h3>
+    <p class="placeholder">Beschrijving. </p>
+  </div>
+  -->
+</section>
+
+<div class="highlight">
+  <strong>Samenvatting:</strong> respectvol delibereren, geen dwang tot instemming, diversiteit en gelijkwaardigheid, heldere grenzen en meldprocedure &mdash; onder toezicht van vertrouwenspersonen en de toezichtcommissie. Onderdeel van de <a href="/legitimiteitscode.html">legitimiteitscode</a>.
+</div>
+
+<!-- ============================================================
+     SJABLOON — kopieer dit blok voor een nieuw artikel:
+
+<div class="artikel" id="art10">
+  <h3>Artikel 10 &mdash; Titel van het artikel</h3>
+  <p><strong>1.</strong> Tekst.</p>
+  <p><strong>2.</strong> Tekst.</p>
+  <ul>
+    <li>Punt;</li>
+  </ul>
+</div>
+
+     Vergeet niet: id in inhoudsopgave toevoegen.
+     ============================================================ -->
+
+<p>
+  <a href="/legitimiteitscode.html">⬅️ Legitimiteitscode</a> &nbsp;|&nbsp;
+  <a href="/velsen.html">Burgerberaad Velsen</a> &nbsp;|&nbsp;
+  <a href="/kleroterion.html">Kleroterion</a> &nbsp;|&nbsp;
+  <a href="/index.html">Hoofdpagina</a>
+</p>
+
+</div>
