@@ -14,10 +14,9 @@ thumbnail: /assets/images/ssm.jpg
 {{ page.date | date: "%d-%m-%Y" }}
 
 
-
-![Alt-tekst](https://github.com/Klikblitser/VBBSKW/blob/main/assets/images/ssm2.png?raw=true)
-
-
+<p style="text-align:center;">
+  <img src="https://github.com/Klikblitser/VBBSKW/blob/main/assets/images/ssm2.png?raw=true" alt="Alt-tekst" style="max-width:50%; height:auto;" />
+</p>
 
 Een spook waart door Nederland — het spook van de mondige burger. Alle machten van de gevestigde orde hebben zich verbonden om dit spook te bezweren: de beleidsmakers die zelfredzaamheid prediken, de bestuurders die participatie eisen, de ambtenaren die zorgplichten overdragen aan families en buurten. Maar dit spook is geen bedreiging voor de macht. Het is haar grootste bedrog.
 
