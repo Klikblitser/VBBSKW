@@ -3,16 +3,19 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>{{ page.title | default: site.title }}</title>
-  <meta name="description" content="{{ page.excerpt | default: site.description }}">
 
   {%- comment -%}
-    Afbeelding voor link-previews (WhatsApp, Facebook, LinkedIn, etc.).
-    Per pagina te overschrijven met `image: /pad/naar/plaatje.jpg` in de front matter.
+    Centrale variabelen voor metadata. Per pagina te overschrijven via front matter:
+      title: ...
+      description: ...
+      image: /pad/naar/plaatje.jpg
   {%- endcomment -%}
+  {%- assign page_description = page.description | default: page.excerpt | default: site.description -%}
   {%- assign page_image = page.image | default: "/hetding2.jpg" -%}
   {%- assign page_image_url = page_image | absolute_url -%}
   {%- assign page_url = page.url | absolute_url -%}
-  {%- assign page_description = page.excerpt | default: site.description -%}
+
+  <meta name="description" content="{{ page_description }}">
 
   <!-- Open Graph (WhatsApp, Facebook, LinkedIn) -->
   <meta property="og:type" content="website">
