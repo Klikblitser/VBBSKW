@@ -2,7 +2,7 @@
 
 layout: default
 
-title: "De oorsprong van de reden en haar toekomst"
+title: "Het redeneringsvermogen"
 
 date: 2026-06-20
 
@@ -12,15 +12,7 @@ thumbnail: /assets/images/ssm.jpg
 
 
 
-
-
-
-
 {{ page.title }}
-
-
-
-
 
 
 
@@ -28,11 +20,11 @@ thumbnail: /assets/images/ssm.jpg
 
 
 
-
-
 <p style="text-align:center;">
 
-&#x20; <img src="https://github.com/Klikblitser/VBBSKW/blob/main/assets/images/ssm2.png?raw=true" alt="Alt-tekst" style="max-width:50%; height:auto;" />
+\&#x20; <img src="https://github.com/Klikblitser/VBBSKW/blob/main/assets/images/ssm2.png?raw=true" alt="Alt-tekst" style="max-width:50%; height:auto;" />
+
+</p>
 
 
 
