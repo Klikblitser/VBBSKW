@@ -1,13 +1,40 @@
----
+\---
+
 layout: default
-title: "Het redeneringsvermogen en haar toekomst"
+
+title: "De oorsprong van de reden en haar toekomst"
+
 date: 2026-06-20
-thumbnail: /assets/images/reason.jpg
----
+
+thumbnail: /assets/images/ssm.jpg
+
+\---
+
+
+
+
+
+
 
 {{ page.title }}
 
+
+
+
+
+
+
 {{ page.date | date: "%d-%m-%Y" }}
+
+
+
+
+
+<p style="text-align:center;">
+
+&#x20; <img src="https://github.com/Klikblitser/VBBSKW/blob/main/assets/images/ssm2.png?raw=true" alt="Alt-tekst" style="max-width:50%; height:auto;" />
+
+
 
 Ik zit hier met een vraag die zich uitbreidt naarmate ik erover nadenk: waar zit het redeneringsvermogen eigenlijk? In die grijze massa van eiwitten en vetten tussen onze oren? Of in iets veel groters dat zich om ons heen ontplooit?
 
@@ -52,3 +79,4 @@ Het Brein, zoals Stevens het uiteenzet, is niet het probleem. Het Brein is klein
 Dit is wellicht één van de eerste echte tests voor een beschaving die zo snel groeit als de onze. Kunnen we ons redeneringsvermogen terugbrengen naar datgene wat het eigenlijk is: een collectief instrument, niet een individuele bezitting?
 
 Ik weet het niet zeker. Maar dat ik het niet zeker weet, dat lijkt me eerlijk gezegd het juiste gevoel te hebben.
+
