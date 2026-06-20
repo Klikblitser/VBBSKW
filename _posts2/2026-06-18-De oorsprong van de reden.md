@@ -1,42 +1,17 @@
-\---
-
+---
 layout: default
-
 title: "De oorsprong van de reden en haar toekomst"
-
-date: 2026-06-20
-
+date: 2026-06-18
 thumbnail: /assets/images/ssm.jpg
-
-\---
-
-
-
-
-
-
+---
 
 {{ page.title }}
 
-
-
-
-
-
-
 {{ page.date | date: "%d-%m-%Y" }}
 
-
-
-
-
 <p style="text-align:center;">
-
 &#x20; <img src="https://github.com/Klikblitser/VBBSKW/blob/main/assets/images/ssm2.png?raw=true" alt="Alt-tekst" style="max-width:50%; height:auto;" />
-
 </p>
-
-
 
 Waar komt het redeneringsvermogen vandaan? Dit is een vraag die eerst veel eenvoudiger leek dan het werkelijk is.
 
