@@ -1,42 +1,17 @@
-\---
-
+---
 layout: default
-
 title: "De wijsheid van menigten"
-
-date: 2026-06-20
-
+date: 2026-06-19
 thumbnail: /assets/images/ssm.jpg
-
-\---
-
-
-
-
-
-
+---
 
 {{ page.title }}
 
-
-
-
-
-
-
 {{ page.date | date: "%d-%m-%Y" }}
 
-
-
-
-
 <p style="text-align:center;">
-
 &#x20; <img src="https://github.com/Klikblitser/VBBSKW/blob/main/assets/images/ssm2.png?raw=true" alt="Alt-tekst" style="max-width:50%; height:auto;" />
-
 </p>
-
-
 
 Er is een klassiek experiment dat steeds opnieuw wordt herhaald en steeds dezelfde uitkomst geeft. Je vraagt een groep mensen hoeveel snoepjes er in een pot zitten. Iedereen doet een gok. Niemand kent het juiste antwoord. Niemand heeft meer informatie dan de ander.
 
