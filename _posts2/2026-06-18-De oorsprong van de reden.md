@@ -1,6 +1,6 @@
 ---
 layout: default
-title: "De oorsprong van de reden en haar toekomst"
+title: "De oorsprong van de reden"
 date: 2026-06-18
 thumbnail: /assets/images/ssm.jpg
 ---
@@ -27,9 +27,7 @@ Want wat dit betekent is dat redeneren primair een sociaal instrument is, niet e
 
 De bewijs hiervan zit in hoe we eigenlijk redeneren. Decennia onderzoeksresultaten tonen aan dat we niet alleen lui en bevooroordeeld zijn in ons redeneren. Het lijkt erop dat we bijna opzettelijk slecht redeneren. Neem het klassieke experiment met datingprofielen: deelnemers krijgen foto's en beschrijvingen van potentiële partners te zien, samen met beoordelingen (leuk/niet leuk). Vervolgens worden deze beoordelingen omgedraaid, en wordt aan deelnemers gevraagd om hun oorspronkelijke keuze te verdedigen. De helft van de deelnemers merkt niet eens dat de antwoorden zijn omgedraaid. Ze geven simpelweg redenen voor het tegenovergestelde van wat ze eigenlijk wilden.
 
-Dit is niet een fout. Dit is een feature.
-
-We gebruiken niet redenen om tot conclusies te komen. We gebruiken conclusies om redenen te vinden. We weten al wat we willen (onbewust, intuïtief, emotioneel bepaald) en vervolgens fabriceren we redenen die dit rechtvaardigen. Niet omdat we slecht zijn in logica, maar omdat reden nooit voor logica bedoeld was. Het was voor legitimering bedoeld.
+We gebruiken redenen niet om tot conclusies te komen. We gebruiken conclusies om redenen te vinden. We weten al wat we willen (onbewust, intuïtief, emotioneel bepaald) en vervolgens fabriceren we redenen die dit rechtvaardigen. Niet omdat we slecht zijn in logica, maar omdat redeneren nooit voor logica bedoeld was. Het was voor legitimering bedoeld.
 
 **Gedragsinertie** is een ander cruciaal concept dat Richard H. Thaler en Cass R. Sunstein in het boek 'Nudge' presenteren. Dit is de neiging om voort te zetten wat je al deed. Een organisme dat zich in een stabiele, voorspelbare omgeving bevindt, bespaard energie en tijd door bestaande gedragspatronen voort te zetten in plaats van constant nieuwe, onzekere alternatieven uit te proberen.
 
