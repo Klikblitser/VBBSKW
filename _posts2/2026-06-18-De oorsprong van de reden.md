@@ -41,17 +41,17 @@ Maar nu leven we in een omgeving die alles behalve stabiel en voorspelbaar is. E
 
 In zulke omgevingen wordt gedragsinertia niet voordelig. Het wordt dodelijk. En toch kunnen we ons niet zomaar van af schudden. Het zit diep in ons brein, het is miljarden jaren in ons geschreven.
 
-**Hier zit de tragiek:** de dingen waarvoor ons redeneringsvermogen evolueert, zijn dingen die we nu niet meer doen.
+**Hier zit de tragiek:** de dingen waarvoor ons redeneringsvermogen evolueerde, zijn dingen die we nu niet meer doen.
 
 We redeneren niet meer in kleine groepen waar iedereen elkaar kent. Waar sociale sancties onmiddellijk zijn. Waar je de gevolgen van je woorden ziet in de ogen van de ander. Waar het geen zin heeft om te liegen omdat de waarheid toch uitkomt.
 
 In plaats daarvan redeneren we alleen. We schrijven op schermen. We bouwen cathedralen van woorden voor een publiek dat we nooit zullen ontmoeten. We geven redenen voor overtuigingen die we niet eens volledig begrijpen. En we krijgen redenen terug van anderen die hetzelfde doen, zonder ooit te weten of ze werkelijk geloven wat ze zeggen.
 
-Dit cre¨eert iets wat ik alleen kan beschrijven als "redenen in het vacuum". Woorden zonder consequentie. Argumenten zonder tegenkracht. Logica zonder verankering in sociale realiteit.
+Dit creëeert iets wat ik alleen kan beschrijven als "redeneren in het vacuum". Woorden zonder consequentie. Argumenten zonder tegenkracht. Logica zonder verankering in sociale realiteit.
 
-**De intellectualistische opvatting van reden** (dat reden bedoeld is om waarheid te vinden, dus meer reden zou beter zijn) kan dit fenomeen niet verklaren. Waarom zouden rationelere mensen minder geneigd zijn tot vooroordeel, als reden primair voor rechtvaarding bedoeld is?
+**De intellectualistische opvatting van reden** is dat reden bedoeld is om waarheid te vinden, dus meer reden zou beter zijn. Dit kan het fenomeen dat intelligentere of meer rationele mensen soms méér vatbaar zijn voor bepaalde vooroordelen niet verklaren. Waarom zouden rationelere mensen minder geneigd zijn tot vooroordeel, als reden primair voor rechtvaarding bedoeld is?
 
-Maar de sociale opvatting kan het uitleggen. Als reden primair voor rechtvaarding bedoeld is, dan zouden rationelere mensen waarschijnlijk beter kunnen rationaliseren. Meer redenen kunnen fabriceren. Beter hun overtuigingen kunnen verdedigen, ongeacht of die overtuigingen waar zijn.
+Maar de sociale opvatting kan het wél uitleggen. Als reden primair voor rechtvaarding bedoeld is, dan zouden rationelere mensen waarschijnlijk beter kunnen rationaliseren. Meer redenen kunnen fabriceren. Beter hun overtuigingen kunnen verdedigen, ongeacht of die overtuigingen waar zijn.
 
 Dit suggereert iets verschrikkelijks: misschien is onze huidige toepassing van reden niet kapot. Misschien werkt het precies zoals het hoort te werken. Het is alleen dat we het in contexten gebruiken waar het niet voor gemaakt is.
 
