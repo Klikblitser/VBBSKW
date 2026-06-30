@@ -15,9 +15,9 @@ thumbnail: /assets/images/ssm.jpg
 
 Waar komt het redeneringsvermogen vandaan? Dit is een vraag die eerst veel eenvoudiger leek dan het werkelijk is.
 
-We worden onderwezen dat reden ons nader brengt tot waarheid. Dat het ons in staat stelt betere beslissingen te nemen, te leren, voort te boouwen op kennis. En dat klopt eigenlijk helemaal niet, of tenminste niet op de manier waarop we denken.
+We worden onderwezen dat reden ons nader brengt tot waarheid. Dat het ons in staat stelt betere beslissingen te nemen, te leren, voort te bouwen op kennis. En dat klopt eigenlijk helemaal niet, of tenminste niet op de manier waarop we denken.
 
-**De hypothese van Mercier en Sperber** biedt iets veel interessanters aan: reden is niet evolueert voor waarheid. Reden evolueert voor rechtvaarding. Voor uitleg. Voor sociale cohesie.
+**De hypothese van Mercier en Sperber** biedt iets veel interessanters aan: reden is niet geëvolueert voor waarheid. Reden evolueert voor rechtvaarding. Voor uitleg. Voor sociale cohesie.
 
 Stel je voor dat je in een groep leeft. Je maakt een besluit. Je handelt. Nu moeten anderen begrijpen waarom je dat hebt gedaan. Ze moeten kunnen voorspellen wat je volgende zet zal zijn. Ze moeten kunnen bepalen of je betrouwbaar bent. Daarvoor heb je geen waarheid nodig. Je hebt redenen nodig. Goede, hoorbare, verdedigbare redenen.
 
@@ -25,17 +25,19 @@ Dit verandert alles.
 
 Want wat dit betekent is dat redeneren primair een sociaal instrument is, niet een epistemologisch. Wij redeneren niet om de wereld beter te begrijpen. Wij redeneren om onszelf beter uit te leggen. Om anderen van ons overtuigingsvermogen te overtuigen. Om jezelf gelijk te geven, niet om jezelf gelijk te hebben.
 
-De bewijs hiervan zit in hoe we eigenlijk redeneren. Decennia onderzoeksresultaten tonen aan dat we niet alleen lui en bevooroordeeld zijn in ons redeneren. Het lijkt erop dat we bijna opzettelijk slecht redeneren. Neem de klassieke experiment met datingprofielen: deelnemers krijgen foto's en beschrijvingen van potentiële partners te zien, samen met beoordelingen (leuk/niet leuk). Vervolgens worden deze beoordelingen omgedraaid, en wordt aan deelnemers gevraagd om hun oorspronkelijke keuze te verdedigen. De helft van de deelnemers merkt niet eens dat de antwoorden zijn omgedraaid. Ze geven simpelweg redenen voor het tegenovergestelde van wat ze eigenlijk wilden.
+De bewijs hiervan zit in hoe we eigenlijk redeneren. Decennia onderzoeksresultaten tonen aan dat we niet alleen lui en bevooroordeeld zijn in ons redeneren. Het lijkt erop dat we bijna opzettelijk slecht redeneren. Neem het klassieke experiment met datingprofielen: deelnemers krijgen foto's en beschrijvingen van potentiële partners te zien, samen met beoordelingen (leuk/niet leuk). Vervolgens worden deze beoordelingen omgedraaid, en wordt aan deelnemers gevraagd om hun oorspronkelijke keuze te verdedigen. De helft van de deelnemers merkt niet eens dat de antwoorden zijn omgedraaid. Ze geven simpelweg redenen voor het tegenovergestelde van wat ze eigenlijk wilden.
 
 Dit is niet een fout. Dit is een feature.
 
-We gebruiken niet redenen om tot conclusies te komen. We gebruiken conclusies om redenen te vinden. We weten al wat we willen (onbewust, intuïtief, emotioneel bepaald) en vervolgens fabrikeren we redenen die dit rechtvaardigen. Niet omdat we slecht zijn in logica. Maar omdat reden nooit voor logica bedoeld was. Het was voor legitimering bedoeld.
+We gebruiken niet redenen om tot conclusies te komen. We gebruiken conclusies om redenen te vinden. We weten al wat we willen (onbewust, intuïtief, emotioneel bepaald) en vervolgens fabriceren we redenen die dit rechtvaardigen. Niet omdat we slecht zijn in logica, maar omdat reden nooit voor logica bedoeld was. Het was voor legitimering bedoeld.
 
-**Gedragsinertie** is een ander cruciaal concept dat Stevens presenteert. Dit is de neiging om voort te gaan met wat je al deed. Een organisme dat zich in een stabiele, voorspelbare omgeving bevindt, bespaard energie en tijd door bestaande gedragspatronen voort te zetten in plaats van constant nieuwe, onzekere alternatieven uit te proberen.
+**Gedragsinertie** is een ander cruciaal concept dat Richard H. Thaler en Cass R. Sunstein in het boek 'Nudge' presenteren. Dit is de neiging om voort te zetten wat je al deed. Een organisme dat zich in een stabiele, voorspelbare omgeving bevindt, bespaard energie en tijd door bestaande gedragspatronen voort te zetten in plaats van constant nieuwe, onzekere alternatieven uit te proberen.
 
-Dit is geen fout. Dit is hoe evolutie werkt. Het organisme dat lang genoeg leeft om voort te planten, dat heeft gewonnen. Gedragsinertia is zuinigheid. Het is wijsheid van de generaties.
+Dit is geen fout. Dit is hoe evolutie werkt. Het organisme dat lang genoeg leeft om voort te planten, heeft gewonnen. Gedragsinertia is zuinigheid. Het is wijsheid van de generaties.
 
-Maar nu leven we in een omgeving die alles behalve stabiel en voorspelbaar is. We worden geconfronteerd met hyperobjecten. Met klimaatverandering die onzichtbaar is maar alles beïnvloedt. Met technologie die sneller evolueert dan we kunnen begrijpen. Met vraagstukken waarvan niemand van ons volledig kan snappen hoe ze werken.
+Maar nu leven we in een omgeving die alles behalve stabiel en voorspelbaar is. Een factor van onvoorspelbaarheid is bijvoorbeeld klimaatverandering die onzichtbaar is maar alles beïnvloedt. Met technologie die sneller evolueert dan we kunnen begrijpen, zoals quantum computing of AI. Met vraagstukken waarvan niemand van ons volledig kan snappen hoe ze werken. **We worden geconfronteerd met hyperobjecten*.**
+
+**In Morton's The Ecological Thought beschrijft de auteur een hyperobject als een onderwerp dat zo gedistribueerd is in tijd en ruimte dat het ongrijpbaar of onbevattelijk wordt en de 'spatiotemporale specifiteit' onstijgd. Het wordt in theoriën rond het uitblijven van signalen van intilligent buitenaards leven aangehaald als mogelijke oorzaak.*
 
 In zulke omgevingen wordt gedragsinertia niet voordelig. Het wordt dodelijk. En toch kunnen we ons niet zomaar van af schudden. Het zit diep in ons brein, het is miljarden jaren in ons geschreven.
 
